@@ -61,11 +61,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\Administrator\Desktop\game.h" />
+    <ClInclude Include="game.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\Administrator\Desktop\game.c" />
-    <ClCompile Include="C:\Users\Administrator\Desktop\test.c" />
+    <ClCompile Include="game.c" />
+    <ClCompile Include="test.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

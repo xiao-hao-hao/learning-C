@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\Administrator\Desktop\game.h">
+    <ClInclude Include="game.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\Administrator\Desktop\game.c">
+    <ClCompile Include="game.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Administrator\Desktop\test.c">
+    <ClCompile Include="test.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
