@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="day_07.c" />
+    <ClCompile Include="day_08.c" />
     <ClCompile Include="day_0_6.c" />
     <ClCompile Include="test.c" />
   </ItemGroup>
