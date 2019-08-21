@@ -15,6 +15,7 @@
 //		value /= 2;
 //	}
 //	return tmp;
+
 //}
 //
 //int main()
@@ -131,5 +132,109 @@
 //	char str[] = "student a am i";
 //	reverse_str(str);
 //	printf("%s\n", str);
+//	return 0;
+//}
+
+//#include <stdio.h>
+//#include <string.h>
+//int main()
+//{
+//	char *p = "1234";
+//	printf("%d", strlen(p));
+//	return 0;
+//}
+
+//#include <stdio.h>
+//#include <assert.h>
+//方法一：用字符串的末尾地址（\0的地址）减去字符串开头地址
+//int my_strlen(const char *str)
+//{
+//	const char *p = str;
+//	assert(str);
+//	while (*p != '\0')
+//	{
+//		++p;
+//	}
+//	return p - str;
+//}
+
+//方法二：递归实现（不创建临时变量）
+//int my_strlen(const char *str)
+//{
+//	assert(str);
+//	if ('\0' == *str)
+//	{
+//		return 0;
+//	}
+//	else
+//	{
+//		return 1 + my_strlen(str + 1);
+//	}
+//	return 0;
+//}
+
+//方法三：计数器实现（创建中间变量）
+//2.定义const char *是为了避免在编写函数时不小心把原来的字符串修改了
+//int my_strlen(const char *str)
+//{
+//	int count = 0;
+//	assert(str);//1.assert()函数括号中的表达式为假（参数为空指针）会报错
+//	while (*str != '\0')
+//	{
+//		++count;
+//		++str;
+//	}
+//	return count;
+//}
+
+//int my_strlen(const char *str)
+//{
+//	const char *eos = str;
+//	assert(str);
+//	while (*eos++)
+//	{
+//		;
+//	}
+//	return (eos - str - 1);
+//}
+//
+//int main()
+//{
+//	int len = 0;
+//	char arr[10] = "abcde";
+//	char *str = "zbc";
+//	printf("%d\n", my_strlen(str));
+//	printf("%d\n", my_strlen(str));
+//	return 0;
+//}
+
+//#include <stdio.h>
+//#include <assert.h>
+//char * my_strcpy(char *dst, const char *src)//1.const char *  2.返回char *类型
+//{
+//	char *cp = dst;
+//	assert(dst && src);
+//	while (*cp++ = *src++)//3注意此处写法
+//	{
+//		;
+//	}
+//	return dst;
+//}
+//
+//int main()
+//{
+//	char *src = "abcd";
+//	char dst[10] = "12345678";
+//	printf("%s\n", my_strcpy(dst, src));
+//	return 0;
+//}
+
+//#include <stdio.h>
+//int main()
+//{
+//	const int i = 5;
+//	int *p = (int *)&i;
+//	*p = 6;
+//	printf("%d\n", i);
 //	return 0;
 //}
