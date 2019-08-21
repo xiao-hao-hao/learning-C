@@ -100,3 +100,104 @@
 //	print(arr, n);
 //	return 0;
 //}
+
+
+
+//#include <stdio.h>
+//int main()
+//{
+//	int num = -1;
+//	int i = 0;
+//	int count = 0;
+//	for (i = 0; i < 32; ++i)
+//	{
+//		if (((num>>i) & 1) == 1)
+//		{
+//			++count;
+//		}
+//	}
+//	printf("二进制中1的个数 = %d\n", count);
+//	return 0;
+//}
+
+//#include <stdio.h>
+//int main()
+//{
+//	int num = -1;
+//	int i = 0;
+//	int count = 0;
+//	while (num)
+//	{
+//		++count;
+//		num = num & (num - 1);//每计算一次，num里面少一个1
+//	}
+//	printf("二进制中1的个数 = %d\n", count);
+//	return 0;
+//}
+
+//#include <stdio.h>
+//
+////方法一：用字符串的末尾地址（\0的地址）减去字符串开头地址
+////int my_strlen(char *str)
+////{
+////	char *p = str;
+////	while (*p != '\0')
+////	{
+////		++p;
+////	}
+////	return p - str;
+////}
+//
+////方法二：递归实现（不创建临时变量）
+////int my_strlen(char *str)
+////{
+////	if ('\0' == *str)
+////	{
+////		return 0;
+////	}
+////	else
+////	{
+////		return 1 + my_strlen(str + 1);
+////	}
+////	return 0;
+////}
+//
+////方法三：计数器实现（创建中间变量）
+//int my_strlen(char *str)
+//{
+//	int count = 0;
+//	while (*str != '\0')
+//	{
+//		++count;
+//		++str;
+//	}
+//	return count;
+//}
+//
+//int main()
+//{
+//	int len = 0;
+//	char arr[10] = "abcde";
+//	char *str = "zbc";
+//	printf("%d\n", my_strlen(arr));
+//	printf("%d\n", my_strlen(str));
+//	return 0;
+//}
+
+#include <stdio.h>
+
+void test1()
+{
+	printf("hehe\n");
+}
+
+void test()
+{
+	test1();
+}
+
+int main()
+{
+	test();
+	return 0;
+}
