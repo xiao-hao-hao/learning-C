@@ -99,3 +99,53 @@
 //	}
 //	return 0;
 //}
+
+//判断电脑的字节序
+//#include <stdio.h>
+//
+////方法1
+////int check_sys()
+////{
+////	int i = 1;
+////	return (*(char *)&i);
+////}
+//
+////方法2
+//int check_sys()
+//{
+//	union
+//	{
+//		int i;
+//		char c;
+//	}un;
+//	un.i = 1;
+//	return un.c;
+//}
+//
+//int main()
+//{
+//	int ret = check_sys();
+//	if (1 == ret)
+//	{
+//		printf("小端\n");
+//	}
+//	else
+//	{
+//		printf("大端");
+//	}
+//	return 0;
+//}
+
+//#include <stdio.h>
+//int main()
+//{
+//	int i = 2;
+//	int arr[5] = {1, 2, 3, 4, 5};
+//	for (i = 0; i <= 7; i++)
+//	{
+//		printf("hahahaha\n");
+//		arr[i] = 0;
+//	}
+//	return 0;
+//}
+
