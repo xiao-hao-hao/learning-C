@@ -60,6 +60,7 @@ void test()
 	int i;
 	do
 	{
+		menu();
 		printf("ÇëÊäÈë>>");
 		scanf("%d", &i);
 		switch (i)
@@ -78,7 +79,6 @@ void test()
 
 int main()
 {
-	menu();
 	test();
 	return 0;
 }
