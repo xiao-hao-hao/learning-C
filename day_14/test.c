@@ -88,3 +88,153 @@
 //	}
 //	return 0;
 //}
+
+//#include <stdio.h>
+//int main()
+//{
+//	int n = 9;
+//	float *pFloat = (float *)&n;
+//	printf("n的值为：%d\n", n);
+//	printf("*pFloat的值为：%f\n", pFloat);
+//
+//	*pFloat = 9.0;
+//	printf("num的值为：%d\n", n);
+//	printf("pFloat的值为：%f\n", *pFloat);
+//	return 0;
+//}
+
+//计算器
+//#include <stdio.h>
+//int add(int a, int b)
+//{
+//	return a + b;
+//}
+//
+//int sub(int a, int b)
+//{
+//	return a - b;
+//}
+//
+//int mul(int a, int b)
+//{
+//	return a * b;
+//}
+//
+//int div(int a, int b)
+//{
+//	return a / b;
+//}
+//
+//int main()
+//{
+//	int x, y;
+//	int input = 1;
+//	int ret = 1;
+//	while (input)
+//	{
+//		printf("***************************\n");
+//		printf("  1:add             2:sub  \n");
+//		printf("  3:mul             3:div  \n");
+//		printf("***************************\n");
+//		printf("请选择：");
+//		scanf("%d", &input);
+//		switch (input)
+//		{
+//		case 0:
+//			break;
+//		case 1:
+//			printf("输入操作数：");
+//			scanf("%d%d", &x, &y);
+//			ret = add(x, y);
+//			break;
+//		case 2:
+//			printf("请输入操作数：");
+//			scanf("%d%d", &x, &y);
+//			ret = sub(x, y);
+//			break;
+//		case 3:
+//			printf("请输入操作数：");
+//			scanf("%d%d", &x, &y);
+//			ret = mul(x, y);
+//			break;
+//		case 4:
+//			printf("请输入操作数：");
+//			scanf("%d%d", &x, &y);
+//			ret = div(x, y);
+//		default:
+//			printf("选择错误！\n");
+//			break;
+//		}
+//		if ((input >= 1) && (input <= 4))
+//		{
+//			printf("ret = %d\n", ret);			
+//		}
+//	}
+//	printf("退出！\n");
+//	return 0;
+//}
+
+//使用函数指针数组实现计算器
+//#include <stdio.h>
+//
+//int add(int a, int b)
+//{
+//	return a + b;
+//}
+//
+//int sub(int a, int b)
+//{
+//	return a - b;
+//}
+//
+//int mul(int a, int b)
+//{
+//	return a * b;
+//}
+//
+//int div(int a, int b)
+//{
+//	return a / b;
+//}
+//
+//int main()
+//{
+//	int x, y;
+//	int input = 1;
+//	int ret = 0;
+//	int(*p[5])(int x, int y) = {0, add, sub, mul, div};
+//	while (input)
+//	{
+//		printf("***************************\n");
+//		printf("  1:add             2:sub  \n");
+//		printf("  3:mul             3:div  \n");
+//		printf("***************************\n");
+//		printf("请选择：");
+//		scanf("%d", &input);
+//		if ((input >= 1) && (input <= 4))
+//		{
+//			printf("请输入操作数：");
+//			scanf("%d%d", &x, &y);
+//			ret = (p[input])(x, y);
+//			printf("ret = %d\n", ret);
+//		}
+//		else if (0 != input)
+//			printf("输入有误！\n");
+//	}
+//	return 0;
+//}
+
+//#include <stdio.h>
+//int main()
+//{
+//	int i = 5;
+//	if (i == 5)
+//	{
+//		printf("hehe\n");
+//	}
+//	else if (i > 3)
+//	{
+//		printf("haha\n");
+//	}
+//	return 0;
+//}
