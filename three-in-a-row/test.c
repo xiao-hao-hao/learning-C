@@ -79,6 +79,7 @@ void test()
 
 int main()
 {
+	assert((ROW >= 3) && (COL >= 3));
 	test();
 	return 0;
 }

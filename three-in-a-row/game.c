@@ -92,31 +92,113 @@ int IsFull(char board[ROW][COL], int row, int col)//返回0表示没满，返回1表示满了
 	return 1;
 }
 
+//char IsWin(char board[ROW][COL], int row, int col)//棋盘为3*3时对应的函数
+//{
+//	int i = 0;
+//	for (i = 0; i < row; ++i)
+//	{
+//		if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != ' ')
+//		{
+//			return board[i][0];
+//		}
+//	}
+//	for (i = 0; i < col; ++i)
+//	{
+//		if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != ' ')
+//		{
+//			return board[0][i];
+//		}
+//	}
+//	if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ' ')
+//	{
+//		return board[0][0];
+//	}
+//	if (board[2][0] == board[1][1] && board[1][1] == board[0][2] && board[2][0] != ' ')
+//	{
+//		return board[2][0];
+//	}
+//	if (IsFull(board, row, col) == 1)
+//	{
+//		return 'p';
+//	}
+//	return 'c';
+//}
+
 char IsWin(char board[ROW][COL], int row, int col)
 {
 	int i = 0;
+	int j = 0;
+	int k = 0;
 	for (i = 0; i < row; ++i)
 	{
-		if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != ' ')
+		for (j = 0; j < (col - 2); ++j)
 		{
-			return board[i][0];
+			if (board[i][j] == board[i][j+1] && board[i][j+1] == board[i][j+2] && board[i][j] != ' ')
+			{
+				return board[i][j];
+			}
 		}
 	}
 	for (i = 0; i < col; ++i)
 	{
-		if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != ' ')
+		for (j = 0; j < (row - 2); ++j)
 		{
-			return board[0][i];
+			if (board[j][i] == board[j+1][i] && board[j+1][i] == board[j+2][i] && board[j][i] != ' ')
+			{
+				return board[j][i];
+			}
 		}
 	}
-	if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ' ')
+
+
+	for (k = 0; k < col; ++k)
 	{
-		return board[0][0];
+		j = k;
+		for (i = 0; ((i+2)<row) && ((j+2)<col); ++i, ++j)
+		{
+			if (board[i][j] == board[i+1][j+1] && board[i+1][j+1] == board[i+2][j+2] && board[i][j] != ' ')
+			{
+				return board[i][j];
+			}
+		}
 	}
-	if (board[2][0] == board[1][1] && board[1][1] == board[0][2] && board[2][0] != ' ')
+
+	for (k = 0; k < row; ++k)
 	{
-		return board[2][0];
+		i = k;
+		for (j = 0; ((i+2)<row) && ((j+2)<col); ++i, ++j)
+		{
+			if (board[i][j] == board[i+1][j+1] && board[i+1][j+1] == board[i+2][j+2] && board[i][j] != ' ')
+			{
+				return board[i][j];
+			}
+		}
 	}
+
+	for (k = col; k > 0; --k)
+	{
+		j = k - 1;
+		for (i = 0; ((i+2)<row) && ((j-2)>=0); ++i, --j)
+		{
+			if (board[i][j] == board[i+1][j-1] && board[i+1][j-1] == board[i+2][j-2] && board[i][j] != ' ')
+			{
+				return board[i][j];
+			}
+		}
+	}
+
+	for (k = 0; k < row; ++k)
+	{
+		i = k;
+		for (j = row - 1; ((i+2)<row) && ((j-2)>=0); ++i, --j)
+		{
+			if (board[i][j] == board[i+1][j-1] && board[i+1][j-1] == board[i+2][j-2] && board[i][j] != ' ')
+			{
+				return board[i][j];
+			}
+		}
+	}
+
 	if (IsFull(board, row, col) == 1)
 	{
 		return 'p';
