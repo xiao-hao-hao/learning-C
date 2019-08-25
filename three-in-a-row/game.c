@@ -10,8 +10,15 @@ void InitBoard(char board[ROW][COL], int row, int col)//棋盘初始化函数
 void DisplayBoard(char board[ROW][COL], int row, int col)
 {
 	int i = 0, j = 0;
+	printf(" ");//为了行标号能对其打印
+	for (i = 0; i < col; ++i)//打印列标号
+	{
+		printf(" %d  ", i + 1);
+	}
+	printf("\n");
 	for (i = 0; i < row; ++i)
 	{
+		printf("%d", i + 1);//打印行标号
 		for (j = 0; j < col; ++j)
 		{
 			printf(" %c ", board[i][j]);
@@ -23,6 +30,7 @@ void DisplayBoard(char board[ROW][COL], int row, int col)
 		printf("\n");
 		if (i < row - 1)
 		{
+			printf(" ");//为了将横线整体右移一个空格
 			for (j = 0; j < col; ++j)
 			{
 				printf("---");
@@ -129,7 +137,7 @@ char IsWin(char board[ROW][COL], int row, int col)
 	int i = 0;
 	int j = 0;
 	int k = 0;
-	for (i = 0; i < row; ++i)
+	for (i = 0; i < row; ++i)//每一行连续的三个格的判断
 	{
 		for (j = 0; j < (col - 2); ++j)
 		{
@@ -139,7 +147,7 @@ char IsWin(char board[ROW][COL], int row, int col)
 			}
 		}
 	}
-	for (i = 0; i < col; ++i)
+	for (i = 0; i < col; ++i)//每一列连续的三个格的判断
 	{
 		for (j = 0; j < (row - 2); ++j)
 		{
@@ -151,7 +159,7 @@ char IsWin(char board[ROW][COL], int row, int col)
 	}
 
 
-	for (k = 0; k < col; ++k)
+	for (k = 0; k < col; ++k)//从左上到右下的上半三角的三点一线的判断
 	{
 		j = k;
 		for (i = 0; ((i+2)<row) && ((j+2)<col); ++i, ++j)
@@ -163,7 +171,7 @@ char IsWin(char board[ROW][COL], int row, int col)
 		}
 	}
 
-	for (k = 0; k < row; ++k)
+	for (k = 0; k < row; ++k)//从左上到右下的下半三角的三点一线的判断
 	{
 		i = k;
 		for (j = 0; ((i+2)<row) && ((j+2)<col); ++i, ++j)
@@ -175,7 +183,7 @@ char IsWin(char board[ROW][COL], int row, int col)
 		}
 	}
 
-	for (k = col; k > 0; --k)
+	for (k = col; k > 0; --k)//从右上到左下的上半三角的三点一线的判断
 	{
 		j = k - 1;
 		for (i = 0; ((i+2)<row) && ((j-2)>=0); ++i, --j)
@@ -187,7 +195,7 @@ char IsWin(char board[ROW][COL], int row, int col)
 		}
 	}
 
-	for (k = 0; k < row; ++k)
+	for (k = 0; k < row; ++k)//从右上到左下的下半三角的三点一线的判断
 	{
 		i = k;
 		for (j = row - 1; ((i+2)<row) && ((j-2)>=0); ++i, --j)
