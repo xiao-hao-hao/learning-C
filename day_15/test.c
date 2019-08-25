@@ -130,80 +130,118 @@
 //	return 0;
 //}
 
+//#include <stdio.h>
+//#include <string.h>
+//
+//struct Stu
+//{
+//	char name[20];
+//	short age;
+//};
+//
+//int cmp_stu_by_name(const void *p1, const void *p2)
+//{
+//	return (strcmp(((struct Stu *)p1)->name, ((struct Stu *)p2)->name));
+//}
+//
+//int cmp_stu_by_age(const void *p1, const void *p2)
+//{
+//	return (((struct Stu *)p1)->age - ((struct Stu *)p2)->age);
+//}
+//
+//int cmp_int(void *p1, void *p2)
+//{
+//	return (*(int *)p1 - *(int *)p2);
+//}
+//
+//int cmp_char(void *p1, void *p2)
+//{
+//	return (strcmp(*(char **)p1, *(char **)p2));
+//}
+//
+//void swap(void *p1, void *p2, int size)
+//{
+//	int i = 0;
+//	for (i = 0; i < size; ++i)
+//	{
+//		char tmp = *((char *)p1 + i);
+//		*((char *)p1 + i) = *((char *)p2 + i);
+//		*((char *)p2 + i) = tmp;
+//	}
+//}
+//
+//void bubble(void *base, int count, int size, int (*cmp)(const void *, const void *))
+//{
+//	int i = 0;
+//	int j = 0;
+//	for (i = 0; i < count - 1; ++i)
+//	{
+//		for (j = 0; j < count - i - 1; ++j)
+//		{
+//			if (cmp((char *)base + j*size, (char *)base + (j+1)*size) > 0)
+//			{
+//				swap((char *)base + j*size, (char *)base + (j + 1)*size, size);
+//			}
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	int i = 0;
+//	//int arr[] = {1, 3, 5, 7, 9, 2, 4, 6, 8, 0};
+//	//bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), cmp_int);
+//
+//	//char *arr[] = {"aaaa", "dddd", "cccc", "bbbb"};
+//	//bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), cmp_char);
+//
+//	//struct Stu arr[] = {{"zhangsan", 20}, {"lisi", 30}, {"wangwu", 18}};
+//	//bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), cmp_stu_by_name);
+//
+//	struct Stu arr[] = {{"zhangsan", 20}, {"lisi", 30}, {"wangwu", 18}};
+//	bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), cmp_stu_by_age);
+//	//for (i = 0; i < sizeof(arr) / sizeof(arr[0]); ++i)
+//	//{
+//	//	printf("%s ", arr[i]);
+//	//}
+//	//printf("\n");
+//	return 0;
+//}
+
+//#include <stdio.h>
+//int main()
+//{
+//	int a[5][5];
+//	int(*p)[4];
+//	p = (int(*)[4])a;
+//	printf("%p,%d\n", &p[4][2] - &a[4][2], &p[4][2] - &a[4][2]);
+//	return 0;
+//}
+
 #include <stdio.h>
-#include <string.h>
-
-struct Stu
-{
-	char name[20];
-	short age;
-};
-
-int cmp_stu_by_name(const void *p1, const void *p2)
-{
-	return (strcmp(((struct Stu *)p1)->name, ((struct Stu *)p2)->name));
-}
-
-int cmp_stu_by_age(const void *p1, const void *p2)
-{
-	return (((struct Stu *)p1)->age - ((struct Stu *)p2)->age);
-}
-
-int cmp_int(void *p1, void *p2)
-{
-	return (*(int *)p1 - *(int *)p2);
-}
-
-int cmp_char(void *p1, void *p2)
-{
-	return (strcmp(*(char **)p1, *(char **)p2));
-}
-
-void swap(void *p1, void *p2, int size)
-{
-	int i = 0;
-	for (i = 0; i < size; ++i)
-	{
-		char tmp = *((char *)p1 + i);
-		*((char *)p1 + i) = *((char *)p2 + i);
-		*((char *)p2 + i) = tmp;
-	}
-}
-
-void bubble(void *base, int count, int size, int (*cmp)(const void *, const void *))
-{
-	int i = 0;
-	int j = 0;
-	for (i = 0; i < count - 1; ++i)
-	{
-		for (j = 0; j < count - i - 1; ++j)
-		{
-			if (cmp((char *)base + j*size, (char *)base + (j+1)*size) > 0)
-			{
-				swap((char *)base + j*size, (char *)base + (j + 1)*size, size);
-			}
-		}
-	}
-}
-
 int main()
 {
-	int i = 0;
-	//int arr[] = {1, 3, 5, 7, 9, 2, 4, 6, 8, 0};
-	//bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), cmp_int);
-
-	//char *arr[] = {"aaaa", "dddd", "cccc", "bbbb"};
-	//bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), cmp_char);
-
-	//struct Stu arr[] = {{"zhangsan", 20}, {"lisi", 30}, {"wangwu", 18}};
-	//bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), cmp_stu_by_name);
-
-	struct Stu arr[] = {{"zhangsan", 20}, {"lisi", 30}, {"wangwu", 18}};
-	bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), cmp_stu_by_age);
-	//for (i = 0; i < sizeof(arr) / sizeof(arr[0]); ++i)
-	//{
-	//	printf("%s ", arr[i]);
-	//}
-	//printf("\n");
+	char *c[] = {"ENTER", "NEW", "POINT", "FIRST"};
+	char **cp[] = {c+3, c+2, c+1, c};
+	char ***cpp = cp;
+	printf("%s\n", **++cpp);
+	printf("%s\n", *--*++cpp+3);
+	printf("%s\n", *cpp[-2]+3);
+	printf("%s\n", cpp[-1][-1]+1);
 	return 0;
 }
+
+//#include <st0dio.h>
+//int main()
+//{
+//	int arr[2][2] = {0};
+//	int a[2] = {0};
+//	printf("%p\n", arr);
+//	printf("%p\n", arr + 1);
+//	printf("%p\n", a);
+//	printf("%p\n", a + 1);
+//	printf("%p\n", arr[1]);
+//	printf("%p\n", arr[1] + 1);
+//	printf("%p\n", *(arr + 1) + 1);
+//	return 0;
+//}
