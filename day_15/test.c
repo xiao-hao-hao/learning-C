@@ -131,10 +131,32 @@
 //}
 
 #include <stdio.h>
+#include <string.h>
 
-int int_cmp(void *p1, void *p2)
+struct Stu
 {
-	return (*(int *)p1 > *(int *)p2);
+	char name[20];
+	short age;
+};
+
+int cmp_stu_by_name(const void *p1, const void *p2)
+{
+	return (strcmp(((struct Stu *)p1)->name, ((struct Stu *)p2)->name));
+}
+
+int cmp_stu_by_age(const void *p1, const void *p2)
+{
+	return (((struct Stu *)p1)->age - ((struct Stu *)p2)->age);
+}
+
+int cmp_int(void *p1, void *p2)
+{
+	return (*(int *)p1 - *(int *)p2);
+}
+
+int cmp_char(void *p1, void *p2)
+{
+	return (strcmp(*(char **)p1, *(char **)p2));
 }
 
 void swap(void *p1, void *p2, int size)
@@ -148,7 +170,7 @@ void swap(void *p1, void *p2, int size)
 	}
 }
 
-void bubble(void *base, int count, int size, int (*cmp)(void *, void *))
+void bubble(void *base, int count, int size, int (*cmp)(const void *, const void *))
 {
 	int i = 0;
 	int j = 0;
@@ -166,14 +188,22 @@ void bubble(void *base, int count, int size, int (*cmp)(void *, void *))
 
 int main()
 {
-	int arr[] = {1, 3, 5, 7, 9, 2, 4, 6, 8, 0};
-	//char *arr[] = {"aaaa", "dddd", "cccc", "bbbb"};
 	int i = 0;
-	bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(int), int_cmp);
-	for (i = 0;i < sizeof(arr) / sizeof(arr[0]); ++i)
-	{
-		printf("%d ", arr[i]);
-	}
-	printf("\n");
+	//int arr[] = {1, 3, 5, 7, 9, 2, 4, 6, 8, 0};
+	//bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), cmp_int);
+
+	//char *arr[] = {"aaaa", "dddd", "cccc", "bbbb"};
+	//bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), cmp_char);
+
+	//struct Stu arr[] = {{"zhangsan", 20}, {"lisi", 30}, {"wangwu", 18}};
+	//bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), cmp_stu_by_name);
+
+	struct Stu arr[] = {{"zhangsan", 20}, {"lisi", 30}, {"wangwu", 18}};
+	bubble(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), cmp_stu_by_age);
+	//for (i = 0; i < sizeof(arr) / sizeof(arr[0]); ++i)
+	//{
+	//	printf("%s ", arr[i]);
+	//}
+	//printf("\n");
 	return 0;
 }
