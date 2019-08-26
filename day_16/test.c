@@ -175,3 +175,14 @@
 //	printf("%s\n", string1);
 //	return 0;
 //}
+
+#include <stdio.h>
+int main()
+{
+	int a[5][5];
+	int(*p)[4];
+	p = (int(*)[4])a;
+	printf("%p, %d\n", &p[4][2] - &a[4][2], &p[4][2] - &a[4][2]);//地址减地址得到相差的（该指针所指元素类型）元素个数
+	printf("%p\n%x\n", 10, 10);
+	return 0;
+}
