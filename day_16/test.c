@@ -187,76 +187,160 @@
 //	return 0;
 //}
 
-//用冒泡排序法实现qsort函数
+////用冒泡排序法实现qsort函数
+//#include <stdio.h>
+//#include <string.h>
+//
+//struct Stu
+//{
+//	char name[20];
+//	short age;
+//};
+//
+//int cmp_int(const void *e1, const void *e2)
+//{
+//	return *(int *)e1 - *(int *)e2;
+//}
+//
+//int cmp_stu_by_name(const void *e1, const void *e2)
+//{
+//	return strcmp(((struct Stu *)e1)->name, ((struct Stu *)e2)->name);
+//}
+//
+//int cmp_stu_by_age(const void *e1, const void *e2)
+//{
+//	return ((struct Stu *)e1)->age - ((struct Stu *)e2)->age;
+//}
+//
+//int cmp_char(const void *e1, const void *e2)
+//{
+//	return *(char *)e1 - *(char *)e2;
+//}
+//
+//int cmp_string(const void *e1, const void *e2)
+//{
+//	return strcmp(*(char **)e1, *(char **)e2);//这里的e1和e2都需要强转为二级字符指针类型
+//}
+//
+//void print_int_arr(int arr[], int sz)
+//{
+//	int i = 0;
+//	for (i = 0; i < sz; i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	printf("\n");
+//}
+//
+//void print_string_arr(char *arr[], int sz)
+//{
+//	int i = 0;
+//	for (i = 0; i < sz; i++)
+//	{
+//		printf("%s ", arr[i]);
+//	}
+//	printf("\n");
+//}
+//
+//void print_char_arr(char arr[], int sz)
+//{
+//	int i = 0;
+//	for (i = 0; i < sz; i++)
+//	{
+//		printf("%c ", arr[i]);
+//	}
+//	printf("\n");
+//}
+//
+//void Swap(char *buf1, char *buf2, int width)
+//{
+//	int i = 0;
+//	char tmp = 0;
+//	for (i = 0; i < width; i++)
+//	{
+//		tmp = *(buf2 + i);
+//		*(buf2 + i) = *(buf1 + i);
+//		*(buf1 + i) = tmp;
+//	}
+//}
+//
+//void bubble_sort(void *base, int sz, int width, int (*cmp)(const void *e1, const void *e2))
+//{
+//	int i = 0;
+//	int j = 0;
+//	for (i = 0; i < sz - 1; i++)
+//	{
+//		for (j = 0; j < sz - i - 1; j++)
+//		{
+//			if (cmp((char *)base+width*j, (char *)base+width*(j+1)) > 0)
+//			{
+//				Swap((char *)base + width*j, (char *)base+width*(j+1), width);
+//			}
+//		}
+//	}
+//}
+//
+//void Test1()
+//{
+//	int arr[] = {1, 3, 5, 7, 9, 2, 4, 6, 8, 0};
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	bubble_sort(arr, sz, sizeof(arr[0]), cmp_int);
+//	print_int_arr(arr, sz);
+//}
+//
+//void Test2()
+//{
+//	struct Stu arr[] = {{"zhangsan", 20}, {"lisi", 15}, {"wangwu", 25}};
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	//bubble_sort(arr, sz, sizeof(arr[0]), cmp_stu_by_name);
+//	bubble_sort(arr, sz, sizeof(arr[0]), cmp_stu_by_age);
+//}
+//
+//void Test3()
+//{
+//	char arr[] = "jdcbwueinwqejcdnbb";
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	bubble_sort(arr, sz, sizeof(arr[0]), cmp_char);
+//	print_char_arr(arr, sz);
+//}
+//
+//void Test4()
+//{
+//	char *arr[5] = {"aaaa", "dddd", "rrrr", "AAAA", "eeeeee"};
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	bubble_sort(arr, sz, sizeof(arr[0]), cmp_string);
+//	print_string_arr(arr, sz);
+//}
+//
+//int main()
+//{
+//	//Test1();
+//	//Test2();
+//	//Test3();
+//	Test4();
+//	return 0;
+//}
+
+//qsort函数的使用
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-struct Stu
+int cmp_string(const void *e1, const void *e2)
 {
-	char name[20];
-	short age;
-}
-
-int cmp_int(const void *e1, const void *e2)
-{
-	return *(int *)e1 - *(int *)e2;
-}
-
-void print_arr(int arr[], int sz)
-{
-	int i = 0;
-	for (i = 0; i < sz; i++)
-	{
-		printf("%d ", arr[i]);
-	}
-	printf("\n");
-}
-
-void Swap(char *buf1, char *buf2, int width)
-{
-	int i = 0;
-	char tmp = 0;
-	for (i = 0; i < width; i++)
-	{
-		tmp = *(buf2 + i);
-		*(buf2 + i) = *(buf1 + i);
-		*(buf1 + i) = tmp;
-	}
-}
-
-void bubble_sort(void *base, int sz, int width, int (*cmp)(const void *e1, const void *e2))
-{
-	int i = 0;
-	int j = 0;
-	for (i = 0; i < sz - 1; i++)
-	{
-		for (j = 0; j < sz - i - 1; j++)
-		{
-			if (cmp((char *)base+width*j, (char *)base+width*(j+1)) > 0)
-			{
-				Swap((char *)base + width*j, (char *)base+width*(j+1), width);
-			}
-		}
-	}
-}
-
-void Test1()
-{
-	int arr[] = {1, 3, 5, 7, 9, 2, 4, 6, 8, 0};
-	int sz = sizeof(arr) / sizeof(arr[0]);
-	bubble_sort(arr, sz, sizeof(arr[0]), cmp_int);
-	print_arr(arr, sz);
-}
-
-void Test2()
-{
-	struct Stu arr[] = {{"zhangsan", 20}, {"lisi", 15}, {"wangwu", 25}};
-	int sz = sizeof(arr) / sizeof(arr[0]);
-	bubble_sort(arr, sz, sizeof(arr[0]), cmp_stu_by_name);
-	bubble_sort(arr, sz, sizeof(arr[0]), cmp_stu_by_age);
+	return strcmp(*(char **)e1, *(char **)e2);
 }
 
 int main()
 {
-	Test1();
+	char *arr[] = {"dddd", "aaaa", "ffff", "eeee"};
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	int i = 0;
+	qsort(arr, sz, sizeof(arr[0]), cmp_string);
+	for (i = 0; i < sz; i++)
+	{
+		printf("%s ", arr[i]);
+	}
+	printf("\n");
 	return 0;
 }
