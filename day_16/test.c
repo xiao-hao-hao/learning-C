@@ -322,25 +322,25 @@
 //}
 
 //qsort函数的使用
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-int cmp_string(const void *e1, const void *e2)
-{
-	return strcmp(*(char **)e1, *(char **)e2);
-}
-
-int main()
-{
-	char *arr[] = {"dddd", "aaaa", "ffff", "eeee"};
-	int sz = sizeof(arr) / sizeof(arr[0]);
-	int i = 0;
-	qsort(arr, sz, sizeof(arr[0]), cmp_string);
-	for (i = 0; i < sz; i++)
-	{
-		printf("%s ", arr[i]);
-	}
-	printf("\n");
-	return 0;
-}
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
+//
+//int cmp_string(const void *e1, const void *e2)
+//{
+//	return strcmp(*(char **)e1, *(char **)e2);
+//}
+//
+//int main()
+//{
+//	char *arr[] = {"dddd", "aaaa", "ffff", "eeee"};
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	int i = 0;
+//	qsort(arr, sz, sizeof(arr[0]), cmp_string);
+//	for (i = 0; i < sz; i++)
+//	{
+//		printf("%s ", arr[i]);
+//	}
+//	printf("\n");
+//	return 0;
+//}
