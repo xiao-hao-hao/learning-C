@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define NAME_MAX 11
 #define SEX_MAX 5
@@ -19,24 +20,26 @@ enum//将菜单定义为一个枚举类
 	SORT
 };
 
-typedef struct Contact
+typedef struct person_info
 {
 	char name[NAME_MAX];
 	char sex[SEX_MAX];
 	short age;
 	char tel[TEL_MAX];
 	char addr[ADDR_MAX];
-}Contact;
+}person_info;
 
-typedef struct Contacts
+typedef struct address_book
 {
-	Contact con[CONTACT_NUM];
+	person_info data[CONTACT_NUM];
 	int count;
-}Contacts;
+}address_book;
 
-void InitContacts(Contacts *);//初始化通讯录
-void Add(Contacts *);//添加联系人
-void Show(const Contacts *);//显示所有联系人信息 
-void Empty(Contacts *);//清空所有联系人
-void Del(Contacts *);//	删除指定联系人信息 
-int Find(const Contacts *, char *);//查找联系人并返回该联系人的位置，找不到返回-1
+void address_book_init(address_book *);//初始化通讯录
+void address_book_add(address_book *);//添加联系人
+void address_book_show(const address_book *);//显示所有联系人信息 
+void address_book_del_all(address_book *);//清空所有联系人
+void address_book_del(address_book *);//	删除指定联系人信息 
+void address_book_find(address_book *);//查找指定联系人信息,并将其打印
+void address_book_update(address_book *);//修改指定联系人信息 
+void sort_by_name(address_book *);//将所有的联系人按名字排序
