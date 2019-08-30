@@ -22,6 +22,7 @@ enum//将菜单定义为一个枚举类
 
 typedef struct person_info
 {
+	int number;//为每个联系人分配一个编号
 	char name[NAME_MAX];
 	char sex[SEX_MAX];
 	short age;

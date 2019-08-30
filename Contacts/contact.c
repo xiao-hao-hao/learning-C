@@ -16,10 +16,11 @@ void address_book_show(const address_book *pbook)
 		printf("通讯录内容为空，无联系人可显示！\n");
 		return;
 	}
-	printf("%-14s%-8s%-7s%-15s%-24s\n", "姓名", "性别", "年龄", "电话", "地址");
+	printf("%-8s%-14s%-8s%-7s%-15s%-24s\n", "序号","姓名", "性别", "年龄", "电话", "地址");
 	for (i = 0; i < (pbook->count); i++)
 	{
-		printf("%-14s%-8s%-7d%-15s%-24s\n",
+		printf("%-8d%-14s%-8s%-7d%-15s%-24s\n",
+			pbook->data[i].number,
 			pbook->data[i].name,
 			pbook->data[i].sex,
 			pbook->data[i].age,
@@ -42,6 +43,7 @@ void address_book_add(address_book *pbook)
 	scanf("%s", pbook->data[pbook->count].tel);
 	printf("地址>> ");
 	scanf("%s", pbook->data[pbook->count].addr);
+	pbook->data[pbook->count].number = pbook->count + 1;
 	(pbook->count)++;
 	printf("添加成功！\n");
 }
@@ -52,10 +54,9 @@ void address_book_del_all(address_book *pbook)
 	printf("通讯录内容已经被清空！\n");
 }
 
-static int Find(const address_book *pbook, char *name)////查找联系人并返回该联系人的位置，找不到返回-1
+static int Find(const address_book *pbook, char *name, int i)////查找联系人并返回该联系人的位置，找不到返回-1
 {
-	int i = 0;
-	for (i = 0; i < (pbook->count); i++)
+	for (; i < (pbook->count); i++)//i表示要查找的位置
 	{
 		if (strcmp((pbook->data[i]).name, name) == 0)
 		{
@@ -66,9 +67,11 @@ static int Find(const address_book *pbook, char *name)////查找联系人并返回该联系
 }
 
 void address_book_del(address_book *pbook)
-{
+{	
 	int i = 0;
 	int tmp = 0;
+	int tag1 = 0;
+	int tag2 = 0;
 	char name[11] = {0};
 	if (0 == (pbook->count))
 	{
@@ -77,25 +80,67 @@ void address_book_del(address_book *pbook)
 	}
 	printf("请输入要删除的联系人的姓名>> ");
 	scanf("%s", name);
-	tmp = Find(pbook, name);
-	if (-1 != tmp)
+	while (tmp < (pbook->count))
 	{
-		for (i = Find(pbook, name); i < ((pbook->count) - 1); i++)
+		tmp = Find(pbook, name, tag2);
+		if (-1 != tmp)
 		{
-			pbook->data[i] = pbook->data[i+1];
+			tag2 = tmp + 1;
+			if (0 == tag1)
+			{
+				printf("%-8s%-14s%-8s%-7s%-15s%-24s\n",
+					"序号","姓名", "性别", "年龄", "电话", "地址");
+			}
+			printf("%-8d%-14s%-8s%-7d%-15s%-24s\n",
+				pbook->data[tmp].number,
+				pbook->data[tmp].name,
+				pbook->data[tmp].sex,
+				pbook->data[tmp].age,
+				pbook->data[tmp].tel,
+				pbook->data[tmp].addr);
+			tag1 = 1;
 		}
-		printf("删除成功！\n");
-		(pbook->count)--;
+		else
+		{
+			break;
+		}
+	}
+	if (0 == tag1)
+	{
+		printf("找不到联系人：%s！\n", name);
 	}
 	else
 	{
-		printf("找不到联系人：%s！\n", name);
+		while (1)
+		{
+			printf("请输入要删除的联系人的序号>> ");
+			scanf("%d", &i);
+			if (strcmp(pbook->data[i-1].name, name) != 0)
+			{
+				printf("输入的序号有误，请重新输入！\n");
+				continue;
+			}
+			else//输入的序号与输入的姓名对应才会删除
+			{
+				for (;i < pbook->count; i++)
+				{
+					pbook->data[i-1] = pbook->data[i];
+					pbook->data[i-1].number = i;//修正序号
+				}
+				memset(&(pbook->data[(pbook->count) - 1]), '0', sizeof(person_info));//最后一个单元清空
+				printf("删除成功！\n");
+				(pbook->count)--;
+				break;
+			}
+		}
 	}
 }
 
 void address_book_find(address_book *pbook)
 {
 	int tmp = 0;
+	int tag1 = 0;//标记是否找到
+	int tag2 = 0;//标记查找的位置
 	char name[11] = {0};
 	if (0 == (pbook->count))
 	{
@@ -104,17 +149,32 @@ void address_book_find(address_book *pbook)
 	}
 	printf("请输入要查找的联系人的姓名>> ");
 	scanf("%s", name);
-	tmp = Find(pbook, name);
-	if (-1 != tmp)
+	while (tag2 < (pbook->count))
 	{
-		printf("%-14s%-8s%-7d%-15s%-24s\n",
-		pbook->data[tmp].name,
-		pbook->data[tmp].sex,
-		pbook->data[tmp].age,
-		pbook->data[tmp].tel,
-		pbook->data[tmp].addr);
+		tmp = Find(pbook, name, tag2);
+		if (-1 != tmp)
+		{
+			tag2 = tmp + 1;//如果找到了就更新tag2
+			if (0 == tag1)
+			{
+				printf("%-8s%-14s%-8s%-7s%-15s%-24s\n",
+					"序号","姓名", "性别", "年龄", "电话", "地址");
+			}
+			printf("%-8d%-14s%-8s%-7d%-15s%-24s\n",
+				pbook->data[tmp].number,
+				pbook->data[tmp].name,
+				pbook->data[tmp].sex,
+				pbook->data[tmp].age,
+				pbook->data[tmp].tel,
+				pbook->data[tmp].addr);
+			tag1 = 1;
+		}
+		else
+		{
+			break;
+		}
 	}
-	else
+	if (0 == tag1)
 	{
 		printf("找不到联系人：%s！\n", name);
 	}
@@ -132,7 +192,7 @@ void address_book_update(address_book *pbook)
 	}
 	printf("请输入要修改的联系人的姓名>> ");
 	scanf("%s", name);
-	tmp = Find(pbook, name);
+	tmp = Find(pbook, name, i);
 	if (-1 != tmp)
 	{
 		printf("姓名修改为>> ");
