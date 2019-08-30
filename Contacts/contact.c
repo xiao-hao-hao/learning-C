@@ -2,6 +2,41 @@
 
 #include "contact.h"
 
+void check_capacity(address_book *pbook)
+{
+	assert(pbook);
+	if (pbook->capacity == pbook->count)//如果满了则扩容
+	{
+		person_info *ptmp = (person_info *)realloc(pbook->data, (pbook->capacity+2)*sizeof(person_info));
+		if (ptmp != NULL)
+		{
+			pbook->capacity += 2;
+			pbook->data = ptmp;
+			printf("扩容成功!\n");
+		}
+	}
+}
+
+void address_book_load(address_book *pbook)
+{
+	person_info tmp = {0};
+	FILE *pfread = fopen("address book.data", "rb");
+	if (pfread == NULL)
+	{
+		printf("加载失败：打开文件失败！\n");
+		return;
+	}
+	//加载消息
+	while (fread(&tmp, sizeof(person_info), 1, pfread))
+	{
+		check_capacity(pbook);
+		pbook->data[pbook->count] = tmp;
+		pbook->count++;
+	}
+	fclose(pfread);
+	pfread = NULL;
+}
+
 void address_book_init(address_book *pbook)
 {
 	pbook->count = 0;
@@ -12,22 +47,8 @@ void address_book_init(address_book *pbook)
 		printf("%s\n", strerror(errno));
 		return;
 	}
-	pbook->capasity = DEFAULT_SIZE;
-}
-
-void check_capacity(address_book *pbook)
-{
-	assert(pbook);
-	if (pbook->capasity == pbook->count)//如果满了则扩容
-	{
-		person_info *ptmp = (person_info *)realloc(pbook->data, (pbook->capasity+2)*sizeof(person_info));
-		if (ptmp != NULL)
-		{
-			pbook->capasity += 2;
-			pbook->data = ptmp;
-			printf("扩容成功!\n");
-		}
-	}
+	pbook->capacity = DEFAULT_SIZE;
+	address_book_load(pbook);//加载通讯录
 }
 
 void address_book_show(const address_book *pbook)
@@ -74,10 +95,10 @@ void address_book_add(address_book *pbook)
 
 void address_book_del_all(address_book *pbook)
 {
-	address_book_init(pbook);
 	free(pbook->data);
 	pbook->data = NULL;
-	address_book_init(pbook);
+	pbook->capacity = 0;
+	pbook->count = 0;
 	printf("通讯录内容已经被清空！\n");
 }
 
@@ -100,6 +121,7 @@ void address_book_del(address_book *pbook)
 	int tag1 = 0;
 	int tag2 = 0;
 	char name[11] = {0};
+	person_info empty = {0};
 	if (0 == (pbook->count))
 	{
 		printf("通讯录为空，没有内容可删除！\n");
@@ -154,7 +176,8 @@ void address_book_del(address_book *pbook)
 					pbook->data[i-1] = pbook->data[i];
 					pbook->data[i-1].number = i;//修正序号
 				}
-				memset(&(pbook->data[(pbook->count) - 1]), '0', sizeof(person_info));//最后一个单元清空
+				//memset(&(pbook->data[(pbook->count) - 1]), '0', sizeof(person_info));//最后一个单元清空
+				pbook->data[(pbook->count) - 1] = empty;
 				printf("删除成功！\n");
 				(pbook->count)--;
 				break;
@@ -254,4 +277,21 @@ void sort_by_name(address_book *pbook)//使用qsort函数进行排序
 	}
 	qsort(pbook->data, (pbook->count), sizeof(pbook->data[0]), cmp_by_name);//需要排序的联系人个数是count个
 	printf("排序成功\n");
+}
+
+void save_address_book(address_book *pbook)
+{
+	int i = 0;
+	FILE *pfwrite = fopen("address book.data", "wb");
+	if (pfwrite == NULL)
+	{
+		printf("保存失败：打开文件失败！\n");
+		return;
+	}
+	for (i = 0; i < pbook->count; i++)
+	{
+		fwrite(pbook->data+i, sizeof(person_info), 1, pfwrite);
+	}
+	fclose(pfwrite);
+	pfwrite = NULL;
 }

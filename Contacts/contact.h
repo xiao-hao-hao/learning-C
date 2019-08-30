@@ -35,7 +35,7 @@ typedef struct address_book
 {
 	person_info *data;
 	int count;//记录联系人个数
-	int capasity;//记录容量
+	int capacity;//记录容量
 }address_book;
 
 void address_book_init(address_book *);//初始化通讯录
@@ -46,3 +46,4 @@ void address_book_del(address_book *);//	删除指定联系人信息
 void address_book_find(address_book *);//查找指定联系人信息,并将其打印
 void address_book_update(address_book *);//修改指定联系人信息 
 void sort_by_name(address_book *);//将所有的联系人按名字排序
+void save_address_book(address_book *);//将通讯录的内容存入文件中

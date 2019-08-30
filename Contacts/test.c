@@ -25,6 +25,7 @@ void test()
 		switch (input)
 		{
 		case EXIT:
+			save_address_book(&book);
 			printf("ÍË³ö³É¹¦£¡\n");
 			break;
 		case ADD:

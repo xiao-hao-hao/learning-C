@@ -1,19 +1,12 @@
-﻿生成启动时间为 2019/8/30 20:13:55。
+﻿生成启动时间为 2019/8/30 21:23:01。
      1>项目“E:\比特\learning-C\Contacts\Contacts.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
          正在创建“Debug\Contacts.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
-         d:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt contact.c test.c
-         test.c
-         contact.c
-         正在生成代码...
+         所有输出均为最新。
        Link:
-         d:\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\比特\learning-C\Contacts\Debug\Contacts.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Contacts.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\比特\learning-C\Contacts\Debug\Contacts.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\比特\learning-C\Contacts\Debug\Contacts.lib" /MACHINE:X86 Debug\contact.obj
-         Debug\test.obj
-         LINK : 没有找到 E:\比特\learning-C\Contacts\Debug\Contacts.exe 或上一个增量链接没有生成它；正在执行完全链接
+         所有输出均为最新。
          Contacts.vcxproj -> E:\比特\learning-C\Contacts\Debug\Contacts.exe
-       Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\比特\learning-C\Contacts\Debug\Contacts.exe;#1" /manifest Debug\Contacts.exe.intermediate.manifest
        FinalizeBuildStatus:
          正在删除文件“Debug\Contacts.unsuccessfulbuild”。
          正在对“Debug\Contacts.lastbuildstate”执行 Touch 任务。
@@ -21,4 +14,4 @@
 
 生成成功。
 
-已用时间 00:00:01.38
+已用时间 00:00:00.04
