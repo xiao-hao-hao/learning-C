@@ -16,7 +16,7 @@ void test()
 {
 	int input = 1;
 	address_book book;
-	address_book_init(&book);
+	address_book_init(&book);//初始化通讯录
 	while (input)
 	{
 		menu();

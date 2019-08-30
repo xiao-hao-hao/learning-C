@@ -5,7 +5,29 @@
 void address_book_init(address_book *pbook)
 {
 	pbook->count = 0;
-	memset(pbook->data, '0', sizeof(pbook->data));
+	//memset(pbook->data, '0', sizeof(pbook->data));
+	pbook->data = (person_info *)calloc(DEFAULT_SIZE, sizeof(person_info));
+	if (pbook->data == NULL)
+	{
+		printf("%s\n", strerror(errno));
+		return;
+	}
+	pbook->capasity = DEFAULT_SIZE;
+}
+
+void check_capacity(address_book *pbook)
+{
+	assert(pbook);
+	if (pbook->capasity == pbook->count)//如果满了则扩容
+	{
+		person_info *ptmp = (person_info *)realloc(pbook->data, (pbook->capasity+2)*sizeof(person_info));
+		if (ptmp != NULL)
+		{
+			pbook->capasity += 2;
+			pbook->data = ptmp;
+			printf("扩容成功!\n");
+		}
+	}
 }
 
 void address_book_show(const address_book *pbook)
@@ -32,6 +54,8 @@ void address_book_show(const address_book *pbook)
 
 void address_book_add(address_book *pbook)
 {
+	assert(pbook);
+	check_capacity(pbook);
 	printf("请输入要添加的联系人的信息！\n");
 	printf("姓名>> ");
 	scanf("%s", pbook->data[pbook->count].name);
@@ -50,6 +74,9 @@ void address_book_add(address_book *pbook)
 
 void address_book_del_all(address_book *pbook)
 {
+	address_book_init(pbook);
+	free(pbook->data);
+	pbook->data = NULL;
 	address_book_init(pbook);
 	printf("通讯录内容已经被清空！\n");
 }

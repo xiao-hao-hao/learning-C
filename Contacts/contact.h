@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #define NAME_MAX 11
 #define SEX_MAX 5
 #define TEL_MAX 12
 #define ADDR_MAX 21
-#define CONTACT_NUM 1000
+#define DEFAULT_SIZE 3
 
 enum//将菜单定义为一个枚举类
 {
@@ -32,8 +33,9 @@ typedef struct person_info
 
 typedef struct address_book
 {
-	person_info data[CONTACT_NUM];
-	int count;
+	person_info *data;
+	int count;//记录联系人个数
+	int capasity;//记录容量
 }address_book;
 
 void address_book_init(address_book *);//初始化通讯录
