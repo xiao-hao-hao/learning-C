@@ -12,7 +12,7 @@ void check_capacity(address_book *pbook)
 		{
 			pbook->capacity += 2;
 			pbook->data = ptmp;
-			printf("扩容成功!\n");
+			//printf("扩容成功!\n");
 		}
 	}
 }
@@ -102,7 +102,7 @@ void address_book_del_all(address_book *pbook)
 	printf("通讯录内容已经被清空！\n");
 }
 
-static int Find(const address_book *pbook, char *name, int i)////查找联系人并返回该联系人的位置，找不到返回-1
+static int Find(const address_book *pbook, char *name, int i)//查找联系人并返回该联系人的位置，找不到返回-1
 {
 	for (; i < (pbook->count); i++)//i表示要查找的位置
 	{
