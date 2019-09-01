@@ -62,3 +62,29 @@
 //	return 0;
 //}
 
+//3.模拟实现strncmp
+//#include <stdio.h>
+//
+//int my_strncmp(const char *str1, const char *str2, size_t n)
+//{
+//	while(n--)
+//	{
+//		if ((*str1 == 0) || (*str1 != *str2))//*str1==0是为了判断(str1==str2=='\0'的情况)
+//		{
+//			return *str1 - *str2;
+//		}
+//		++str1;
+//		++str2;
+//	}
+//	return 0;
+//}
+//
+//int main()
+//{
+//	int tag = 0;
+//	char str1[20] = "123456789";
+//	char str2[20] = "1234345667";
+//	tag = my_strncmp(str1, str2, 4);
+//	printf("%d\n", tag);
+//	return 0;
+//}
