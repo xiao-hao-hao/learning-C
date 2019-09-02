@@ -23,7 +23,7 @@
 //	return 0;
 //}
 
-//offsetof宏的实现
+////offsetof宏的实现
 //#include <stdio.h>
 //#define OffSetOf(s, m) ((size_t)&(((s *)0)->m))//m的地址就是m和结构体首地址的偏移量(在0地址处只要不解引用取值就可以)
 //
