@@ -112,10 +112,12 @@
 //#include <stdio.h>
 //int main()
 //{
-//	int a = 10000;
-//	//char *a = "hello123";
+//	int b = 10000;
+//	//char *a = "hello";
 //	FILE *pf = fopen("test.txt", "w");
-//	fprintf(pf, "%d", a);//二进制的形式写到文件中（每次写4个字节，一共写一次）
+//	//fwrite(&b, 1, 4, pf);
+//	//fwrite(a, 1, 4, pf);//二进制的形式写到文件中（每次写1个字节，一共写4次）
+//	fprintf(pf, "%d", b);
 //	fclose(pf);
 //	pf = NULL;
 //	return 0;
@@ -152,3 +154,5 @@
 //	pFILE = NULL;
 //	return 0;
 //}
+
+
