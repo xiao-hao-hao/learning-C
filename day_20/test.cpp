@@ -109,17 +109,17 @@
 //	printf("%x\n", un.i);
 //}
 
-#include <stdio.h>
-int main()
-{
-	int a = 10000;
-	//char *a = "hello123";
-	FILE *pf = fopen("test.txt", "w");
-	fwrite(&a, 4, 1, pf);//二进制的形式写到文件中（每次写4个字节，一共写一次）
-	fclose(pf);
-	pf = NULL;
-	return 0;
-}
+//#include <stdio.h>
+//int main()
+//{
+//	int a = 10000;
+//	//char *a = "hello123";
+//	FILE *pf = fopen("test.txt", "w");
+//	fprintf(pf, "%d", a);//二进制的形式写到文件中（每次写4个字节，一共写一次）
+//	fclose(pf);
+//	pf = NULL;
+//	return 0;
+//}
 
 //#include <stdio.h>
 //struct S
@@ -136,5 +136,19 @@ int main()
 //	s.b = 12;
 //	s.c = 3;
 //	s.d = 4;
+//	return 0;
+//}
+
+
+//#include <stdio.h>
+//int main()
+//{
+//	FILE *pFILE;
+//	pFILE = fopen("example.txt", "wb");
+//	fputs("This is an apple.", pFILE);
+//	fseek(pFILE, -2L, SEEK_END);
+//	fputs(" sam", pFILE);
+//	fclose(pFILE);
+//	pFILE = NULL;
 //	return 0;
 //}
