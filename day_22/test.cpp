@@ -44,26 +44,26 @@
 //	return 0;
 //}
 
-#include <stdio.h>
-struct Stu
-{
-	char name[20];
-	int age;
-	float score;
-};
-
-//序列化和反序列化
-
-int main()
-{
-	char buf[50] = {0};
-	struct Stu tmp = {0};
-	struct Stu s = {"张三", 20, 55.5f};
-	//把结构体转换为字符串
-	sprintf(buf, "%s %d %f", s.name, s.age, s.score);
-	printf("%s\n", buf);
-	//把字符串转换为结构体
-	sscanf(buf, "%s %d %f", tmp.name, &(tmp.age), &(tmp.score));
-	printf("%s %d %f\n", tmp.name, tmp.age, tmp.score);
-	return 0;
-}
+//#include <stdio.h>
+//struct Stu
+//{
+//	char name[20];
+//	int age;
+//	float score;
+//};
+//
+////序列化和反序列化
+//
+//int main()
+//{
+//	char buf[50] = {0};
+//	struct Stu tmp = {0};
+//	struct Stu s = {"张三", 20, 55.5f};
+//	//把结构体转换为字符串
+//	sprintf(buf, "%s %d %f", s.name, s.age, s.score);
+//	printf("%s\n", buf);
+//	//把字符串转换为结构体
+//	sscanf(buf, "%s %d %f", tmp.name, &(tmp.age), &(tmp.score));
+//	printf("%s %d %f\n", tmp.name, tmp.age, tmp.score);
+//	return 0;
+//}
