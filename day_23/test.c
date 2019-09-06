@@ -118,3 +118,22 @@
 //	return 0;
 //}
 
+#include <stdio.h>
+char *GetMemory()
+{
+	char p[] = "hello world";
+	return p;
+}
+
+void Test()
+{
+	char *str = NULL;
+	str = GetMemory();
+	printf(str);
+}
+
+int main()
+{
+	Test();
+	return 0;
+}
