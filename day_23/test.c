@@ -118,22 +118,45 @@
 //	return 0;
 //}
 
+//#include <stdio.h>
+//char *GetMemory()
+//{
+//	char p[] = "hello world";
+//	return p;
+//}
+//
+//void Test()
+//{
+//	char *str = NULL;
+//	str = GetMemory();
+//	printf(str);
+//}
+//
+//int main()
+//{
+//	Test();
+//	return 0;
+//}
+
+//typedef struct st_type
+//{
+//	int i;
+//	int a[0];//柔性数组
+//}type_a;
+//
+//#include <stdio.h>
+//int main()
+//{
+//	return 0;
+//}
 #include <stdio.h>
-char *GetMemory()
+typedef struct st_type
 {
-	char p[] = "hello world";
-	return p;
-}
-
-void Test()
-{
-	char *str = NULL;
-	str = GetMemory();
-	printf(str);
-}
-
+	int i;
+	int a[0];//柔性数组成员
+}type_a;
 int main()
 {
-	Test();
+	printf("%d\n", sizeof(type_a));//输出是4
 	return 0;
 }
