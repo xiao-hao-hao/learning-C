@@ -15,6 +15,7 @@ typedef struct SeqList
 void SeqListInit(SeqList *psl, int sz);
 int SeqListIsFull(SeqList *psl);
 void Swap(DataType *pa, DataType *pb);
+void SeqListDestroy(SeqList *psl);
 
 void SeqListShow(SeqList *psl);
 int SeqListPushFront(SeqList *psl, DataType data);
@@ -32,11 +33,24 @@ void SeqListReverse(SeqList *psl);
 int SeqListLength(SeqList *psl);
 int SeqListModifyByPos(SeqList *psl, int pos, DataType data);
 int SeqListModifyByVal(SeqList *psl, DataType dest, DataType data);
+int SeqListCapacity(SeqList *psl);
+int SeqListCapacityAdd(SeqList *psl);
+
+int SeqListCapacityAdd(SeqList *psl)
+{
+	DataType *p = (DataType*)realloc(psl->base, sizeof(DataType) * (psl->capacity+2));
+	assert(psl);
+	if(p == NULL)
+		return 0;
+	psl->base = p;
+	psl->capacity += 2;
+	return 1;
+}
 
 void SeqListInit(SeqList *psl, int sz)
 {
     assert(psl != NULL);
-    psl->capacity = sz >SEQLIST_DEFAULT_SIZE ? sz :SEQLIST_DEFAULT_SIZE;
+    psl->capacity = sz > SEQLIST_DEFAULT_SIZE ? sz : SEQLIST_DEFAULT_SIZE;
     psl->base = (DataType*)malloc(sizeof(DataType)*(psl->capacity));
     psl->size = 0;
 }
@@ -60,7 +74,7 @@ void SeqListShow(SeqList *psl)
 int SeqListPushBack(SeqList *psl, DataType data)
 {
     assert(psl);
-    if(SeqListIsFull(psl))
+    if(SeqListIsFull(psl) && !SeqListCapacityAdd(psl))
     {
         printf("顺序表已满,%d不能插入!\n", data);
         return 0;
@@ -79,7 +93,7 @@ int SeqListPushFront(SeqList *psl, DataType data)
 {
 	int i = 0;
     assert(psl != NULL);
-    if(SeqListIsFull(psl))
+    if(SeqListIsFull(psl) && !SeqListCapacityAdd(psl))
     {
         printf("顺序表已满,%d不能插入!\n", data);
         return 0;
@@ -126,7 +140,7 @@ int SeqListInsertByPos(SeqList *psl, int pos, DataType data)
 {
 	int i = 0;
     assert(psl != NULL);
-    if(SeqListIsFull(psl))
+    if(SeqListIsFull(psl) && !SeqListCapacityAdd(psl))
     {
         printf("顺序表已满,%d不能插入!\n", data);
         return 0;
@@ -149,7 +163,7 @@ int SeqListInsertByVal(SeqList *psl, DataType data)
 {
 	int i = 0;
     assert(psl != NULL);
-    if(SeqListIsFull(psl))
+    if(SeqListIsFull(psl) && !SeqListCapacityAdd(psl))
     {
         printf("顺序表已满,%d不能插入!\n", data);
         return 0;
@@ -306,5 +320,18 @@ int SeqListModifyByVal(SeqList *psl, DataType dest, DataType data)
 	}
 	psl->base[ret] = data;
 	return 1;
+}
+
+int SeqListCapacity(SeqList *psl)
+{
+	assert(psl != NULL);
+	return psl->capacity;
+}
+
+void SeqListDestroy(SeqList *psl)
+{
+	free(psl->base);
+	psl->base - NULL;
+	psl->capacity = psl->size = 0;
 }
 #endif

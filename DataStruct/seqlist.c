@@ -24,6 +24,7 @@ int main()
         printf("* [12]sort       [13]reverse   *\n");
         printf("* [14]length     [15]clear     *\n");
         printf("* [16]modify_pos [17]modify_val*\n");
+		printf("* [18]capacity                 *\n");
         printf("********************************\n");
         printf("请选择:>");
         scanf("%d", &select);
@@ -120,6 +121,9 @@ int main()
 			scanf("%d", &data);
 			SeqListModifyByVal(&mylist, dest, data);
 			break;
+		case 18:
+			printf("顺序表的容量为:>%d\n", SeqListCapacity(&mylist));
+			break;
 		default:
             printf("输入错误，请重新输入!\n");
             break;
@@ -127,5 +131,6 @@ int main()
 		system("pause");
 		system("cls");
     }
+	SeqListDestroy(&mylist);
     return 0;
 }
