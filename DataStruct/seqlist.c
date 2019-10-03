@@ -1,6 +1,6 @@
+#if 0
 #define _CRT_SECURE_NO_WARNINGS 1
 
-#define _CRT_SECURE_NO_WARNINGS 1
 #include "seqlist.h"
 
 int main()
@@ -134,3 +134,4 @@ int main()
 	SeqListDestroy(&mylist);
     return 0;
 }
+#endif
