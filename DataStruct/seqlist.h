@@ -332,7 +332,7 @@ int SeqListCapacity(SeqList *psl)
 void SeqListDestroy(SeqList *psl)
 {
 	free(psl->base);
-	psl->base - NULL;
+	psl->base = NULL;
 	psl->capacity = psl->size = 0;
 }
 #endif
