@@ -31,8 +31,7 @@ int SeqListFindByVal(SeqList *psl, DataType data);
 void SeqListSort(SeqList *psl);
 void SeqListReverse(SeqList *psl);
 int SeqListLength(SeqList *psl);
-void SeqListClear(SeqList *psl)
-int SeqListModifyByPos(SeqList *psl, int pos, DataType data);
+void SeqListClear(SeqList *psl);
 int SeqListModifyByVal(SeqList *psl, DataType dest, DataType data);
 int SeqListCapacity(SeqList *psl);
 int SeqListCapacityAdd(SeqList *psl);
