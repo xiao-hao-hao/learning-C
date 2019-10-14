@@ -1,12 +1,12 @@
-﻿生成启动时间为 2019/10/13 19:07:24。
+﻿生成启动时间为 2019/10/13 23:32:21。
      1>项目“E:\比特\learning-C\DataStruct\DataStruct.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
-         正在创建“Debug\DataStruct.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+         正在对“Debug\DataStruct.unsuccessfulbuild”执行 Touch 任务。
        ClCompile:
          d:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt dclist.c
          dclist.c
-     1>e:\比特\learning-c\datastruct\dclist.h(47): warning C4716: “DCListInit”: 必须返回一个值
-     1>e:\比特\learning-c\datastruct\dclist.h(117): warning C4715: “DCListPopBack”: 不是所有的控件路径都返回值
+     1>e:\比特\learning-c\datastruct\dclist.h(53): warning C4716: “DCListInit”: 必须返回一个值
+     1>e:\比特\learning-c\datastruct\dclist.h(123): warning C4715: “DCListPopBack”: 不是所有的控件路径都返回值
        Link:
          d:\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\比特\learning-C\DataStruct\Debug\DataStruct.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\DataStruct.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\比特\learning-C\DataStruct\Debug\DataStruct.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\比特\learning-C\DataStruct\Debug\DataStruct.lib" /MACHINE:X86 Debug\dclist.obj
          Debug\dlist.obj
@@ -24,4 +24,4 @@
 
 生成成功。
 
-已用时间 00:00:00.36
+已用时间 00:00:00.47
