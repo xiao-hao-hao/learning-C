@@ -66,6 +66,7 @@
     <ClInclude Include="dlist.h" />
     <ClInclude Include="sclist.h" />
     <ClInclude Include="seqlist.h" />
+    <ClInclude Include="seqstack.h" />
     <ClInclude Include="slist.h" />
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +75,7 @@
     <ClCompile Include="sclist.c" />
     <ClCompile Include="seqlist.c" />
     <ClCompile Include="slist.c" />
+    <ClCompile Include="seqstack.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
