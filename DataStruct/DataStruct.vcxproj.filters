@@ -36,6 +36,9 @@
     <ClInclude Include="seqstack.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="liststack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="seqlist.c">
@@ -54,6 +57,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="seqstack.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="liststack.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
