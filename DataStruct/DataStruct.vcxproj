@@ -65,6 +65,8 @@
     <ClInclude Include="dclist.h" />
     <ClInclude Include="dlist.h" />
     <ClInclude Include="liststack.h" />
+    <ClInclude Include="seqcyqueue.h" />
+    <ClInclude Include="seqqueue.h" />
     <ClInclude Include="sclist.h" />
     <ClInclude Include="seqlist.h" />
     <ClInclude Include="seqstack.h" />
@@ -75,7 +77,9 @@
     <ClCompile Include="dlist.c" />
     <ClCompile Include="liststack.c" />
     <ClCompile Include="sclist.c" />
+    <ClCompile Include="seqcyqueue.c" />
     <ClCompile Include="seqlist.c" />
+    <ClCompile Include="seqqueue.c" />
     <ClCompile Include="slist.c" />
     <ClCompile Include="seqstack.c" />
   </ItemGroup>

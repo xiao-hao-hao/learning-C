@@ -39,6 +39,12 @@
     <ClInclude Include="liststack.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="seqqueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="seqcyqueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="seqlist.c">
@@ -60,6 +66,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="liststack.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="seqqueue.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="seqcyqueue.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
