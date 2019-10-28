@@ -48,6 +48,9 @@
     <ClInclude Include="linkqueue.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="bintree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="seqlist.c">
@@ -78,6 +81,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="linkqueue.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="bintree.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
