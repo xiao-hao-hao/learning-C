@@ -16,6 +16,9 @@ int main()
 	printf("VLR:");
 	PreOrder(bt);
 	printf("\n");
+	printf("LevelOrder:");
+	LevelOrder(&bt);
+	printf("\n");
 	//printf("LVR:");
 	//InOrder(bt);
 	//printf("\n");

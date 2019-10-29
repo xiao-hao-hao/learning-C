@@ -2,12 +2,13 @@
 #define _BINTREE_H_
 
 #include "common.h"
-#include "linkqueue.h"
+#define DataType BinTreeNode*
+
 //ABC##DE##F##G#H##
 
 typedef struct BinTreeNode
 {
-	DataType data;
+	char data;
 	struct BinTreeNode *leftChild;
 	struct BinTreeNode *rightChild;
 }BinTreeNode;
@@ -17,8 +18,9 @@ typedef struct BinTreeNode
 //	BinTreeNode *root;
 //}BinTree;
 
-#define DataType BinTreeNode*
+
 typedef BinTreeNode* BinTree;
+#include "linkqueue.h"
 void BinTreeInit(BinTree *t);
 BinTreeNode* BinTreeCreate_1();
 void BinTreeCreate_2(BinTree *t);
@@ -26,7 +28,7 @@ size_t Height(BinTree *t);
 size_t Size(BinTree *t);
 BinTreeNode* Find(BinTreeNode *t, DataType key);
 BinTreeNode* Find(BinTree *t, DataType key);
-BinTreeNode* Parent(BinTree *t, DataType key); 
+BinTreeNode* Parent(BinTree *t, char key); 
 void BinTreeCreateByStr(BinTree *t, char *str, int *i);
 void LevelOrder(BinTree *t);
 BinTreeNode* Clone(BinTree *t);
@@ -111,8 +113,11 @@ void LevelOrder(BinTree *t)
 		{
 			BinTreeNode *p = LinkQueueFront(&Q);
 			LinkQueueDe(&Q);
-			printf("%d ", queue.front);	
-			LinkQueueDe(&queue);
+			printf("%c", p->data);
+			if(p->leftChild != NULL)
+				LinkQueueEn(&Q, p->leftChild);
+			if(p->rightChild != NULL)
+				LinkQueueEn(&Q, p->rightChild);
 		}
 	}
 }
