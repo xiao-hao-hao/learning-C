@@ -7,5 +7,6 @@
 #include <stdlib.h>
 
 //#define DataType int
+#define DataType BinTreeNode*//用于二叉树调用
 
 #endif

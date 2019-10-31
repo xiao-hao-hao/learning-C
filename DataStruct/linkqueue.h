@@ -16,7 +16,7 @@ typedef struct LinkQueue
 
 int LinkQueueEmpty(LinkQueue *Q);
 void LinkQueueInit(LinkQueue *Q);
-void LinkQueueEn(LinkQueue *Q, char data);
+void LinkQueueEn(LinkQueue *Q, DataType data);
 void LinkQueueDe(LinkQueue *Q);
 void LinkQueueShow(LinkQueue *Q);
 DataType LinkQueueFront(LinkQueue *q);
@@ -99,3 +99,4 @@ void LinkQueueDestroy(LinkQueue *Q)
 	Q->front = Q->tail = NULL;
 }
 #endif
+
