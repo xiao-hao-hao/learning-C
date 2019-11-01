@@ -20,6 +20,9 @@ int main()
 	printf("LevelOrder:");
 	LevelOrder(&bt);//层序遍历
 	printf("\n");
+	printf("PreOrderNoR:");//非递归前序遍历
+	PreOrderNoR(&bt);
+	printf("\n");
 	//printf("LVR:");//中序打印
 	//InOrder(bt);
 	//printf("\n");

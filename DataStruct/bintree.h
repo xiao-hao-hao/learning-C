@@ -39,6 +39,9 @@ void _PostOrder(BinTreeNode *t);
 void LevelOrder(BinTree *t);
 void _LevelOrder(BinTreeNode *t);
 
+void PreOrderNoR(BinTree *t);
+void _PreOrderNoR(BinTreeNode *t);
+
 size_t Height(BinTree *t);
 size_t _Height(BinTreeNode *t);
 
@@ -294,5 +297,32 @@ BinTreeNode* _Parent(BinTreeNode *t, char key)
 	if(pr != NULL)
 		return pr;
 	return _Parent(t->rightChild, key);
+}
+///////////////////////////////////////////////////////////
+#include "liststack.h"
+void PreOrderNoR(BinTree *t)//用非递归的方法前序遍历
+{
+	_PreOrderNoR(t->root);
+}
+
+void _PreOrderNoR(BinTreeNode *t)
+{
+	if(t != NULL)
+	{
+		BinTreeNode *p = NULL;
+		ListStack st;
+		ListStackInit(&st);
+		ListStackPush(&st, t);
+		while(!ListStackEmpty(&st))
+		{
+			p = ListStackTop(&st);
+			ListStackPop(&st);
+			printf("%c ", p->data);
+			if(p->rightChild != NULL)
+				ListStackPush(&st, p->rightChild);
+			if(p->leftChild != NULL)
+				ListStackPush(&st, p->leftChild);
+		}
+	}
 }
 #endif

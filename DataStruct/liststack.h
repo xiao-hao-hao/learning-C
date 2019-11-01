@@ -11,12 +11,19 @@ typedef struct ListStackNode
 
 typedef ListStackNode* ListStack;
 
+int ListStackEmpty(ListStack *pst);
 void ListStackInit(ListStack *pst);
 void ListStackPush(ListStack *pst, DataType data);
 void ListStackShow(ListStack pst);
 void ListStackPop(ListStack *pst);
-int ListStackTop(ListStack pst, DataType *ret);
+DataType ListStackTop(ListStack pst);
 void Destroy(ListStack *pst);
+
+
+int ListStackEmpty(ListStack *pst)
+{
+	return *pst == NULL;
+}
 
 void ListStackInit(ListStack *pst)//二级指针
 {
@@ -59,15 +66,10 @@ void ListStackPop(ListStack *pst)
 	p = NULL;
 }
 
-int ListStackTop(ListStack pst, DataType *ret)
+DataType ListStackTop(ListStack *pst)
 {
-	if(pst == NULL)
-	{
-		printf("栈为空，不能取栈顶元素!\n");
-		return 0;
-	}
-	*ret = pst->data;
-	return 1;
+	if(pst != NULL)
+		return (*pst)->data;
 }
 
 void Destroy(ListStack *pst)
