@@ -27,20 +27,25 @@ BinTreeNode* _BinTreeCreate_1();
 void _BinTreeCreate_2(BinTreeNode **t);
 void BinTreeCreate(BinTree *t);
 
+//二叉树遍历 递归
 void PreOrder(BinTree *t);
 void _PreOrder(BinTreeNode *t);
-
 void InOrder(BinTree *t);
 void _InOrder(BinTreeNode *t);
-
 void PostOrder(BinTree *t);
 void _PostOrder(BinTreeNode *t);
+
+//二叉树遍历 非递归
+void PreOrderNoR(BinTree *t);
+void _PreOrderNoR(BinTreeNode *t);
+void InOrderNoR(BinTree *t);
+void _InOrderNoR(BinTreeNode *t);
+void PostOrderNoR(BinTree *t);
+void _PostOrderNoR(BinTreeNode *t);
 
 void LevelOrder(BinTree *t);
 void _LevelOrder(BinTreeNode *t);
 
-void PreOrderNoR(BinTree *t);
-void _PreOrderNoR(BinTreeNode *t);
 
 size_t Height(BinTree *t);
 size_t _Height(BinTreeNode *t);
@@ -55,13 +60,20 @@ BinTreeNode* Parent(BinTree *t, char key);
 BinTreeNode* _Parent(BinTreeNode *t, char key);
 
 void BinTreeCreateByStr(BinTree *t, char *str, int *i);
-BinTreeNode* _BinTreeCreateByStr(char *str, int *i);/////////////?????
+BinTreeNode* _BinTreeCreateByStr(char *str, int *i);
 
 void Clone(BinTree *t1, BinTree *t2);
 BinTreeNode* _Clone(BinTreeNode *t);
 
 int Equal(BinTree *t1, BinTree *t2);
 int _Equal(BinTreeNode *t1, BinTreeNode *t2);
+
+//由前序遍历和中序遍历以及由后序遍历和中序遍历来创建二叉树
+void BinTreeCreateBy_LVR_LRV(BinTree *t, char *lvr, char *lrv, int n);//中序和后序
+BinTreeNode* _BinTreeCreateBy_LVR_LRV(char *lvr, char *lrv, int n);
+
+void BinTreeCreateBy_VLR_LVR(BinTree *t, char *lvr, char *lrv, int n);//前序和中序
+BinTreeNode* _BinTreeCreateBy_VLR_LVR(char *lvr, char *lrv, int n);
 
 void BinTreeInit(BinTree *t)
 {
@@ -298,7 +310,8 @@ BinTreeNode* _Parent(BinTreeNode *t, char key)
 		return pr;
 	return _Parent(t->rightChild, key);
 }
-///////////////////////////////////////////////////////////
+
+//二叉树的遍历 非递归
 #include "liststack.h"
 void PreOrderNoR(BinTree *t)//用非递归的方法前序遍历
 {
@@ -324,5 +337,107 @@ void _PreOrderNoR(BinTreeNode *t)
 				ListStackPush(&st, p->leftChild);
 		}
 	}
+}
+
+void InOrderNoR(BinTree *t)
+{
+	_InOrderNoR(t->root);
+}
+
+void _InOrderNoR(BinTreeNode *t)
+{
+	if(t != NULL)
+	{
+		BinTreeNode *p = NULL;
+		ListStack st;
+		ListStackInit(&st);
+		do
+		{
+			while(t != NULL)
+			{
+				ListStackPush(&st, t);
+				t = t->leftChild ;
+			}
+			p = ListStackTop(&st);
+			ListStackPop(&st);
+			printf("%c ", p->data);
+			if(p->rightChild != NULL)
+				t = p->rightChild;
+		}while(!ListStackEmpty(&st) || t != NULL);
+	}
+}
+
+void PostOrderNoR(BinTree *t)
+{
+	_PostOrderNoR(t->root);
+}
+
+void _PostOrderNoR(BinTreeNode *t)
+{
+	if(t != NULL)
+	{
+		BinTreeNode *p = NULL;
+		BinTreeNode *pre = NULL;
+		ListStack st;
+		ListStackInit(&st);
+		do
+		{
+			while(t != NULL)
+			{
+				ListStackPush(&st, t);
+				t = t->leftChild;
+			}
+			p = ListStackTop(&st);
+			if(p->rightChild == NULL || p->rightChild == pre)
+			{
+				ListStackPop(&st);
+				printf("%c ", p->data);
+				pre = p;
+			}
+			else
+			{
+				t = p->rightChild;
+			}
+		}while(!ListStackEmpty(&st));
+	}
+}
+
+void BinTreeCreateBy_LVR_LRV(BinTree *t, char *lvr, char *lrv, int n)
+{
+	t->root = _BinTreeCreateBy_LVR_LRV(lvr, lrv, n);
+}
+
+BinTreeNode* _BinTreeCreateBy_LVR_LRV(char *lvr, char *lrv, int n)
+{
+	int k = 0;
+	BinTreeNode *p = NULL;
+	if(n == 0)
+		return NULL;
+	while(lvr[k] != lrv[n-1])
+		++k;//5
+	p = (BinTreeNode*)malloc(sizeof(BinTreeNode));
+	p->data = lvr[k];
+	p->rightChild = _BinTreeCreateBy_LVR_LRV(lvr+k+1, lrv+k, n-k-1);
+	p->leftChild = _BinTreeCreateBy_LVR_LRV(lvr, lrv, k);
+	return p;
+}
+
+void BinTreeCreateBy_VLR_LVR(BinTree *t, char *vlr, char *lvr, int n)
+{
+	t->root = _BinTreeCreateBy_VLR_LVR(vlr, lvr, n);
+}
+BinTreeNode* _BinTreeCreateBy_VLR_LVR(char *vlr, char *lvr, int n)
+{
+	int k = 0;
+	BinTreeNode *p = NULL;
+	if(n == 0)
+		return NULL;
+	while(lvr[k] != vlr[0])
+		++k;//5
+	p = (BinTreeNode*)malloc(sizeof(BinTreeNode));
+	p->data = lvr[k];
+	p->leftChild = _BinTreeCreateBy_VLR_LVR(vlr+1, lvr, k);
+	p->rightChild = _BinTreeCreateBy_VLR_LVR(vlr+k+1, lvr+k+1, n-k-1);
+	return p;
 }
 #endif
