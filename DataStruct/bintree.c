@@ -59,6 +59,9 @@ int main()
 	BinTreeCreateBy_VLR_LVR(&bt_db, vlr, lvr, 8);
 	LevelOrder(&bt_db);
 	printf("\n");
+	BinTreeDestroy(&bt);
+	BinTreeDestroy(&bt_db);
+	BinTreeDestroy(&bt_clone);
 	return 0;
 }
 #endif

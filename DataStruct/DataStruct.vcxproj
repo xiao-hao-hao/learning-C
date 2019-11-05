@@ -62,6 +62,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="bintree.h" />
+    <ClInclude Include="bst.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="dclist.h" />
     <ClInclude Include="dlist.h" />
@@ -77,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bintree.c" />
+    <ClCompile Include="bst.c" />
     <ClCompile Include="dclist.c" />
     <ClCompile Include="dlist.c" />
     <ClCompile Include="heap.c" />

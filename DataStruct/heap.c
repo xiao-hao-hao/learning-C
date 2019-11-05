@@ -1,3 +1,4 @@
+#if 0
 #define _CRT_SECURE_NO_WARNINGS 1
 //¶Ñ
 #include "heap.h"
@@ -17,5 +18,8 @@ int main()
 	printf("%d\n", HeapTop(&hp));
 	HeapRemove(&hp);//É¾µôÍ·½Úµã
 	HeapShow(&hp);
+	HeapDestroy(&php);
 	return 0;
 }
+
+#endif

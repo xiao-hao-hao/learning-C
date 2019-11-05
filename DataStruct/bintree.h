@@ -26,6 +26,8 @@ void BinTreeInit(BinTree *t);
 BinTreeNode* _BinTreeCreate_1();
 void _BinTreeCreate_2(BinTreeNode **t);
 void BinTreeCreate(BinTree *t);
+void _BinTreeDestroy(BinTreeNode *t);
+void BinTreeDestroy(BinTree *t);
 
 //¶þ²æÊ÷±éÀú µÝ¹é
 void PreOrder(BinTree *t);
@@ -224,7 +226,7 @@ void BinTreeCreateByStr(BinTree *t, char *str, int *i)
 
 BinTreeNode* _BinTreeCreateByStr(char *str, int *i)
 {
-	if(str[*i] == '#')
+	if(str[*i] == '#' || str[*i] == '\0')
 		return NULL;
 	else
 	{
@@ -439,5 +441,20 @@ BinTreeNode* _BinTreeCreateBy_VLR_LVR(char *vlr, char *lvr, int n)
 	p->leftChild = _BinTreeCreateBy_VLR_LVR(vlr+1, lvr, k);
 	p->rightChild = _BinTreeCreateBy_VLR_LVR(vlr+k+1, lvr+k+1, n-k-1);
 	return p;
+}
+
+void _BinTreeDestroy(BinTreeNode *t)
+{
+	if(t == NULL)
+		return;
+	_BinTreeDestroy(t->leftChild);
+	_BinTreeDestroy(t->rightChild);
+	free(t);
+}
+
+void BinTreeDestroy(BinTree *t)
+{
+	_BinTreeDestroy(t->root);
+	t->root = NULL;
 }
 #endif

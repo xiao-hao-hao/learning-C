@@ -26,12 +26,21 @@ void HeapShow(Heap *php);
 DataType HeapTop(Heap *php);
 int HeapRemove(Heap *php);
 void _AdjustDown(Heap *php, int start);
+void Swap(DataType *p1, DataType *p2)£»
 
 void HeapInit(Heap *php, int sz)
 {
 	php->capacity = sz;
 	php->size = 0;
 	php->heap = (DataType*)malloc(sizeof(DataType) * sz);
+}
+
+void Swap(DataType *p1, DataType *p2)
+{
+	DataType tmp;
+	tmp = *p1;
+	*p1 = *p2;
+	*p2 = tmp;
 }
 
 int HeapInsert(Heap *php, DataType x)
@@ -106,7 +115,7 @@ void _AdjustDown(Heap *php, int start)
 	}
 }
 
-void HeapDeatroy(Heap *php)
+void HeapDestroy(Heap *php)
 {
 	php->capacity = php->size = 0;
 	free(php->heap);
