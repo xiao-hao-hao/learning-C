@@ -65,6 +65,7 @@
     <ClInclude Include="common.h" />
     <ClInclude Include="dclist.h" />
     <ClInclude Include="dlist.h" />
+    <ClInclude Include="heap.h" />
     <ClInclude Include="linkqueue.h" />
     <ClInclude Include="liststack.h" />
     <ClInclude Include="seqcyqueue.h" />
@@ -78,6 +79,7 @@
     <ClCompile Include="bintree.c" />
     <ClCompile Include="dclist.c" />
     <ClCompile Include="dlist.c" />
+    <ClCompile Include="heap.c" />
     <ClCompile Include="linkqueue.c" />
     <ClCompile Include="liststack.c" />
     <ClCompile Include="sclist.c" />

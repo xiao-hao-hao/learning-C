@@ -51,6 +51,9 @@
     <ClInclude Include="bintree.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="heap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="seqlist.c">
@@ -84,6 +87,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="bintree.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="heap.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

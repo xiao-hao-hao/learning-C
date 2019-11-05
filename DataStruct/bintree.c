@@ -1,3 +1,4 @@
+#if 0
 #define _CRT_SECURE_NO_WARNINGS 1
 #include "bintree.h"
 
@@ -60,3 +61,4 @@ int main()
 	printf("\n");
 	return 0;
 }
+#endif
