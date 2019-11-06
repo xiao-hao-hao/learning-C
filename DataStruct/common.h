@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define DataType int
 //#define DataType BinTreeNode*//用于二叉树调用
