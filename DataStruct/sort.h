@@ -9,6 +9,8 @@ void InsertSort_1(int *ar, int left, int right);//插入排序
 void InsertSort_2(int *ar, int left, int right);
 void BinInsertSort(int *ar, int left, int right);//二分插入排序
 void ShellSort(int *ar, int left, int right);
+void TwoWayInsertSort(int *ar, int left, int right);
+void SelectSort(int *ar, int left, int right);
 void TestSort(int *ar, int left, int right);
 void TestSortEfficiency();
 
@@ -88,8 +90,9 @@ void BinInsertSort(int *ar, int left, int right)//二分插入排序
 void TwoWayInsertSort(int *ar, int left, int right)//二路插入排序
 {
 	int i = 0;
+	int k = 0;
 	int n = right - left + 1;
-	int *tmp = (int*)malloc(sizeof(int) * n);
+	int *tmp = (int*)malloc(sizeof(int) * n);//分配空间消耗大量时间
 	int first, last;//用于作为临时空间的头和尾的标志（临时空间看作循环空间）
 	tmp[0] = ar[left];//假设第一个元素已经排好序
 	first = last = 0;
@@ -104,7 +107,25 @@ void TwoWayInsertSort(int *ar, int left, int right)//二路插入排序
 		{
 			tmp[++last] = ar[i];
 		}
+		else
+		{
+			int end = last;
+			while(ar[i] < tmp[end])
+			{
+				tmp[(end+1)%n] = tmp[end];
+				end = (end-1+n) % n;
+			}
+			tmp[(end+1)%n] = ar[i];
+			++last;
+		}
 	}
+	for(i = first; k < n;)
+	{
+		ar[k++] = tmp[i];
+		i = (i+1) % n;
+	}
+	free(tmp);
+	tmp = NULL;
 }
 
 
@@ -140,6 +161,34 @@ void ShellSort(int *ar, int left, int right)
 }
 */
 
+//选择排序
+
+int GetMinIndex(int *ar, int left, int right)
+{
+	int min_value = ar[left];
+	int index = left;
+	int i = 0;
+	for(i = left+1; i <= right; ++i)
+	{
+		if(ar[i] < min_value)
+		{
+			min_value = ar[i];
+			index = i;
+		}
+	}
+	return index;
+}
+
+void SelectSort(int *ar, int left, int right)
+{
+	int i = 0;
+	for(i = left; i < right; ++i)
+	{
+		int index = GetMinIndex(ar, i, right);
+		if(index != i)
+			Swap(&ar[index], &ar[i]);
+	}
+}
 
 void ShellSort(int *ar, int left, int right)//希尔排序 不稳定
 {
@@ -173,7 +222,9 @@ void TestSort(int *ar, int left, int right)
 	//InsertSort_1(ar, left, right);//插入排序
 	//InsertSort_2(ar, left, right);
 	//BinInsertSort(ar, left, right);
-	ShellSort(ar, left, right);
+	//ShellSort(ar, left, right);
+	//TwoWayInsertSort(ar, left, right);
+	SelectSort(ar, left, right);
 	PrintArray(ar, left, right);
 }
 
@@ -187,6 +238,8 @@ void TestSortEfficiency()
 	int *a2 = (int*)malloc(sizeof(int) * n);
 	int *a3 = (int*)malloc(sizeof(int) * n);
 	int *a4 = (int*)malloc(sizeof(int) * n);
+	int *a5 = (int*)malloc(sizeof(int) * n);
+	int *a6 = (int*)malloc(sizeof(int) * n);
 	srand(time(0));
 	for(i = 0; i < n; ++i)
 	{
@@ -194,6 +247,8 @@ void TestSortEfficiency()
 		a2[i] = a1[i];
 		a3[i] = a1[i];
 		a4[i] = a1[i];
+		a5[i] = a1[i];
+		a6[i] = a1[i];
 	}
 	start = clock();
 	InsertSort_1(a1, 0, n-1);
@@ -214,5 +269,15 @@ void TestSortEfficiency()
 	ShellSort(a4, 0, n-1);
 	end = clock();
 	printf("ShellSort: %u\n", end - start);
+
+	start = clock();
+	TwoWayInsertSort(a5, 0, n-1);
+	end = clock();
+	printf("TwoWaySort: %u\n", end - start);
+
+	start = clock();
+	SelectSort(a6, 0, n-1);
+	end = clock();
+	printf("SelectSort: %u\n", end - start);
 }
 #endif
