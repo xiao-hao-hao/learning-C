@@ -12,6 +12,8 @@ void ShellSort(int *ar, int left, int right);
 void TwoWayInsertSort(int *ar, int left, int right);
 void SelectSort(int *ar, int left, int right);
 void HeapSort(int *ar, int left, int right);
+void BubbleSort_1(int *ar, int left, int right);
+void BubbleSort_2(int *ar, int left, int right);
 void TestSort(int *ar, int left, int right);
 void TestSortEfficiency();
 
@@ -217,6 +219,7 @@ void ShellSort(int *ar, int left, int right)//希尔排序 不稳定
 	}
 }
 
+//堆排序
 void _AdjustDown(int *ar, int left, int right, int start)//向下调整  可以任选left 和 right
 {
 	//int n = right - left + 1;
@@ -256,15 +259,58 @@ void HeapSort(int *ar, int left, int right)
 	}
 }
 
+
+//交换排序
+//1、冒泡排序
+void BubbleSort_1(int *ar, int left, int right)
+{
+	int i = 0;
+	int j = 0;
+	//int n = right - left + 1;
+	for(i = left; i < right; ++i)
+	{
+		for(j = left; j < right - i + left; ++j)
+		{
+			if(ar[j] > ar[j+1])
+				Swap(&ar[j], &ar[j+1]);
+		}
+	}
+}
+
+void BubbleSort_2(int *ar, int left, int right)
+{
+	int i = 0;
+	int j = 0;
+	int is_swap = 0;//用来判断交换与否，没有交换表明数据已经排好序
+	//int n = right - left + 1;
+	for(i = left; i < right; ++i)
+	{
+		for(j = left; j < right - i + left; ++j)
+		{
+			if(ar[j] > ar[j+1])
+			{
+				Swap(&ar[j], &ar[j+1]);
+				is_swap = 1;
+			}
+		}
+		if(is_swap)
+			is_swap = 0;
+		else
+			break;
+	}
+}
+
 void TestSort(int *ar, int left, int right)
 {
 	//InsertSort_1(ar, left, right);//插入排序
 	//InsertSort_2(ar, left, right);
 	//BinInsertSort(ar, left, right);
 	//ShellSort(ar, left, right);
-	TwoWayInsertSort(ar, left, right);
+	//TwoWayInsertSort(ar, left, right);
 	//SelectSort(ar, left, right);
 	//HeapSort(ar, left, right);
+	//BubbleSort_1(ar, left, right);
+	BubbleSort_2(ar, left, right);
 	PrintArray(ar, left, right);
 }
 
@@ -281,6 +327,8 @@ void TestSortEfficiency()
 	int *a5 = (int*)malloc(sizeof(int) * n);
 	int *a6 = (int*)malloc(sizeof(int) * n);
 	int *a7 = (int*)malloc(sizeof(int) * n);
+	int *a8 = (int*)malloc(sizeof(int) * n);
+	int *a9 = (int*)malloc(sizeof(int) * n);
 	srand(time(0));
 	for(i = 0; i < n; ++i)
 	{
@@ -291,6 +339,8 @@ void TestSortEfficiency()
 		a5[i] = a1[i];
 		a6[i] = a1[i];
 		a7[i] = a1[i];
+		a8[i] = a1[i];
+		a9[i] = a1[i];
 	}
 	start = clock();
 	InsertSort_1(a1, 0, n-1);
@@ -326,5 +376,15 @@ void TestSortEfficiency()
 	HeapSort(a7, 0, n-1);
 	end = clock();
 	printf("HeapSort: %u\n", end - start);
+
+	start = clock();
+	BubbleSort_1(a8, 0, n-1);
+	end = clock();
+	printf("BubbleSort_1: %u\n", end - start);
+
+	start = clock();
+	BubbleSort_2(a9, 0, n-1);
+	end = clock();
+	printf("BubbleSort_2: %u\n", end - start);
 }
 #endif
