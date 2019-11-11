@@ -3,6 +3,8 @@
 
 #include "common.h"
 
+#define M 5
+
 void Swap(int *a, int *b);
 void PrintArray(int *ar, int left, int right);
 void InsertSort_1(int *ar, int left, int right);//插入排序
@@ -14,6 +16,7 @@ void SelectSort(int *ar, int left, int right);
 void HeapSort(int *ar, int left, int right);
 void BubbleSort_1(int *ar, int left, int right);
 void BubbleSort_2(int *ar, int left, int right);
+void QuickSort(int *ar, int left, int right);
 void TestSort(int *ar, int left, int right);
 void TestSortEfficiency();
 
@@ -300,6 +303,92 @@ void BubbleSort_2(int *ar, int left, int right)
 	}
 }
 
+//快速排序
+
+int GetMidIndex(int *ar, int left, int right)//返回left、right、mid的中间值
+{
+	int mid = (left+right) / 2;
+	if(ar[left]>ar[mid] && ar[left]<ar[right])
+		return left;
+	if(ar[mid]>ar[left] && ar[mid]<ar[right])
+		return mid;
+	return right;
+}
+
+int _Partition_1(int *ar, int left, int right)//划分函数
+{
+	int key = ar[left];//将第一个元素作为基准值
+	while(left < right)//left和right的变化原则就是每次移动后比较的基准永远不变
+	{
+		while(left < right && ar[right] >= key)
+			--right;
+		Swap(&ar[left], &ar[right]);
+		while(left < right && ar[left] < key)
+			++left;
+		Swap(&ar[left], &ar[right]);
+	}
+	return left;//返回下一次调用时的位置
+}
+
+int _Partition_2(int *ar, int left, int right)
+{
+	int key = ar[left];
+	while(left < right)
+	{
+		while(left<right && ar[right]>=key)
+			--right;
+		ar[left] = ar[right];//不调用交换函数，因为基准值已经被key记录了
+		while(left<right && ar[left]<key)
+			++left;
+		ar[right] = ar[left];
+	}
+	ar[left] = key;
+	return left;
+}
+
+int _Partition_3(int *ar, int left, int right)//将一个中间值作为基准值，可以将数组划分的更均匀
+{
+	int index = GetMidIndex(ar, left, right);
+	int key = 0;
+	int i = 0;
+	int pos = 0;
+	if(index != left)//将数组的第一个元素与mid、left、right的中间值交换
+		Swap(&ar[index], &ar[left]);
+	key = ar[left];
+	pos = left;
+	for(i = left+1; i <= right; ++i)
+	{
+		if(ar[i] < key)
+		{
+			++pos;
+			if(pos != i)
+			{
+				Swap(&ar[pos], &ar[i]);
+			}
+		}
+	}
+	Swap(&ar[left], &ar[pos]);
+	return pos;
+}
+
+void QuickSort(int *ar, int left, int right)
+{
+	if(left >= right)
+		return;
+	if(right-left+1 <= M)
+	{
+		InsertSort_1(ar, left, right);//当数据量比较小时采用插入排序
+	}
+	else
+	{
+		//int pos = _Partition_1(ar, left, right);
+		//int pos = _Partition_2(ar, left, right);
+		int pos = _Partition_3(ar, left, right);
+		QuickSort(ar, left, pos-1);
+		QuickSort(ar, pos+1, right);
+	}
+}
+
 void TestSort(int *ar, int left, int right)
 {
 	//InsertSort_1(ar, left, right);//插入排序
@@ -310,7 +399,8 @@ void TestSort(int *ar, int left, int right)
 	//SelectSort(ar, left, right);
 	//HeapSort(ar, left, right);
 	//BubbleSort_1(ar, left, right);
-	BubbleSort_2(ar, left, right);
+	//BubbleSort_2(ar, left, right);
+	QuickSort(ar, left, right);
 	PrintArray(ar, left, right);
 }
 
@@ -329,6 +419,7 @@ void TestSortEfficiency()
 	int *a7 = (int*)malloc(sizeof(int) * n);
 	int *a8 = (int*)malloc(sizeof(int) * n);
 	int *a9 = (int*)malloc(sizeof(int) * n);
+	int *a10 = (int*)malloc(sizeof(int) * n);
 	srand(time(0));
 	for(i = 0; i < n; ++i)
 	{
@@ -341,6 +432,7 @@ void TestSortEfficiency()
 		a7[i] = a1[i];
 		a8[i] = a1[i];
 		a9[i] = a1[i];
+		a10[i] = a1[i];
 	}
 	start = clock();
 	InsertSort_1(a1, 0, n-1);
@@ -386,5 +478,10 @@ void TestSortEfficiency()
 	BubbleSort_2(a9, 0, n-1);
 	end = clock();
 	printf("BubbleSort_2: %u\n", end - start);
+
+	start = clock();
+	QuickSort(a10, 0, n-1);
+	end = clock();
+	printf("QuickSort: %u\n", end - start);
 }
 #endif
