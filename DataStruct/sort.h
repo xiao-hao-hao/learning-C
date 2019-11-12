@@ -2,6 +2,7 @@
 #define _SORT_H
 
 #include "common.h"
+#include "seqstack.h"
 
 #define M 5
 
@@ -18,6 +19,7 @@ void BubbleSort_1(int *ar, int left, int right);
 void BubbleSort_2(int *ar, int left, int right);
 void QuickSort(int *ar, int left, int right);
 void MergeSort(int *ar, int left, int right);
+void QuickSortNonR(int *ar, int left, int right);
 void TestSort(int *ar, int left, int right);
 void TestSortEfficiency();
 
@@ -303,7 +305,7 @@ void BubbleSort_2(int *ar, int left, int right)
 	}
 }
 
-//快速排序
+//快速排序递归实现
 int GetMidIndex(int *ar, int left, int right)//返回left、right、mid的中间值
 {
 	int mid = (left+right) / 2;
@@ -390,6 +392,37 @@ void QuickSort(int *ar, int left, int right)
 	}
 }
 
+//快速排序非递归实现
+void QuickSortNonR(int *a, int left, int right)
+{
+	SeqStack st;
+	SeqStackInit(&st, 10);
+
+	SeqStackPush(&st, left);
+	SeqStackPush(&st, right);
+
+	while(SeqStackEmpty(&st))
+	{
+		int begin = 0, end = 0, div = 0;
+		SeqStackPop(&st);
+		begin = SeqStackTop(&st);
+		SeqStackPop(&st);
+		div = _Partition_1(a, begin, end);
+		if(begin < div - 1)
+		{
+			SeqStackPush(&st, begin);
+			SeqStackPush(&st, div - 1);
+		}
+
+		if(div + 1 < end)
+		{
+			SeqStackPush(&st, div + 1);
+			SeqStackPush(&st, end);
+		}
+	}
+	memcpy(a, st.base, left - right + 1);
+}
+
 //归并排序
 void _MergeSort(int *ar, int left, int right, int *tmp)
 {
@@ -426,6 +459,12 @@ void MergeSort(int *ar, int left, int right)
 	tmp = NULL;
 }
 
+//基数排序
+void RadixSort(int *ar, int left, int right)
+{
+	
+}
+
 void TestSort(int *ar, int left, int right)
 {
 	//InsertSort_1(ar, left, right);//插入排序
@@ -438,7 +477,8 @@ void TestSort(int *ar, int left, int right)
 	//BubbleSort_1(ar, left, right);
 	//BubbleSort_2(ar, left, right);
 	//QuickSort(ar, left, right);
-	MergeSort(ar, left, right);
+	QuickSortNonR(ar, left, right);
+	//MergeSort(ar, left, right);
 	PrintArray(ar, left, right);
 }
 

@@ -45,7 +45,7 @@ void SeqStackPush(SeqStack *pst, DataType data);
 void SeqStackShow(SeqStack *pst);
 SeqStack* SeqStackCreate(SeqStack *pst);
 void SeqStackPop(SeqStack *pst);
-int SeqStackTop(SeqStack *pst, DataType *ret);
+DataType SeqStackTop(SeqStack *pst);
 void Destroy(SeqStack *pst);
 
 void SeqStackInit(SeqStack *pst, int sz)
@@ -100,15 +100,14 @@ void SeqStackPop(SeqStack *pst)
 	--(pst->top);
 }
 
-int SeqStackTop(SeqStack *pst, DataType *ret)
+DataType SeqStackTop(SeqStack *pst)
 {
 	if(pst->top == 0)
 	{
 		printf("栈为空，不能取栈顶元素!\n");
-		return 0;
+		return -1;
 	}
-	*ret = pst->base[pst->top-1];
-	return 1;
+	return pst->base[pst->top-1];
 }
 
 void Destroy(SeqStack *pst)
