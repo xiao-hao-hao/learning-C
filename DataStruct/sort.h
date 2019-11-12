@@ -17,6 +17,7 @@ void HeapSort(int *ar, int left, int right);
 void BubbleSort_1(int *ar, int left, int right);
 void BubbleSort_2(int *ar, int left, int right);
 void QuickSort(int *ar, int left, int right);
+void MergeSort(int *ar, int left, int right);
 void TestSort(int *ar, int left, int right);
 void TestSortEfficiency();
 
@@ -100,7 +101,7 @@ void TwoWayInsertSort(int *ar, int left, int right)//二路插入排序  left 和 right
 	int n = right - left + 1;
 	int *tmp = (int*)malloc(sizeof(int) * n);//分配空间消耗大量时间
 	int first, last;//用于作为临时空间的头和尾的标志（临时空间看作循环空间）
-	tmp[0] = ar[left];//假设第一个元素已经排好序
+	tmp[0] = ar[left];//假设第一个元素已经排好序+
 	first = last = 0;
 	for(i=left+1; i<=right; ++i)
 	{
@@ -169,7 +170,6 @@ void ShellSort(int *ar, int left, int right)
 */
 
 //选择排序
-
 int GetMinIndex(int *ar, int left, int right)
 {
 	int min_value = ar[left];
@@ -304,7 +304,6 @@ void BubbleSort_2(int *ar, int left, int right)
 }
 
 //快速排序
-
 int GetMidIndex(int *ar, int left, int right)//返回left、right、mid的中间值
 {
 	int mid = (left+right) / 2;
@@ -315,6 +314,7 @@ int GetMidIndex(int *ar, int left, int right)//返回left、right、mid的中间值
 	return right;
 }
 
+//hoare版本（交换）
 int _Partition_1(int *ar, int left, int right)//划分函数
 {
 	int key = ar[left];//将第一个元素作为基准值
@@ -330,6 +330,7 @@ int _Partition_1(int *ar, int left, int right)//划分函数
 	return left;//返回下一次调用时的位置
 }
 
+//挖坑法（覆盖）
 int _Partition_2(int *ar, int left, int right)
 {
 	int key = ar[left];
@@ -351,12 +352,12 @@ int _Partition_3(int *ar, int left, int right)//将一个中间值作为基准值，可以将数
 	int index = GetMidIndex(ar, left, right);
 	int key = 0;
 	int i = 0;
-	int pos = 0;
+	int pos = 0;//pos和i是两个记录位置的变量
 	if(index != left)//将数组的第一个元素与mid、left、right的中间值交换
 		Swap(&ar[index], &ar[left]);
 	key = ar[left];
 	pos = left;
-	for(i = left+1; i <= right; ++i)
+	for(i = left+1; i <= right; ++i)//前后指针版本
 	{
 		if(ar[i] < key)
 		{
@@ -389,6 +390,42 @@ void QuickSort(int *ar, int left, int right)
 	}
 }
 
+//归并排序
+void _MergeSort(int *ar, int left, int right, int *tmp)
+{
+	int mid = 0;
+	int begin1, end1, begin2, end2, i;
+	if(left >= right)
+		return;
+	mid = (left+right) / 2;
+	_MergeSort(ar, left, mid, tmp);
+	_MergeSort(ar, mid+1, right, tmp);
+	begin1 = left, end1 = mid;
+	begin2 = mid+1, end2 = right;
+	i = 0;
+	while(begin1<=end1 && begin2<=end2)
+	{
+		if(ar[begin1] <= ar[begin2])
+			tmp[i++] = ar[begin1++];
+		else
+			tmp[i++] = ar[begin2++];
+	}
+	while(begin1 <= end1)
+		tmp[i++] = ar[begin1++];
+	while(begin2 <= end2)
+		tmp[i++] = ar[begin2++];
+	memcpy(ar+left, tmp, sizeof(int)*(right-left+1));
+}
+
+void MergeSort(int *ar, int left, int right)
+{
+	int n = right - left + 1;
+	int *tmp = (int*)malloc(sizeof(int) * n);
+	_MergeSort(ar, left, right, tmp);
+	free(tmp);
+	tmp = NULL;
+}
+
 void TestSort(int *ar, int left, int right)
 {
 	//InsertSort_1(ar, left, right);//插入排序
@@ -400,7 +437,8 @@ void TestSort(int *ar, int left, int right)
 	//HeapSort(ar, left, right);
 	//BubbleSort_1(ar, left, right);
 	//BubbleSort_2(ar, left, right);
-	QuickSort(ar, left, right);
+	//QuickSort(ar, left, right);
+	MergeSort(ar, left, right);
 	PrintArray(ar, left, right);
 }
 
@@ -420,6 +458,7 @@ void TestSortEfficiency()
 	int *a8 = (int*)malloc(sizeof(int) * n);
 	int *a9 = (int*)malloc(sizeof(int) * n);
 	int *a10 = (int*)malloc(sizeof(int) * n);
+	int *a11 = (int*)malloc(sizeof(int) * n);
 	srand(time(0));
 	for(i = 0; i < n; ++i)
 	{
@@ -433,6 +472,7 @@ void TestSortEfficiency()
 		a8[i] = a1[i];
 		a9[i] = a1[i];
 		a10[i] = a1[i];
+		a11[i] = a1[i];
 	}
 	start = clock();
 	InsertSort_1(a1, 0, n-1);
@@ -483,5 +523,10 @@ void TestSortEfficiency()
 	QuickSort(a10, 0, n-1);
 	end = clock();
 	printf("QuickSort: %u\n", end - start);
+
+	start = clock();
+	MergeSort(a11, 0, n-1);
+	end = clock();
+	printf("MergeSort: %u\n", end - start);
 }
 #endif
