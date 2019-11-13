@@ -16,7 +16,7 @@ void ListStackInit(ListStack *pst);
 void ListStackPush(ListStack *pst, DataType data);
 void ListStackShow(ListStack pst);
 void ListStackPop(ListStack *pst);
-DataType ListStackTop(ListStack pst);
+int ListStackTop(ListStack pst, DataType *ret);
 void Destroy(ListStack *pst);
 
 
@@ -66,10 +66,14 @@ void ListStackPop(ListStack *pst)
 	p = NULL;
 }
 
-DataType ListStackTop(ListStack *pst)
+int ListStackTop(ListStack *pst, int *ret)
 {
 	if(pst != NULL)
-		return (*pst)->data;
+	{
+		*ret = (*pst)->data;
+		return 1;
+	}
+	return 0;
 }
 
 void Destroy(ListStack *pst)

@@ -2,7 +2,7 @@
 #define _SORT_H
 
 #include "common.h"
-#include "seqstack.h"
+#include "liststack.h"
 
 #define M 5
 
@@ -393,34 +393,35 @@ void QuickSort(int *ar, int left, int right)
 }
 
 //快速排序非递归实现
-void QuickSortNonR(int *a, int left, int right)
+void QuickSortNonR(int *ar, int left, int right)
 {
-	SeqStack st;
-	SeqStackInit(&st, 10);
+	ListStack st;//栈用来存放每次划分的下标
+	ListStackInit(&st);
 
-	SeqStackPush(&st, left);
-	SeqStackPush(&st, right);
+	ListStackPush(&st, left);
+	ListStackPush(&st, right);
 
-	while(SeqStackEmpty(&st))
+	while(!ListStackEmpty(&st))
 	{
-		int begin = 0, end = 0, div = 0;
-		SeqStackPop(&st);
-		begin = SeqStackTop(&st);
-		SeqStackPop(&st);
-		div = _Partition_1(a, begin, end);
-		if(begin < div - 1)
+		int begin = 0, end = 0, pos = 0;
+		ListStackTop(&st, &end);
+		ListStackPop(&st);
+		ListStackTop(&st, &begin);
+		ListStackPop(&st);
+		pos = _Partition_1(ar, begin, end);
+		if(begin < pos - 1)
 		{
-			SeqStackPush(&st, begin);
-			SeqStackPush(&st, div - 1);
+			ListStackPush(&st, begin);
+			ListStackPush(&st, pos - 1);
 		}
 
-		if(div + 1 < end)
+		if(pos + 1 < end)
 		{
-			SeqStackPush(&st, div + 1);
-			SeqStackPush(&st, end);
+			ListStackPush(&st, pos + 1);
+			ListStackPush(&st, end);
 		}
 	}
-	memcpy(a, st.base, left - right + 1);
+	Destroy(&st);
 }
 
 //归并排序
