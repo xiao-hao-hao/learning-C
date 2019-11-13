@@ -20,6 +20,7 @@ void BubbleSort_2(int *ar, int left, int right);
 void QuickSort(int *ar, int left, int right);
 void MergeSort(int *ar, int left, int right);
 void QuickSortNonR(int *ar, int left, int right);
+void CountSort(int *ar, int left, int right);
 void TestSort(int *ar, int left, int right);
 void TestSortEfficiency();
 
@@ -460,11 +461,48 @@ void MergeSort(int *ar, int left, int right)
 	tmp = NULL;
 }
 
+//计数排序
+int _GetMaxVal(int *ar, int left, int right)//返回数组中最大的数
+{
+	int max_val = ar[left];
+	while(++left <= right)
+	{
+		if(ar[left] > max_val)
+			max_val = ar[left];
+	}
+	return max_val;
+}
+
+void CountSort(int *ar, int left, int right)
+{
+	int begin = left;
+	int end = right;
+	int n = _GetMaxVal(ar, begin, end);
+	int *tmp = (int*)calloc(sizeof(int), n+1);
+	while(begin <= end)
+	{
+		++(tmp[ar[begin]]);
+		++begin;
+	}
+	for(begin = 0; begin <= n; ++begin)
+	{
+		while(tmp[begin] > 0)
+		{
+			ar[left++] = begin;
+			--(tmp[begin]);
+		}
+	}
+	free(tmp);
+	tmp = NULL;
+}
+
 //基数排序
 void RadixSort(int *ar, int left, int right)
 {
 	
 }
+
+
 
 void TestSort(int *ar, int left, int right)
 {
@@ -478,8 +516,9 @@ void TestSort(int *ar, int left, int right)
 	//BubbleSort_1(ar, left, right);
 	//BubbleSort_2(ar, left, right);
 	//QuickSort(ar, left, right);
-	QuickSortNonR(ar, left, right);
+	//QuickSortNonR(ar, left, right);
 	//MergeSort(ar, left, right);
+	CountSort(ar, left, right);
 	PrintArray(ar, left, right);
 }
 
@@ -500,6 +539,8 @@ void TestSortEfficiency()
 	int *a9 = (int*)malloc(sizeof(int) * n);
 	int *a10 = (int*)malloc(sizeof(int) * n);
 	int *a11 = (int*)malloc(sizeof(int) * n);
+	int *a12 = (int*)malloc(sizeof(int) * n);
+	int *a13 = (int*)malloc(sizeof(int) * n);
 	srand(time(0));
 	for(i = 0; i < n; ++i)
 	{
@@ -514,6 +555,8 @@ void TestSortEfficiency()
 		a9[i] = a1[i];
 		a10[i] = a1[i];
 		a11[i] = a1[i];
+		a12[i] = a1[i];
+		a13[i] = a1[i];
 	}
 	start = clock();
 	InsertSort_1(a1, 0, n-1);
@@ -566,8 +609,18 @@ void TestSortEfficiency()
 	printf("QuickSort: %u\n", end - start);
 
 	start = clock();
-	MergeSort(a11, 0, n-1);
+	QuickSortNonR(a11, 0, n-1);
+	end = clock();
+	printf("QuickSortNonR: %u\n", end - start);
+
+	start = clock();
+	MergeSort(a12, 0, n-1);
 	end = clock();
 	printf("MergeSort: %u\n", end - start);
+
+	start = clock();
+	CountSort(a13, 0, n-1);
+	end = clock();
+	printf("CountSort: %u\n", end - start);
 }
 #endif
