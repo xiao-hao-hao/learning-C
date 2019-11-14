@@ -499,11 +499,11 @@ void CountSort(int *ar, int left, int right)
 
 //基数排序
 #include "slist.h"
-#define RADIX 10
-#define K 3
-SList list[RADIX];
+#define RADIX 10  //0 -- 9
+#define K 3  //最大的数为三位数
+SList list[RADIX];//建立一个数组，数组元素为SList类型
 
-int GetKey(int value, int k)
+int GetKey(int value, int k)//获得该数的关键值
 {
 	int key = 0;
 	while(k >= 0)
@@ -512,22 +512,27 @@ int GetKey(int value, int k)
 		value /= 10;
 		--k;
 	}
-	return key;
+	return key;//分别返回个位、十位、百位的数字
 }
 
+//分发函数
+//第一次将个位数相同的数依次入栈
+//第二次将十位数相同的数依次入栈
+//第三次将百位数相同的数依次入栈
 void Distribute(int *ar, int left, int right, int k)
 {
 	int i = 0;
 	for(i = left; i <= right; ++i)
 	{
 		int key = GetKey(ar[i], k);
-		SListPushBack(&list[key], ar[i]);
+		SListPushBack(&list[key], ar[i]);//将数组的元素分别入对应的栈
 	}
 }
 
-void Collect(int *ar)
+//回收函数
+void Collect(int *ar, int left, int right)//将多个栈从左到右依次回收
 {
-	int k = 0;
+	int k = left;//回收的起始位置
 	int i = 0;
 	for(i = 0; i < RADIX; ++i)
 	{
@@ -554,12 +559,13 @@ void RadixSort(int *ar, int left, int right)
 	{
 		SListInit(&list[i]);
 	}
-	for(i = 0; i < K; ++i)
+	//注意必须从低位开始作为关键字进行比较
+	for(i = 0; i < K; ++i)//循环3次代表最大数为3位数
 	{
 		//1 分发
 		Distribute(ar, left, right, i);
 		//2 回收
-		Collect(ar);
+		Collect(ar, left, right);
 	}
 }
 
