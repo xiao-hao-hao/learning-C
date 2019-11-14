@@ -15,6 +15,11 @@ typedef struct SList
 	int size;
 }SList;
 
+int SListEmpty(SList *plist)
+{
+	return plist->size == 0;
+}
+
 void SListInit(SList *plist);
 SListNode* _Buynode(DataType data);
 void SListDestroy(SList *plist);
@@ -315,15 +320,6 @@ void SListReverse(SList *plist)
 //		}
 //	}
 //}
-
-
-void Swap(DataType *p1, DataType *p2)
-{
-	DataType tmp;
-	tmp = *p1;
-	*p1 = *p2;
-	*p2 = tmp;
-}
 
 //方法2
 //冒泡排序（单链表很少采用冒泡排序，因为这样只交换值，没有改变节点之间的指向）

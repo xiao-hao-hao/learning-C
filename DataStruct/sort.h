@@ -6,7 +6,7 @@
 
 #define M 5
 
-void Swap(int *a, int *b);
+void Swap(DataType *a, DataType *b);
 void PrintArray(int *ar, int left, int right);
 void InsertSort_1(int *ar, int left, int right);//插入排序
 void InsertSort_2(int *ar, int left, int right);
@@ -21,6 +21,7 @@ void QuickSort(int *ar, int left, int right);
 void MergeSort(int *ar, int left, int right);
 void QuickSortNonR(int *ar, int left, int right);
 void CountSort(int *ar, int left, int right);
+void RadixSort(int *ar, int left, int right);
 void TestSort(int *ar, int left, int right);
 void TestSortEfficiency();
 
@@ -497,9 +498,69 @@ void CountSort(int *ar, int left, int right)
 }
 
 //基数排序
+#include "slist.h"
+#define RADIX 10
+#define K 3
+SList list[RADIX];
+
+int GetKey(int value, int k)
+{
+	int key = 0;
+	while(k >= 0)
+	{
+		key = value % 10;
+		value /= 10;
+		--k;
+	}
+	return key;
+}
+
+void Distribute(int *ar, int left, int right, int k)
+{
+	int i = 0;
+	for(i = left; i <= right; ++i)
+	{
+		int key = GetKey(ar[i], k);
+		SListPushBack(&list[key], ar[i]);
+	}
+}
+
+void Collect(int *ar)
+{
+	int k = 0;
+	int i = 0;
+	for(i = 0; i < RADIX; ++i)
+	{
+		if(!SListEmpty(&list[i]))
+		{
+			SListNode *p = list[i].first->next;
+			while(p != NULL)
+			{
+				ar[k++] = p->data;
+				p = p->next;
+			}
+		}
+	}
+	for(i = 0; i < RADIX; ++i)
+	{
+		SListClear(&list[i]);
+	}
+}
+
 void RadixSort(int *ar, int left, int right)
 {
-	
+	int i = 0;
+	for(i = 0; i < RADIX; ++i)
+	{
+		SListInit(&list[i]);
+	}
+	for(i = 0; i < K; ++i)
+	{
+		//1 分发
+		Distribute(ar, left, right, i);
+		//2 回收
+		Collect(ar);
+	}
 }
 
 
@@ -518,7 +579,8 @@ void TestSort(int *ar, int left, int right)
 	//QuickSort(ar, left, right);
 	//QuickSortNonR(ar, left, right);
 	//MergeSort(ar, left, right);
-	CountSort(ar, left, right);
+	//CountSort(ar, left, right);
+	RadixSort(ar, left, right);
 	PrintArray(ar, left, right);
 }
 
@@ -541,6 +603,7 @@ void TestSortEfficiency()
 	int *a11 = (int*)malloc(sizeof(int) * n);
 	int *a12 = (int*)malloc(sizeof(int) * n);
 	int *a13 = (int*)malloc(sizeof(int) * n);
+	int *a14 = (int*)malloc(sizeof(int) * n);
 	srand(time(0));
 	for(i = 0; i < n; ++i)
 	{
@@ -557,6 +620,7 @@ void TestSortEfficiency()
 		a11[i] = a1[i];
 		a12[i] = a1[i];
 		a13[i] = a1[i];
+		a14[i] = a1[i];
 	}
 	start = clock();
 	InsertSort_1(a1, 0, n-1);
@@ -622,5 +686,10 @@ void TestSortEfficiency()
 	CountSort(a13, 0, n-1);
 	end = clock();
 	printf("CountSort: %u\n", end - start);
+
+	start = clock();
+	RadixSort(a14, 0, n-1);
+	end = clock();
+	printf("RadixSort: %u\n", end - start);
 }
 #endif
