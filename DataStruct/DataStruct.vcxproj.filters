@@ -60,6 +60,9 @@
     <ClInclude Include="sort.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="hashtable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="seqlist.c">
@@ -102,6 +105,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="sort.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hashtable.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

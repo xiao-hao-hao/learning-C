@@ -1,3 +1,5 @@
+#if 0
+
 #define _CRT_SECURE_NO_WARNINGS 1
 #include "sort.h"
 
@@ -13,3 +15,5 @@ int main()
 	TestSortEfficiency();
 	return 0;
 }
+
+#endif
