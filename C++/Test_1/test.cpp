@@ -1,6 +1,6 @@
-#include <iostream>
+//#include <iostream>
 
-using namespace std;
+//using namespace std;
 /*
 namespace myspace
 {
@@ -96,7 +96,7 @@ int main()
 	return 0;
 }
 */
-
+/*
 int& Add(int a, int b)
 {
 	int c = a + b;
@@ -111,5 +111,12 @@ int main()
 	double d = 12.34;
 	const int &rd = d;
 	cout << rd << endl;
+	return 0;
+}
+*/
+int ADD(int left, int right);
+int main()
+{
+	ADD(1, 2);
 	return 0;
 }
