@@ -1,19 +1,24 @@
-﻿生成启动时间为 2019/11/23 23:04:54。
+﻿生成启动时间为 2019/11/24 22:06:22。
      1>项目“E:\比特\learning-C\C++\Test_1\Test_1.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
-         正在对“Debug\Test_1.unsuccessfulbuild”执行 Touch 任务。
+         正在创建“Debug\Test_1.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
          d:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt test.cpp
          test.cpp
-         d:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt test1.c
-         test1.c
+     1>e:\比特\learning-c\c++\test_1\test.cpp(242): warning C4244: “初始化”: 从“double”转换到“const int”，可能丢失数据
+         所有输出均为最新。
        Link:
          d:\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\比特\learning-C\C++\Test_1\Debug\Test_1.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Test_1.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\比特\learning-C\C++\Test_1\Debug\Test_1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\比特\learning-C\C++\Test_1\Debug\Test_1.lib" /MACHINE:X86 Debug\test.obj
          Debug\test1.obj
-     1>test.obj : error LNK2019: 无法解析的外部符号 "int __cdecl ADD(int,int)" (?ADD@@YAHHH@Z)，该符号在函数 _main 中被引用
-     1>E:\比特\learning-C\C++\Test_1\Debug\Test_1.exe : fatal error LNK1120: 1 个无法解析的外部命令
-     1>已完成生成项目“E:\比特\learning-C\C++\Test_1\Test_1.vcxproj”(build 个目标)的操作 - 失败。
+         LINK : 没有找到 E:\比特\learning-C\C++\Test_1\Debug\Test_1.exe 或上一个增量链接没有生成它；正在执行完全链接
+         Test_1.vcxproj -> E:\比特\learning-C\C++\Test_1\Debug\Test_1.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\比特\learning-C\C++\Test_1\Debug\Test_1.exe;#1" /manifest Debug\Test_1.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         正在删除文件“Debug\Test_1.unsuccessfulbuild”。
+         正在对“Debug\Test_1.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“E:\比特\learning-C\C++\Test_1\Test_1.vcxproj”(build 个目标)的操作。
 
-生成失败。
+生成成功。
 
-已用时间 00:00:00.32
+已用时间 00:00:01.06

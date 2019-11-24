@@ -1,6 +1,6 @@
-//#include <iostream>
+#include <iostream>
 
-//using namespace std;
+using namespace std;
 /*
 namespace myspace
 {
@@ -114,9 +114,133 @@ int main()
 	return 0;
 }
 */
-int ADD(int left, int right);
+
+/*
+#include <time.h>
+
+struct A
+{
+	int a[10000];
+};
+
+void TestFunc1(A a)
+{}
+
+void TestFunc2(A &a)
+{}
+
+void Test()
+{
+	A a;
+	//以值作为函数参数
+	size_t begin1 = clock();
+	for(size_t i = 0; i < 10000000; ++i)
+	{
+		TestFunc1(a);
+	}
+	size_t end1 = clock();
+
+	//以引用作为函数参数
+	size_t begin2 = clock();
+	for(size_t i = 0; i < 10000000; ++i)
+	{
+		TestFunc2(a);
+	}
+	size_t end2 = clock();
+
+	//分别计算两个函数运行时间
+	cout << "TestFunc1(A a)-time:" << end1 - begin1 << endl;
+	cout << "TestFunc2(A &a)-time:" << end2 - begin2 << endl;
+}
+
 int main()
 {
-	ADD(1, 2);
+	Test();
+	return 0;
+}
+*/
+/*
+#include <time.h>
+
+struct A
+{
+	int a[10000];
+};
+
+A a;
+
+A TestFunc1()
+{
+	return a;
+}
+
+A& TestFunc2()
+{
+	return a;
+}
+
+void Test()
+{
+	A a;
+	//以值作为函数的返回值类型
+	size_t begin1 = clock();
+	for(size_t i = 0; i < 100000; ++i)
+	{
+		TestFunc1();
+	}
+	size_t end1 = clock();
+
+	//以引用作为函数的返回值类型
+	size_t begin2 = clock();
+	for(size_t i = 0; i < 100000; ++i)
+	{
+		TestFunc2();
+	}
+	size_t end2 = clock();
+
+	//分别计算两个函数运行时间
+	cout << "TestFunc1()-time:" << end1 - begin1 << endl;
+	cout << "TestFunc2()-time:" << end2 - begin2 << endl;
+}
+
+int main()
+{
+	Test();
+	return 0;
+}
+*/
+
+//int main()
+//{
+//	int a = 10;
+//	int &ra = a;
+//	cout << "&a = " << &a << endl;
+//	cout << "&ra = " << &ra << endl;
+//	return 0;
+//}
+
+//int main()
+//{
+//	double a = 10;
+//	double &ra = a;
+//	ra = 20;
+//	double *pa = &a;
+//	*pa = 20;
+//	int b[10];
+//	//int (&rb)[10] = b;
+//	//int &rb = b[0];
+//	cout << sizeof(ra) << " " << sizeof(pa) << " "<< sizeof(rb) << endl;
+//	return 0;
+//}
+
+int main()
+{
+	double a = 12.34;
+	//int &ra = (int)a;//报错
+	//int &ra = (int&)a;//不报错
+	//int &ra = a;//报错
+	const int &ra = a;
+	a = 18.99;
+	cout <<  a << " " << ra << endl;
 	return 0;
 }
