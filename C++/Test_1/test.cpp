@@ -232,7 +232,7 @@ int main()
 //	cout << sizeof(ra) << " " << sizeof(pa) << " "<< sizeof(rb) << endl;
 //	return 0;
 //}
-
+/*
 int main()
 {
 	double a = 12.34;
@@ -242,5 +242,85 @@ int main()
 	const int &ra = a;
 	a = 18.99;
 	cout <<  a << " " << ra << endl;
+	return 0;
+}
+*/
+
+//#include "test1.h"
+////inline int Add(int left, int right);
+//
+////int Add(int left, int right)
+////{
+////	return left + right;
+////}
+//
+//int main()
+//{
+//	int ret = 0;
+//	auto a = ret;
+//	ret = Add(1, 2);
+//	return 0;
+//}
+
+//int main()
+//{
+//	int x = 10;
+//	auto a = &x;
+//	auto *b = &x;
+//	auto c = x;
+//	cout << typeid(a).name() << endl;
+//	cout << typeid(b).name() << endl;
+//	cout << typeid(c).name() << endl;
+//	return 0;
+//}
+/*
+void TestFor()
+{
+	int array[] = {1, 2, 3, 4, 5};
+	for(int i = 0; i < sizeof(array)/sizeof(array[0]); ++i)
+		array[i] *= 2;
+	for(int *p = array; p < array + sizeof(array)/sizeof(array[0]); ++p)
+		cout << *p << endl;
+}
+
+void TestFor_1()
+{
+	int array[] = {1, 2, 3, 4, 5};
+	for(auto &e : array)
+		e *= 2;
+	for(auto e : array)
+		cout << e << endl;
+}
+
+int main()
+{
+	//TestFor();
+	TestFor_1();
+	return 0;
+}
+*/
+
+void f(int)
+{
+	cout << "f(int)" << endl;
+}
+
+void f(char*)
+{
+	cout << "f(int*)" << endl;
+}
+
+void f(nullptr_t)//当没有这个重载函数的时候，f(nullptr)会找其他参数为指针变量（无所谓什么指针）的重载函数，但是如果有多个符合时会报错。
+{
+	cout << "f(nullptr_t)" << endl;
+}
+
+int main()
+{
+	f(0);
+	f(NULL);
+	//f((int*)NULL);
+	cout << sizeof(nullptr) <<endl;
+	f(nullptr);
 	return 0;
 }
