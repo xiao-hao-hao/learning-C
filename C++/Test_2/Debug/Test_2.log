@@ -1,11 +1,14 @@
-﻿生成启动时间为 2019/11/28 10:51:38。
+﻿生成启动时间为 2019/11/30 22:20:01。
      1>项目“E:\比特\learning-C\C++\Test_2\Test_2.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
          正在创建“Debug\Test_2.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
          d:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt test.cpp
          test.cpp
-     1>e:\比特\learning-c\c++\test_2\test.cpp(280): warning C4269: “d2”: 用编译器生成的默认构造函数初始化的“const”自动数据产生不可靠的结果
+     1>e:\比特\learning-c\c++\test_2\test.cpp(354): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>e:\比特\learning-c\c++\test_2\test.cpp(368): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
        Link:
          d:\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\比特\learning-C\C++\Test_2\Debug\Test_2.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Test_2.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\比特\learning-C\C++\Test_2\Debug\Test_2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\比特\learning-C\C++\Test_2\Debug\Test_2.lib" /MACHINE:X86 Debug\test.obj
          LINK : 没有找到 E:\比特\learning-C\C++\Test_2\Debug\Test_2.exe 或上一个增量链接没有生成它；正在执行完全链接
@@ -19,4 +22,4 @@
 
 生成成功。
 
-已用时间 00:00:04.11
+已用时间 00:00:01.57

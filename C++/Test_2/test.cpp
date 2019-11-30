@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS 1
+//#define _CRT_SECURE_NO_WARNINGS 1
 
 #include <iostream>
 using namespace std;
@@ -244,11 +244,12 @@ private:
 int main()
 {
 	String s1("hello");
-	String s2(s1);
+	String s2(s1);//掉用默认复制构造函数，传地址s2._str = s1._str;,同一块地址释放了两次。所以报错
 	return 0;
 }
 */
 
+/*
 class Date
 {
 public:
@@ -281,3 +282,105 @@ int main()
 	d2.Display();
 	return 0;
 }
+*/
+/*
+class Date
+{
+public:
+	Date(int year = 1900, int month = 1, int day = 1)
+	{
+		_year = year;
+		_month = month;
+		_day = day;
+	}
+	int operator==(const Date& d2)
+	{
+		return _year == d2._year
+			&& _month == d2._month
+			&& _day == d2._day;
+	}
+private:
+	int _year;
+	int _month;
+	int _day;	
+};
+
+void Test()
+{
+	Date d1(2018, 9, 26);
+	Date d2(2018, 9, 26);
+	cout << (d1 == d2) << endl;
+}
+
+int main()
+{
+	Test();
+	return 0;
+}
+*/
+/*
+class String
+{
+public:
+	String(const char* str = "")
+	{
+		_str = (char*)malloc(strlen(str) + 1);
+		strcpy(_str, str);
+	}
+	~String()
+	{
+		cout << "~String()" << endl;
+		free(_str);
+	}
+private:
+	char *_str;
+};
+
+int main()
+{
+	String s1("hello");
+	String s2("world");
+	s1 = s2;//同一块空间释放两次
+	return 0;
+}
+*/
+/*
+class String
+{
+public:
+	String(const char* str = "")
+	{
+		_str = (char*)malloc(strlen(str) + 1);
+		strcpy(_str, str);
+	}
+	~String()
+	{
+		cout << "~String()" << endl;
+		free(_str);
+	}
+	String& operator=(const String &s)
+	{
+		if(this != &s)//1.自我赋值检测
+		{
+			free(_str);//2.释放当前对象空间
+			//3.重新开辟空间并赋值
+			_str = (char*)malloc(strlen(s._str) + 1);
+			strcpy(_str, s._str);
+		}
+		return *this;//4.返回当前对象是为了可以连等
+	}
+private:
+	char *_str;
+};
+
+int main()
+{
+	String s1("hello");
+	String s2("world");
+	String &s3 = s1;
+	cout << &s1 << &s1 << endl;
+	s3 = s1 = s2;//同一块空间释放两次s1.operator=(s2)//operator(&s1, s2)//s3.operator=(s1.operatoe=(s2))
+	return 0;
+}
+*/
+

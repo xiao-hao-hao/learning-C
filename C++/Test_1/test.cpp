@@ -273,7 +273,7 @@ int main()
 //	cout << typeid(c).name() << endl;
 //	return 0;
 //}
-/*
+
 void TestFor()
 {
 	int array[] = {1, 2, 3, 4, 5};
@@ -285,10 +285,10 @@ void TestFor()
 
 void TestFor_1()
 {
-	int array[] = {1, 2, 3, 4, 5};
-	for(auto &e : array)
+	int ar[] = {1, 2, 3, 4, 5};
+	for(auto &e : ar)
 		e *= 2;
-	for(auto e : array)
+	for(auto e : ar)
 		cout << e << endl;
 }
 
@@ -298,8 +298,8 @@ int main()
 	TestFor_1();
 	return 0;
 }
-*/
 
+/*
 void f(int)
 {
 	cout << "f(int)" << endl;
@@ -324,3 +324,4 @@ int main()
 	f(nullptr);
 	return 0;
 }
+*/
