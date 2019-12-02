@@ -378,12 +378,33 @@ int main()
 	return 0;
 }
 */
+/*
+int main()
+{
+	//const Test t(10);
+	//const Test *pt = &t;
+	//cout << t << endl;
+	//t.Print();
+	return 0;
+}
+*/
+
+class Date
+{
+public:
+	Date(int year, int month, int day)
+		: _year(_month)
+		, _month(year)
+		, _day(day)
+	{}
+private:
+	int _year;
+	int _month;
+	int _day;
+};
 
 int main()
 {
-	const Test t(10);
-	const Test *pt = &t;
-	cout << t << endl;
-	t.Print();
+	Date d1(1, 2, 3);//year为随机值，因为先对_year赋值，但是_month的值不确定，所以_year被赋予一个随机值
 	return 0;
 }
