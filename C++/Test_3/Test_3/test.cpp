@@ -190,6 +190,7 @@ int main()
 }
 #endif
 
+/*
 class Complex
 {
 	friend ostream& operator<<(ostream &out, const Complex &c);
@@ -248,5 +249,141 @@ int main()
 	Complex c2(3, 4);
 	cout << c1 += c2 << endl;
 	cout << c2 << endl;
+	return 0;
+}
+*/
+
+/*
+class Complex;//类声明
+void Print(const Complex &c);
+
+class Complex
+{
+
+	friend void Print(const Complex &c);
+public:
+	Complex(int real = 0, int imag = 0) : m_real(real), m_imag(imag)//变量初始化
+	{}
+	~Complex()
+	{}
+public:
+	int GetReal()const
+	{
+		return m_real;
+	}
+	int GetImage()const
+	{
+		return m_imag;
+	}
+private:
+	int m_real;
+	int m_imag;
+};
+
+void Print(const Complex &c)
+{
+	cout << "(" << c.m_real << "," << c.m_imag << ")" << endl;
+	//cout << "(" << c.GetReal() << "," << c.GetImage() << endl;
+}
+
+int main()
+{
+	Complex c1(1, 2);
+	Complex c2(3, 4);
+	Print(c1);
+	Print(c2);
+	return 0;
+}
+
+*/
+
+class Test
+{
+	friend ostream& operator<<(ostream &out, const Test &t);
+public:
+	Test(int data = 0);//函数声明
+	Test(const Test &t);
+	Test& operator=(const Test &t);
+	~Test();
+public:
+	Test* operator&();
+	const Test* operator&()const;
+public:
+	Test Add(const Test &t)
+	{
+		int sum = m_data + t.m_data;
+		Test tmp(sum);
+		return tmp;
+	}
+	Test operator+(const Test &t)
+	{
+		int sum = m_data + t.m_data;
+		Test tmp(sum);
+		return tmp;
+	}
+public:
+	void Print()const
+	{
+		cout << m_data << endl;
+	}
+private:
+	int m_data;
+};
+
+Test::Test(int data) : m_data(data)
+{
+	//m_data = data;
+}
+
+Test::Test(const Test &t)
+{
+	m_data = t.m_data;
+}
+
+Test& Test::operator=(const Test &t)
+{
+	if (this != &t)
+	{
+		m_data = t.m_data;
+	}
+	return *this;
+}
+
+Test::~Test()
+{}
+
+Test* Test::operator&()
+{
+	return this;
+}
+
+const Test* Test::operator&()const
+{
+	return this;
+}
+
+ostream& operator<<(ostream &out, const Test &t)
+{
+	out << t.m_data;
+	return out;
+}
+/*
+int main()
+{
+	Test t1(100);
+	Test t2(20);
+	//Test t = t1 + t2;
+	Test t = t1.operator+(t2);
+	cout << t << endl;
+	return 0;
+}
+*/
+
+int main()
+{
+	const Test t(10);
+	const Test *pt = &t;
+	cout << t << endl;
+	t.Print();
 	return 0;
 }
