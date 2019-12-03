@@ -386,9 +386,9 @@ int main()
 	//cout << t << endl;
 	//t.Print();
 	return 0;
-}
-*/
+}*/
 
+/*
 class Date
 {
 public:
@@ -408,3 +408,152 @@ int main()
 	Date d1(1, 2, 3);//year为随机值，因为先对_year赋值，但是_month的值不确定，所以_year被赋予一个随机值
 	return 0;
 }
+*/
+
+/*
+class A
+{
+
+public:
+	A()
+	{
+		++_count;
+	}
+	A(const A &t)
+	{
+		++_count;
+	}
+	static int GetACount()
+	{
+		return _count;
+	}
+private:
+	static int _count;
+};
+
+int A::_count = 0;
+
+void TestA()
+{
+	cout << A::GetACount() << endl;
+	A a1, a2;
+	A a3(a1);
+	cout << a1.GetACount() << endl;
+	cout << A::GetACount() << endl;
+}
+
+int main()
+{
+	TestA();
+	return 0;
+}
+*/
+/*
+class Date
+{
+public:
+	Date(int year, int month, int day)
+		: _year(year)
+		, _month(month)
+		, _day(day)
+	{}
+	ostream& operator<<(ostream& _cout)
+	{
+		_cout << this->_year << "-" << this->_month << "-" << this->_day;
+		return _cout;
+	}
+private:
+	int _year;
+	int _month;
+	int _day;
+};
+
+int main()
+{
+	Date d(2019, 12, 5);
+	d << cout;
+	return 0;
+}
+*/
+/*
+class Date
+{
+	friend ostream& operator<<(ostream &_cout, const Date &d);
+	friend istream& operator>>(istream &_cin, Date &d);
+public:
+	Date(int year, int month, int day)
+		: _year(year)
+		, _month(month)
+		, _day(day)
+	{}
+private:
+	int _year;
+	int _month;
+	int _day;
+};
+
+ostream& operator<<(ostream& _cout, const Date &d)
+{
+	_cout << d._year << "-" << d._month << "-" << d._day;
+	return _cout;
+}
+
+istream& operator>>(istream &_cin, Date &d)
+{
+	_cin >> d._year;
+	_cin >> d._month;
+	_cin >> d._day;
+	return _cin;
+}
+
+int main()
+{
+	//Date d(2019, 12, 5);
+	Date d(1, 1, 1);
+	cin >> d;
+	cout << d << endl;
+	return 0;
+}
+*/
+/*
+class A
+{
+public:
+	class B
+	{
+	public:
+		void foo(const A &a)
+		{
+			cout << k << endl;
+			cout << a.h << endl;
+		}
+	};
+private:
+	static int k;
+	int h = 6;
+};
+
+int A::k = 1;
+int main()
+{
+	A::B b;
+	b.foo(A());
+	return 0;
+}
+*/
+/*
+struct A
+{
+	int a[10];
+	struct
+	{
+		int b;
+	};
+};
+
+int main()
+{
+	//cout << sizeof(A) << endl;
+	return 0;
+}
+*/
