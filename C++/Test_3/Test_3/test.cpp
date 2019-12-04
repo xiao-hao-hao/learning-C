@@ -557,3 +557,162 @@ int main()
 	return 0;
 }
 */
+
+#include <iostream>
+using namespace std;
+/*
+class Date
+{
+public:
+Date(int year = 1900, int month = 1, int day = 1);
+Date(const Date& d);
+Date& operator=(const Date& d);
+Date operator+(int days);
+Date operator-(int days);
+int operator-(const Date& d);
+Date& operator++();
+Date operator++(int);
+Date& operator--();
+Date operator--(int);
+bool operator>(const Date& d)const;
+bool operator>=(const Date& d)const;
+bool operator<(const Date& d)const;
+bool operator<=(const Date& d)const;
+bool operator==(const Date& d)const;
+bool operator!=(const Date& d)const;
+private:
+int _year;
+int _month;
+int _day;
+};
+*/
+
+/*
+class ListNode
+{
+friend class List;
+public:
+ListNode() : m_data(0), next(nullptr)
+{}
+ListNode(int data, ListNode *n = nullptr)
+: m_data(data), next(n)
+{}
+~ListNode()
+{}
+private:
+int m_data;
+ListNode *next;
+};
+
+class List
+{
+public:
+List() : head(nullptr)
+{}
+public:
+void push_back(const int &x)
+{
+ListNode *s = (ListNode*)malloc(sizeof(ListNode));
+s->m_data = x;
+s->next = nullptr;
+if (head == nullptr)
+head = s;
+else
+{
+ListNode *p = head;
+while (p->next != nullptr)
+p = p->next;
+p->next = s;
+}
+}
+public:
+class iterator
+{
+public:
+iterator(ListNode *p) : ptr(p)
+{}
+public:
+iterator begin()
+{
+return ptr;
+}
+private:
+ListNode *ptr;
+};
+private:
+ListNode *head;
+};
+
+
+
+int main()
+{
+List mylist;
+mylist.push_back(1);
+mylist.push_back(2);
+mylist.push_back(3);
+mylist.push_back(4);
+return 0;
+}
+*/
+/*
+class Test
+{
+friend ostream& operator<<(ostream &out, const Test &t);
+public:
+explicit Test(int data = 0)
+: m_data(data)
+{
+m_count++;
+}
+~Test()
+{
+m_count--;
+}
+private:
+int m_data;
+static int m_count;
+};
+
+int Test::m_count = 0;
+
+ostream& operator<<(ostream &out, const Test &t)
+{
+out << t.m_data;
+return out;
+}
+int main()
+{
+Test t(100);
+cout << "t = " << t << endl;
+return 0;
+}
+*/
+
+class Base
+{
+public:
+	Base(int x, int y) : a(x), b(y)
+	{}
+private:
+	int a;
+	int b;
+};
+
+class Test
+{
+public:
+	Test(int data) : m_data(1), base(1, 2), ref(data)//类类型成员必须在初始化列表中初始化
+	{}
+private:
+	int m_data;
+	int &ref;
+	const int count = 0;
+	Base base;
+};
+
+int main()
+{
+	Test t(10);
+	return 0;
+}
