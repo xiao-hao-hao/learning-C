@@ -52,3 +52,11 @@ create table numtest(
 insert into numtest(uti) value(300);
 insert into numtest(ubi) value(-1);
 insert into numtest(si) value(50000);
+
+
+create table users(
+     id int,
+     name varchar(20) comment '用户名',
+     password char(32) comment '密码是32位的md5值',
+     birthday date comment '生日'
+)character set utf8 engine MyISAM;
