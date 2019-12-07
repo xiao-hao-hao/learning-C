@@ -72,3 +72,55 @@ create table votes(
 
 insert into votes values('雷锋', 15, '男');
 select find_in_set('b', 'a, b, c');
+
+create table myclass(
+	class_name varchar (20) not null,
+	class_room varchar (10) not null
+);
+
+create table tt10(
+	name varchar(20) not NULL,
+	age tinyint unsigned default 0,
+	sex char(2) default '男'
+);
+
+create table tt13(
+	name varchar(20) not NULL,
+	age tinyint unsigned,
+	sex char(2)
+);
+
+create table tt12(
+	name varchar(20) not NULL comment '姓名',
+	age tinyint unsigned default 0 comment '年龄',
+	sex char(2) default '男' comment '性别'
+);
+
+create table tt13(
+	id int unsigned primary key comment '学号不能为空',
+	name varchar(20) not null
+);
+
+create table tt14(
+	id int unsigned,
+	course char(10) comment '课程代码',
+	score tinyint unsigned default 60 comment '成绩',
+	primary key(id, course) -- id和course为复合主键
+);
+
+insert into tt13 values(1, 'aaa');
+insert into tt13 values(1, 'aaa');
+
+create table tt21(
+	id int unsigned primary key auto_increment,
+	name varchar(10) not null default ''
+);
+
+create table student(
+	id char(10) unique comment '学号， 不能重复， 但可以为空',
+	name varchar(10)
+);
+
+insert into student(id, name) values ('01', 'aaa');
+insert into student(id, name) values ('01', 'bbb');
+insert into student(id, name) values ('null', 'bbb');
