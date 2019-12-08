@@ -1,0 +1,126 @@
+create database class81;
+
+use class81;
+
+create table test(
+	id int,
+	name char(20)
+);
+
+insert into test value(1, "蔡徐坤"), (2, "乔碧萝");
+
+
+--[] {} |
+
+--[] 可省略字段
+--{} 不可省略字段
+--|  多选一
+
+--A [B | C | D] E {F | G} [H]
+
+
+create database if not exists test2 charset=gbk;
+
+create database if not exists test2 collate utf8_bin;
+
+
+insert into test value(1, "A"), (2, "a"), (3, "B"), (4, "b");
+
+--bit
+
+create table bittest(b bit(32));
+
+
+create table numtest(
+	uti tinyint unsigned,
+	ti tinyint,
+	usi smallint unsigned,
+	si smallint,
+	ui int unsigned,
+	i int,
+	ubi bigint unsigned,
+	bi bigint,
+	
+	uf float unsigned,
+	f float,
+	ud double unsigned,
+	d double,
+	ude decimal unsigned,
+	de decimal
+);
+
+insert into numtest(uti) value(300);
+insert into numtest(ubi) value(-1);
+insert into numtest(si) value(50000);
+
+
+create table users(
+     id int,
+     name varchar(20) comment '用户名',
+     password char(32) comment '密码是32位的md5值',
+     birthday date comment '生日'
+)character set utf8 engine MyISAM;
+
+create table birthday (t1 date, t2 datetime, t3 timestamp);
+update birthday set t1='2000-1-1';
+
+create table votes(
+	username varchar(30),
+	hobby set('登山', '游泳', '篮球', '武术'),
+	gender enum('男', '女')
+);
+
+insert into votes values('雷锋', 15, '男');
+select find_in_set('b', 'a, b, c');
+
+create table myclass(
+	class_name varchar (20) not null,
+	class_room varchar (10) not null
+);
+
+create table tt10(
+	name varchar(20) not NULL,
+	age tinyint unsigned default 0,
+	sex char(2) default '男'
+);
+
+create table tt13(
+	name varchar(20) not NULL,
+	age tinyint unsigned,
+	sex char(2)
+);
+
+create table tt12(
+	name varchar(20) not NULL comment '姓名',
+	age tinyint unsigned default 0 comment '年龄',
+	sex char(2) default '男' comment '性别'
+);
+
+create table tt13(
+	id int unsigned primary key comment '学号不能为空',
+	name varchar(20) not null
+);
+
+create table tt14(
+	id int unsigned,
+	course char(10) comment '课程代码',
+	score tinyint unsigned default 60 comment '成绩',
+	primary key(id, course) -- id和course为复合主键
+);
+
+insert into tt13 values(1, 'aaa');
+insert into tt13 values(1, 'aaa');
+
+create table tt21(
+	id int unsigned primary key auto_increment,
+	name varchar(10) not null default ''
+);
+
+create table student(
+	id char(10) unique comment '学号， 不能重复， 但可以为空',
+	name varchar(10)
+);
+
+insert into student(id, name) values ('01', 'aaa');
+insert into student(id, name) values ('01', 'bbb');
+insert into student(id, name) values ('null', 'bbb');
