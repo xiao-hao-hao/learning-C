@@ -242,5 +242,41 @@ create table students1
 	qq varchar(20)
 );
 
+select deptno, avg(sal), max(sal), from emp group by deptno;
+select avg(sal), min(sal), job, deptno from emp group by deptno, job;
+select avg(sal) from emp group by deptno;
+select deptno, avg(sal) as myavg from emp group by deptno having myavg < 2000;
+select * from emp where (sal > 50 or job = 'MANAGER') and ename like 'J%';
+select * from emp order by deptno, sal desc;
+select ename, sal*12+ifnull(comm, 0) as '年薪' from emp order by 年薪 desc;
+select ename, job from emp where sal = (select max(sal) from emp);
 
+select ename, sal from emp where sal > (select avg(sal) from emp);
+select deptno, format(avg(sal), 2), max(sal) from emp group by deptno;
+select deptno, avg(sal) as avg_sal from emp group by deptno having avg_sal < 2000;
+select job, count(*), format(avg(sal), 2) from emp group by job;
 
+select * from emp, dept;
+select emp.ename, emp.sal, dept.dname from emp, dept where emp.deptno = dept.deptno;
+select ename, sal, dname from emp, dept where emp.deptno = dept.deptno and 
+	emp.deptno = 10;
+select ename, sal, grade from emp, salgrade where emp.sal between losal and hisal;
+select empno, ename from emp where emp.empno=(select mgr from emp where ename='FORD');
+
+select leader.empno, leader.ename from emp leader, emp worker where leader.empno = 
+	worker.mgr and worker.ename = 'FORD';
+
+select * from emp where deptno = (select deptno from emp where ename = 'smith');
+select ename, job, sal, deptno from emp where job in 
+	(select distinct job from emp where deptno = 10) and deptno<>10;
+	
+select ename, sal, deptno from emp where sal > all(select sal from emp where deptno=30);
+select ename, sal, deptno from emp where sal > any(select sal from emp where deptno=30);
+
+select ename from emp where (deptno, job) = (select deptno, job from emp 
+	where ename='smith') and ename <> 'smith';
+	
+select ename, sal, job from emp where sal>2500 union 
+	select ename, sal, job from emp where job = 'manager';
+select ename, sal, job from emp where sal>2500 union all
+	select ename, sal, job from emp where job = 'manager';
