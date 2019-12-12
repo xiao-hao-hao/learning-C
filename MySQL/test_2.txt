@@ -265,6 +265,9 @@ select empno, ename from emp where emp.empno=(select mgr from emp where ename='F
 
 select leader.empno, leader.ename from emp leader, emp worker where leader.empno = 
 	worker.mgr and worker.ename = 'FORD';
+	
+select leader.empno, leader.ename from emp as leader, emp as worker where leader.empno = 
+	worker.mgr and worker.ename = 'FORD';
 
 select * from emp where deptno = (select deptno from emp where ename = 'smith');
 select ename, job, sal, deptno from emp where job in 
@@ -280,3 +283,45 @@ select ename, sal, job from emp where sal>2500 union
 	select ename, sal, job from emp where job = 'manager';
 select ename, sal, job from emp where sal>2500 union all
 	select ename, sal, job from emp where job = 'manager';
+
+create view v_ename_dname as select ename, dname
+	from emp, dept where emp.deptno = dept.deptno;
+
+select * from v_ename_dname;
+update v_ename_dname set dname='sales' where ename='clark';
+select * from emp where ename='clark';
+update emp set deptno=20 where ename='JAMES';
+select * from v_ename_dname where ename='JAMES';
+drop view v_ename_dname;
+
+--在from字句中使用子查询
+select ename, deptno, sal, format(asal, 2) from emp,
+	(select avg(sal) asal, deptno dt from emp group by deptno) tmp
+	where emp.sal > tmp.asal and emp.deptno = tmp.dt;
+
+select emp.ename, emp.sal, emp.deptno, ms from emp,
+	(select max(sal) ms, deptno from emp group by deptno) tmp
+	where emp.deptno=tmp.deptno and emp.sal=tmp.ms;
+
+select emp.ename, emp.sal, tmp.deptno, ms from emp,
+	(select max(sal) ms, deptno from emp group by deptno) tmp
+	where emp.deptno=tmp.deptno and emp.sal=tmp.ms;
+
+
+select dept.dname, dept.deptno, dept.loc, count(*) '部门人数' from emp, dept
+	where emp.deptno=dept.deptno
+	group by dept.deptno, dept.dname, dept.loc;
+	
+select dept.dname, dept.deptno, dept.loc, count(*) '部门人数' from emp, dept
+	where emp.deptno=dept.deptno
+	group by dept.deptno;
+
+select dept.deptno, dname, mycnt, loc from dept,
+	(select count(*) mycnt, deptno from emp group by deptno) tmp
+	where dept.deptno=tmp.deptno;
+	
+
+
+
+
+
