@@ -10,7 +10,7 @@ public:
 	Date& operator=(const Date& d);
 	Date operator+(int days);
 	Date operator-(int days);
-	int operator-(const Date& d);
+	int operator-(const Date& d)const;
 	Date& operator++();
 	Date operator++(int);
 	Date& operator--();
@@ -120,20 +120,93 @@ int GetDayByYearMonth(int year, int month)
 
 Date Date::operator+(int days)
 {
-	
+	Date tmp = *this;
+	int mdays = GetDayByYearMonth(tmp._year, tmp._month);
+	while (days + tmp._day > mdays)
+	{
+		++tmp._month;
+		if (tmp._month > 12)
+		{
+			tmp._month = 1;
+			++tmp._year;
+		}
+		days -= mdays;
+		mdays = GetDayByYearMonth(tmp._day, tmp._month);
+	}
+	tmp._day += days;
+	return tmp;
 }
 
+/*
 Date Date::operator-(int day)
 {
-	
+	Date tmp = *this;
+	if (day < tmp._day)
+		tmp._day -= day;
+
+}
+*/
+
+int Date::operator-(const Date& d)const
+{
+	Date tmp1, tmp2;
+	int count = 0;
+	if (*this < d)
+	{
+		tmp1 = *this;
+		tmp2 = d;
+	}
+	else
+	{
+		tmp1 = d;
+		tmp2 = *this;
+	}
+	while (tmp1 < tmp2)
+	{
+		++tmp1;
+		++count;
+	}
+	return count;
 }
 
-Date& Date::operator++()
-{}
+Date& Date::operator++()//Ç°ÖÃ++
+{
+	*this = *this + 1;
+	return *this;
+}
 
 Date Date::operator++(int)
-{}
+{
+	Date tmp = *this;
+	++(*this);
+	return tmp;
+}
 
+Date& Date::operator--()//Ç°ÖÃ--
+{
+	*this = *this - 1;
+	return *this;
+}
+
+Date Date::operator--(int)//ºóÖÃ--
+{
+	Date tmp = *this;
+	--(*this);
+	return tmp;
+}
+
+int main()
+{
+	Date dt1(0000, 12, 9);
+	Date dt2(1258951, 12, 9);
+	//++dt1;//dt1.operator++()
+	dt1++;//dt1.operator++(int)
+	cout << dt1 - dt2 << endl;
+	cout << dt1 << endl;
+	return 0;
+}
+
+/*
 int main()
 {
 	Date dt1(2019, 12, 9);
@@ -153,3 +226,5 @@ int main()
 	//cout << dt1 << endl;
 	return 0;
 }
+
+*/
