@@ -1,0 +1,67 @@
+select current_date();
+select current_time();
+select current_timestamp();
+select date_add('2017-10-28', interval 10 day);
+select date_sub('2017-10-28', interval 2 day);
+select datediff('2017-10-28', '2016-9-1');
+
+create table tmp
+(
+	id int primary key auto_increment,
+	birthday date
+);
+
+insert into tmp(birthday) values(current_date());
+
+create table msg
+(
+	id int primary key auto_increment,
+	content varchar(30) not null,
+	sendtime datetime
+);
+
+insert into msg(content, sendtime) values ('hello1 hello bit hello world!', now());
+insert into msg(content, sendtime) values ('hello2 hello bit hello world!', now());
+select * from msg;
+select content, date(sendtime) from msg;
+select content, time(sendtime) from msg;
+select * from msg where date_add(sendtime, interval 2 minute) > now();
+
+select charset(ename) from emp;
+select concat(name, '的语文是', yuwen, '分，数学是', shuxue, '分') as '分数' from exam_result;
+select length(name) `name length`, name from exam_result;
+
+select replace(ename, 'S', '上海'), ename from emp;
+select substring(ename, 2, 2), ename from emp;
+select concat(lcase(substring(ename, 1, 1)), substring(ename, 2)) from emp;
+select concat(substring(ename, 1, 1), lcase(substring(ename, 2))) from emp;
+
+select abs(-100.2);
+select ceiling(23.04);
+select floor(23.7);
+select format(12.3456, 2);
+select rand();
+
+select user();
+select md5('jwencjjewbcewncbiewqbvcwqebvuowbvweovbewqvbweovnoecoiewjncipewjfcgfbsfgngfnfn;ewjfcewjfewpjfweiifnoewfobn');
+select database();
+select password('root');
+select ifnull('abc', '123');
+select ifnull(null, '123');
+
+select bin(15);
+select hex(1111);
+select conv(10, 2, 10);
+select conv('10', 2, 10);
+select conv('f', 16, 2);
+
+
+
+
+
+
+
+
+
+
+
