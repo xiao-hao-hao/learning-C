@@ -55,11 +55,17 @@ select conv(10, 2, 10);
 select conv('10', 2, 10);
 select conv('f', 16, 2);
 
+select ename, dname from emp, dept where emp.deptno=dept.deptno and ename='SMITH';
+select ename, dname from emp inner join dept on emp.deptno=dept.deptno and ename='SMITH';
 
-
-
-
-
+create table stu (id int, name varchar(30));
+insert into stu values(1,'jack'), (2, 'tom'), (3, 'kity'), (4, 'nono');
+create table exam (id int, grade int);
+insert into exam values (1, 56), (2, 76), (11, 8);
+select * from stu left join exam on stu.id=exam.id;
+select * from stu right join exam on stu.id=exam.id;
+select d.dname, e.* from dept d left join emp e on d.deptno=e.deptno;
+select d.dname, e.* from emp e right join dept d on d.deptno=e.deptno;
 
 
 
