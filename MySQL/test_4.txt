@@ -11,3 +11,20 @@ create  table students3
 	name varchar(10)
 );
 show keys from students3\G;
+
+create table account
+(
+	id int primary key,
+	name varchar(50) not null default '',
+	balance decimal(10, 2) not null default 0.0
+);
+start transaction;
+savepoint s1;
+insert into account values (1, '张三', 10);
+savepoint s2;
+insert into account values (2, '李四', 10000);
+select * from account;
+rollback to s2;
+select * from account;
+set session transaction isolation level read uncommitted;
+select @@tx_isolation;
