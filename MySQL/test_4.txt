@@ -28,3 +28,20 @@ rollback to s2;
 select * from account;
 set session transaction isolation level read uncommitted;
 select @@tx_isolation;
+
+select host, user, authentication_string from user;
+create user 'haohao'@'localhost' identified by '1';
+drop user 'haohao1'@'localhost';
+set password=password('1');
+set password for 'haohao'@'localhost'=password('123456');
+grant select on mysql.* to 'haohao'@'localhost';
+show databases;
+
+
+
+
+
+
+
+
+
