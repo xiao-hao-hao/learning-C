@@ -3,8 +3,138 @@
 #include <assert.h>
 #include <iostream>
 using namespace std;
+/*
+class Test
+{
+public:
+	Test(int data = 0) : m_data(data)
+	{
+		cout << "Create Test Object." << endl;
+	}
+	~Test()
+	{
+		cout << "Free Test Object." << endl;
+	}
+	static void print()
+	{
+		printf("hello bit\n");
+	}
+private:
+	int m_data;
+};
+void main()
+{
+	//Test *pt = new Test;
+	//Test t;
+	//Test t1;
+	//Test t2;
+	Test::print();
+}
+*/
+
+/*
+class Test
+{
+public:
+	static Test CreateTest()
+	{
+		return Test();
+	}
+protected:
+	Test(int data = 0) : m_data(data)
+	{
+		cout << "Create Test Object." << endl;
+	}
+private:
+	int m_data;
+};
+void main()
+{
+	//Test *pt = new Test;
+	Test t = Test::CreateTest();
+	//Test t1;
+	//Test t2;
+}
+*/
 
 
+/*
+class Test
+{
+public:
+	Test(int data = 0) : m_data(data)
+	{
+		cout << "Create Test Object." << endl;
+	}
+	~Test()
+	{
+		cout << "Free Test Object." << endl;
+	}
+protected:
+	//void *malloc(size_t size);
+	void* operator new(size_t sz);
+	void operator delete(void *p);
+private:
+	int m_data;
+};
+void main()
+{
+	//Test *pt = new Test;
+	//Test t;
+	//Test t1;
+	//Test t2;
+}
+*/
+
+/*
+class Test
+{
+public:
+	static Test* GetInstance()
+	{
+		return new Test;
+	}
+public:
+	~Test()
+	{
+		cout << "Free Test Object." << endl;
+	}
+protected:
+	Test(int data = 0) : m_data(data)
+	{
+		cout << "Create Test Object." << endl;
+	}
+	Test(const Test &t);
+	Test& operator=(const Test &t);
+private:
+	int m_data;
+};
+void main()
+{
+	Test *pt = Test::GetInstance();
+	//Test t(1);
+}
+*/
+/*
+void handle_out_of_memory()
+{
+	cout<<"Out Of Memory."<<endl;
+	exit(1);
+}
+void main()
+{
+	set_new_handler(handle_out_of_memory); //预防内存不足
+	int *p = new int[2];
+
+	//1 申请成功
+	//2 申请不成功
+	//  如果没有设置set_new_handler  直接抛出异常 bad_alloc
+	//  设置了set_new_handler 则执行设置的函数
+	cout<<"OK."<<endl;
+}
+*/
+
+/*
 class Test
 {
 	friend ostream& operator<<(ostream &out, const Test &t);
@@ -20,14 +150,14 @@ public:
 private:
 	int m_data;
 };
-/*
-void main()
-{
-	//空间配置器
-	Test *pt = (Test *)malloc(sizeof(Test));
-	new(pt) Test;
-}
-*/
+
+//void main()
+//{
+//	//空间配置器
+//	Test *pt = (Test *)malloc(sizeof(Test));
+//	new(pt) Test;
+//}
+
 
 
 void* operator new(size_t sz, int *ptr, int pos)
@@ -44,7 +174,7 @@ void main()
 	new(ar, 5)  int(3);
 	new(ar, 3)  int(4);
 }
-
+*/
 
 /*
 class Test
