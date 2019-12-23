@@ -4,13 +4,73 @@
 #include <iostream>
 using namespace std;
 
+class Test
+{
+public:
+	static Test* GetInstance()
+	{
+		return &_instance;
+	}
+private:
+	Test(int data = 0) : m_data(data)
+	{
+		cout << "Create Test Object." << endl;
+	}
+private:
+	int m_data;
+	static Test _instance;
+};
+Test Test::_instance;
+void main()
+{
+	Test *pt = Test::GetInstance();
+	Test *pt1 = Test::GetInstance();
+	Test *pt2 = Test::GetInstance();
+	Test *pt3 = Test::GetInstance();
+	Test *pt4 = Test::GetInstance();
+}
+
+/*
+class Test
+{
+public:
+	static Test* GetInstance()
+	{
+		if (_instance == nullptr)
+		{
+			_instance = new Test;  //1
+		}
+		return _instance;
+	}
+private:
+	Test(int data = 0) : m_data(data)
+	{
+		cout << "Create Test Object." << endl;
+	}
+private:
+	int m_data;
+	static Test *_instance;
+};
+Test* Test::_instance = nullptr;
+void main()
+{
+	Test *pt = Test::GetInstance();
+	Test *pt1 = Test::GetInstance();
+	Test *pt2 = Test::GetInstance();
+	Test *pt3 = Test::GetInstance();
+	Test *pt4 = Test::GetInstance();
+}
+*/
+
+
+/*
 int main()
 {
 	void* p = new char[0xfffffffful];
 	cout << "new:" << p << endl;
 	return 0;
 }
-
+*/
 /*
 class Test
 {
@@ -64,6 +124,7 @@ void main()
 	//Test t2;
 }
 */
+
 
 
 /*
