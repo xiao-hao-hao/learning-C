@@ -1,5 +1,60 @@
 #include <iostream>
+
+#include "fun.h"
 using namespace std;
+
+int main()
+{
+	Array<int, 10> ar;
+	cout << ar[10] << endl;
+	return 0;
+}
+
+/*
+template<typename Type>
+class BinTreeNode
+{
+public:
+	//零初始化
+	BinTreeNode(Type d = Type(), BinTreeNode<Type> *left = nullptr, BinTreeNode<Type> *right = nullptr)
+		: data(d), leftChild(left), rightChild(right)
+	{}
+private:
+	Type data;
+	BinTreeNode<Type> *leftChild;
+	BinTreeNode<Type> *rightChild;
+};
+
+void main()
+{
+	BinTreeNode<int> node;
+}
+*/
+/*
+template <typename RT, typename T1, typename T2>
+RT MAX(T1 const &a, T2 const &b)
+{
+	cout << typeid(a).name() << endl;
+	cout << typeid(b).name() << endl;
+	return a > b ? a : b;
+}
+
+int main()
+{
+	cout << MAX<double>(1, 4.5) << endl;
+	return 0;
+}
+*/
+/*
+int main()
+{
+	//double a = 1.2;
+	//int &b = a;
+	int a = 5;
+	//double &b = a;
+	return 0;
+}
+*/
 
 /*
 //模板就是将类型设置成一个参数的函数或类
@@ -15,7 +70,7 @@ cout<<max(12.34,23)<<endl;
 cout<<max(10,20)<<endl;
 }
 */
-
+/*
 template<typename Type1, typename Type2>
 Type2 max(Type1 a, Type2 b)
 {
@@ -31,7 +86,7 @@ void main()
 	cout << max(12.34, 23) << endl;
 	cout << ::max(10, 20) << endl;
 }
-
+*/
 /*
 class Test
 {
