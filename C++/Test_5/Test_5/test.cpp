@@ -2,15 +2,15 @@
 
 #include "fun.h"
 using namespace std;
-
+/*
 int main()
 {
 	Array<int, 10> ar;
 	cout << ar[10] << endl;
 	return 0;
 }
+*/
 
-/*
 template<typename Type>
 class BinTreeNode
 {
@@ -29,7 +29,7 @@ void main()
 {
 	BinTreeNode<int> node;
 }
-*/
+
 /*
 template <typename RT, typename T1, typename T2>
 RT MAX(T1 const &a, T2 const &b)
@@ -71,8 +71,8 @@ cout<<max(10,20)<<endl;
 }
 */
 /*
-template<typename Type1, typename Type2>
-Type2 max(Type1 a, Type2 b)
+template<typename Type1= int, typename Type2>
+double max(Type1 a, Type2 b)
 {
 	cout << typeid(a).name() << endl;
 	return a > b ? a : b;
@@ -83,7 +83,7 @@ int max(int a, int b)
 }
 void main()
 {
-	cout << max(12.34, 23) << endl;
+	cout << max(32.34, 23) << endl;
 	cout << ::max(10, 20) << endl;
 }
 */
