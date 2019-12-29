@@ -7,7 +7,7 @@ class list
 {
 public:
 	//类型的萃取
-	typedef size_t size_type;//?????????????
+	typedef size_t size_type;
 	typedef size_t difference_type;
 	typedef _Ty* pointer;
 	typedef const _Ty* const_pointer;
@@ -40,29 +40,75 @@ public:
 			return ((_Vref)(*_P)._Value);
 		}
 	};
-
+//内部类，迭代器
 public:
-	//内部类  迭代器
 	class iterator
-	{};
+	{
+	public:
+		iterator() : _Ptr(NULL)
+		{}
+		iterator(_Nodeptr _P) : _Ptr(_P)
+		{}
+	public:
+		_Ty& operator*() const
+		{
+			return (_Acc::_Value(_Ptr));
+		}
+		iterator& operator++()
+		{
+			_Ptr = _Acc::_Next(_Ptr);
+			return (*this);
+		}
+		iterator operator++(int)
+		{
+			iterator _Tmp = *this;
+			++*this;
+			return (_Tmp);
+		}
+		iterator& operator--()//前置减减，指针指向前一个节点
+		{
+			_Ptr = _Acc::_Prev(_Ptr);
+			return (*this);//this是一个指针，*this是this所指的对象
+		}
+		iterator operator--(int)
+		{
+			iterator _Tmp = *this;
+			--*this;
+			return (_Tmp);
+		}
+		bool operator==(const iterator& _X) const
+		{
+			return (_Ptr == _X._Ptr);
+		}
+		bool operator!=(const iterator& _X) const
+		{
+			return (!(*this == _X));
+		}
+		_Nodeptr _Mynode()
+		{
+			return _Ptr;
+		}
+	protected:
+		_Nodeptr _Ptr;
+	};
 public:
 	explicit list() : _Head(_Buynode()), _Size(0)//构造函数
 	{}
 public:
 	iterator begin()
 	{
-		return iterator(_Acc::_Next(_Head));
+		return iterator(_Acc::_Next(_Head));//拷贝构造无名临时对象
 	}
 	iterator end()
 	{
 		return iterator(_Head);
 	}
 public:
-	void push_back(const _Ty &_x)
+	void push_back(const _Ty &_X)
 	{
 		insert(end(), _X);
 	}
-	void push_front(const _Ty &x)
+	void push_front(const _Ty &_X)
 	{
 		insert(begin(), _X);
 	}
@@ -73,7 +119,7 @@ public:
 		_Acc::_Prev(_S) = _Buynode(_S, _Acc::_Prev(_S));
 		_S = _Acc::_Prev(_S);
 		_Acc::_Next(_Acc::_Prev(_S)) = _S;
-		allocator.construct(&_Acc::_Value(_S), _X);
+		_Acc::_Value(_S) = _X;
 		++_Size;
 		return (iterator(_S));
 	}
@@ -93,5 +139,18 @@ private:
 int main()
 {
 	list<int> mylist;
+	mylist.push_back(1);
+	mylist.push_back(2);
+	mylist.push_back(3);
+	mylist.push_back(4);
+	mylist.push_back(5);
+	mylist.push_front(10);
+	list<int>::iterator it = mylist.begin();
+	while (it != mylist.end())
+	{
+		cout << *it << "-->";
+		++it;
+	}
+	cout << "Over." << endl;
 	return 0;
 }
