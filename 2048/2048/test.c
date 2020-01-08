@@ -8,7 +8,6 @@ int main()
 	initGame(gameData);
 
 	//отй╬сно╥
-	//showGame(gameData);
-
+	showGame(gameData);
 	return 0;
 }
