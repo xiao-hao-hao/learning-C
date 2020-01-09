@@ -28,6 +28,35 @@ void showGame(int data[N][N])
 	int x = 0, y = 0;
 	printf("欢迎来到2048游戏！");
 	printf("(按'q'退出游戏)\n");
+
+	//打印所有数据
+	for (x = 0; x < N; ++x)
+	{
+		for (y = 0; y < N; ++y)
+		{
+			printf("%5d", data[x][y]);
+			/*
+			else
+			{
+				switch (data[x][y])//根据不同的数字打印出不同的颜色
+				{
+				case 2: printf("\033[32m%5d\033[0m", data[x][y]); break;
+				case 4: printf("\033[32m%5d\033[0m", data[x][y]); break;
+				case 8: printf("\033[32m%5d\033[0m", data[x][y]); break;
+				case 16: printf("\033[35m%5d\033[0m", data[x][y]); break;
+				case 32: printf("\033[35m%5d\033[0m", data[x][y]); break;
+				case 64: printf("\033[33m%5d\033[0m", data[x][y]); break;
+				case 128: printf("\033[33m%5d\033[0m", data[x][y]); break;
+				case 256: printf("\033[34m%5d\033[0m", data[x][y]); break;
+				case 512: printf("\033[34m%5d\033[0m", data[x][y]); break;
+				case 1024: printf("\033[34m%5d\033[0m", data[x][y]); break;
+				case 2048: printf("\033[36m%5d\033[0m", data[x][y]); break;
+				}
+			}
+			*/
+		}
+		printf("\n");
+	}
 }
 
 /*
