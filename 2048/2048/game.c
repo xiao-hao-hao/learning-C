@@ -35,25 +35,6 @@ void showGame(int data[N][N])
 		for (y = 0; y < N; ++y)
 		{
 			printf("%5d", data[x][y]);
-			/*
-			else
-			{
-				switch (data[x][y])//根据不同的数字打印出不同的颜色
-				{
-				case 2: printf("\033[32m%5d\033[0m", data[x][y]); break;
-				case 4: printf("\033[32m%5d\033[0m", data[x][y]); break;
-				case 8: printf("\033[32m%5d\033[0m", data[x][y]); break;
-				case 16: printf("\033[35m%5d\033[0m", data[x][y]); break;
-				case 32: printf("\033[35m%5d\033[0m", data[x][y]); break;
-				case 64: printf("\033[33m%5d\033[0m", data[x][y]); break;
-				case 128: printf("\033[33m%5d\033[0m", data[x][y]); break;
-				case 256: printf("\033[34m%5d\033[0m", data[x][y]); break;
-				case 512: printf("\033[34m%5d\033[0m", data[x][y]); break;
-				case 1024: printf("\033[34m%5d\033[0m", data[x][y]); break;
-				case 2048: printf("\033[36m%5d\033[0m", data[x][y]); break;
-				}
-			}
-			*/
 		}
 		printf("\n");
 	}
@@ -85,4 +66,53 @@ void getRand(int data[N][N])
 		data[x][y] = seedList[idx];
 		return;
 	}
+}
+
+/*
+* 函数名:checkGameOver
+* 功能:检查游戏是否结束
+* 参数:需要检查的游戏数据
+* 返回值:游戏结束返回1，没有结束返回0
+*/
+int checkGameOver(int data[N][N])
+{
+	int x = 0, y = 0;
+
+	//判断有无空位0
+	for (x = 0; x < N; ++x)
+	{
+		for (y = 0; y < N; ++y)
+		{
+			if (data[x][y] == 0)
+			{
+				return 0;
+			}
+		}
+	}
+
+	//判断各行是否可加
+	for (x = 0; x < N; ++x)
+	{
+		for (y = 0; y < N - 1; ++y)
+		{
+			if (data[x][y] == data[x][y + 1])
+			{
+				return 0;
+			}
+		}
+	}
+	
+	//判断各列是否可加
+	for (y = 0; y < N; ++y)
+	{
+		for (x = 0; x < N - 1; ++x)
+		{
+			if (data[x][y] == data[x + 1][y])
+			{
+				return 0;
+			}
+		}
+	}
+	//游戏结束
+	return 1;
 }

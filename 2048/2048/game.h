@@ -32,4 +32,12 @@ void showGame(int data[N][N]);
 */
 void getRand(int data[N][N]);
 
+/*
+ * 函数名:checkGameOver
+ * 功能:检查游戏是否结束
+ * 参数:需要检查的游戏数据
+ * 返回值:游戏结束返回1，没有结束返回0
+*/
+int checkGameOver(int data[N][N]);
+
 #endif
