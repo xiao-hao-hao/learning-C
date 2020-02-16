@@ -4,26 +4,88 @@ using namespace std;
 
 int main()
 {
-	string url("http://www.cpluscplus.com/reference/string/string/find/");
-	cout << url << endl;
-	size_t start = url.find("://");
-	if (start == string::npos)
-	{
-		cout << "invalid url" << endl;
-	}
-	else
-	{
-		start += 3;
-		size_t finish = url.find('/', start);
-		string address = url.substr(start, finish - start);
-		//cout << address << endl;
-		size_t pos = url.find("://");
-		url.erase(0, pos + 3);
-		cout << url << endl;
-	}
-
+	string s1 = "hello";
+	s1.resize(10);
+	cout << s1 << endl;
+	//printf("%s\n", s1.c_str());
 	return 0;
 }
+
+//int main()
+//{
+//	string str = "hello";
+//	string::iterator it = str.end() - 1;
+//	while (it != str.begin())
+//	{
+//		cout << *it;
+//		--it;
+//	}
+//	cout << *it;
+//
+//	return 0;
+//}
+
+//void main()
+//{
+//	//string email = "kkkzkkbaosongshan2006@163.com";
+//	//size_t pos = email.find('song'); //ÍêÈ«Æ¥Åä
+//
+//	//string sub("abcxyz");
+//	//pos = email.find_first_of(sub);
+//	//cout << pos << endl;
+//
+//	//pos = email.find_first_not_of(sub);
+//	//cout << pos << endl;
+//
+//	//pos = email.find_last_of(sub);
+//	//cout << pos << endl;
+//
+//	//pos = email.find_last_not_of(sub);
+//	//cout << pos << endl;
+//	string hostname;
+//	string str = "123";
+//	hostname = str + str + '5' + "123";
+//	cout << hostname << endl;
+//}
+
+//int main()
+//{
+//	string str1 = "hello";
+//	string str2 = "bit";
+//	string str3;
+//	//if (str1 == str2)
+//	//{
+//	//	cout << "ok" << endl;
+//	//}
+//	getline(cin, str3);
+//	cout << str3 << endl;
+//	return 0;
+//}
+
+
+
+//int main()
+//{
+//	string url("http://www.cpluscplus.com/reference/string/string/find/");
+//	cout << url << endl;
+//	size_t start = url.find("://");
+//	if (start == string::npos)
+//	{
+//		cout << "invalid url" << endl;
+//	}
+//	else
+//	{
+//		start += 3;
+//		size_t finish = url.find('/', start);
+//		string address = url.substr(start, finish - start);
+//		//cout << address << endl;
+//		size_t pos = url.find("://");
+//		url.erase(0, pos + 3);
+//		cout << url << endl;
+//	}
+//
+//	return 0;
+//}
 
 //int main()
 //{
