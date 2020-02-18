@@ -1,14 +1,18 @@
 #include <iostream>
 #include <assert.h>
+#include <string>
+#include <vld.h>
 using namespace std;
 
 namespace bit
 {
 	class String
 	{
-		friend ostream& operator<<(ostream &out, const String &s);
+		friend ostream& operator<<(ostream& out, const String &s);
+		friend istream& operator>>(istream& in, String& s);
 	public:
 		typedef char* iterator;
+		static const size_t npos = -1;
 	public:
 		String(const char *str = "")
 		{
@@ -84,7 +88,142 @@ namespace bit
 			_str[_size] = '\0';
 		}
 	public:
+		String& operator+=(char c)
+		{
+			push_back(c);
+			return *this;
+		}
+		String& operator+=(const char* str)
+		{
+			append(str);
+			return *this;
+		}
+		void append(const char* str)
+		{
+			int str_len = strlen(str);
+			if (str_len + _size > _capacity)
+			{
+				reserve((str_len + _size) * 2);
+			}
+			strcpy(_str + _size, str);
+			_size += str_len;
+		}
+		void resize(size_t newSize, char c = '\0')
+		{
+			if (newSize > _size)
+			{
+				if (newSize > _capacity)
+				{
+					reserve(newSize * 2);
+				}
+				memset(_str + _size, c, newSize - _size);
+			}
+			_size = newSize;
+			_str[_size] = '\0';
+		}
+		bool operator<(const String& s)
+		{
+			return (strcmp(_str, s._str) < 0);
+		}
+		bool operator<=(const String& s)
+		{
+			return !(*this > s);
+		}
+		bool operator>(const String& s)
+		{
+			return (strcmp(_str, s._str) > 0);
+		}
+		bool operator>=(const String& s)
+		{
+			return !(*this < s);
+		}
+		bool operator==(const String& s)
+		{
+			return (strcmp(_str, s._str) == 0);
+		}
+		bool operator!=(const String& s)
+		{
+			return !(*this == s);
+		}
+		//返回c在string中第一次出现的位置
+		size_t find(char c, size_t pos = 0)const
+		{
+			for (int i = 0; i < _size; ++i)
+			{
+				if (_str[i] == c)
+					return i;
+			}
+			return npos;
+		}
+		size_t find(const char* s, size_t pos = 0)const
+		{
+			//return strstr(_str + pos, s) - _str;
+			size_t i = pos, j = 0;
+			size_t s_len = strlen(s);
+			while (i < _size && j < s_len)
+			{
+				if (_str[i] == s[j])
+				{
+					++i;
+					++j;
+				}
+				else
+				{
+					i = i - j + 1;
+					j = 0;
+				}
+			}
+			if (j >= s_len)
+			{
+				return i - j;
+			}
+			return npos;
+		}
+		String& insert(size_t pos, char c)
+		{
+			assert(pos >= 0 && pos <= _size);
+			if (_size + 1 > _capacity)
+			{
+				reserve((_size + 1) * 2);
+			}
+			for (size_t i = _size; i > pos; --i)
+			{
+				_str[i] = _str[i - 1];
+			}
+			_str[pos] = c;
+			_str[_size++] = '\0';
+			return *this;
+		}
+		String& insert(size_t pos, const char* str)
+		{
+			assert(pos >= 0 && pos <= _size);
+			int str_len = strlen(str);
+			_size += str_len;
+			if (_size + str_len > _capacity)
+			{
+				reserve((_size + str_len) * 2);
+			}
+			memcpy(_str + pos + str_len, _str + pos, _size - pos + 1);
+			while (*str != '\0')
+			{
+				_str[pos++] = *(str++);
+			}
+			return *this;
+		}
+		String& erase(size_t pos, size_t len)
+		{
+			memcpy(_str + pos, _str + pos + len, _size - pos - len + 1);
+			_size -= len;
+			return *this;
+
+		}
+	public:
 		char& operator[](int i)
+		{
+			assert(i >= 0 && i < _size);
+			return _str[i];
+		}
+		const char& operator[](size_t i)const
 		{
 			assert(i >= 0 && i < _size);
 			return _str[i];
@@ -102,7 +241,7 @@ namespace bit
 			if (new_cpy > _capacity)
 			{
 				char *new_str = new char[new_cpy + 1];
-				memcpy(new_str, _str, _size);
+				memcpy(new_str, _str, _size + 1);//这里要把\0也拷贝上去
 				_capacity = new_cpy;
 				delete[] _str;
 				_str = new_str;
@@ -118,15 +257,55 @@ namespace bit
 		out << s._str;
 		return out;
 	}
+	istream& operator>>(istream& in, String& s)
+	{
+		static const size_t default_buf_size = 10;
+		int capacity = default_buf_size;
+		char *str = (char*)malloc(sizeof(char) * default_buf_size);
+		char *buf = str;
+		size_t count = 0;
+		//跳过字符串起始位置的空格和换行
+		while ((*buf = getchar()) == ' ' || *buf == '\n');
+		while (1)
+		{
+			++count;
+			if (count >= capacity)
+			{
+				capacity *= 2;
+				str = (char*)realloc(str, capacity);
+				buf = str + count - 1;
+			}
+			*(++buf) = getchar();
+			if (*buf == '\n' || *buf == ' ')
+			{
+				*buf = '\0';
+				break;
+			}
+		}
+		delete[] s._str;
+		s._str = str;
+		s._capacity = capacity;
+		s._size = count;
+		return in;
+	}
 }
 
 
 int main()
 {
 	bit::String str1("hello bit");
+	string str2("helo");
 	cout << "str1 = " << str1 << endl;
 	str1.push_back('x');
-	cout << "str1 = " << str1 << endl;
+	cout << str1.find("it");
+	//cout << str1.capacity() << endl;
+	//cout << str1.insert(1, "123");
+	//str1.insert(3, 'u');
+	//str1.erase(1, 3);
+	//cout << str1 << endl;
+	cout << str1 << endl;
+	cin >> str1;
+	cout << str1 << endl;
 	return 0;
 }
 
