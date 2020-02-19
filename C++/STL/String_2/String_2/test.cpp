@@ -261,7 +261,7 @@ namespace bit
 	{
 		static const size_t default_buf_size = 10;
 		int capacity = default_buf_size;
-		char *str = (char*)malloc(sizeof(char) * default_buf_size);
+		char *str = new char[default_buf_size];
 		char *buf = str;
 		size_t count = 0;
 		//跳过字符串起始位置的空格和换行
@@ -272,7 +272,11 @@ namespace bit
 			if (count >= capacity)
 			{
 				capacity *= 2;
-				str = (char*)realloc(str, capacity);
+				//str = (char*)realloc(str, capacity);
+				char *new_str = new char[capacity];
+				memcpy(new_str, str, count);
+				delete[] str;
+				str = new_str;
 				buf = str + count - 1;
 			}
 			*(++buf) = getchar();
