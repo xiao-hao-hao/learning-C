@@ -33,8 +33,6 @@ namespace bit
 	public:
 		T& operator*()
 		{return _Ptr->_Value;}
-		const T& operator*()const
-		{return _Ptr->Value;}
 		T* operator->()
 		{
 			//return &**this;
@@ -75,12 +73,75 @@ namespace bit
 	};
 
 	template<typename T>
+	class ConstListIterator
+	{
+		typedef ConstListIterator self;
+	public:
+		ConstListIterator()
+			: _Ptr(nullptr)
+		{}
+		ConstListIterator(ListNode<T> *P)
+			: _Ptr(P)
+		{}
+		~ConstListIterator()
+		{}
+	public:
+		const T& operator*()
+		{
+			return _Ptr->_Value;
+		}
+		const T* operator->()
+		{
+			//return &**this;
+			return &(_Ptr->_Value);
+		}
+		self& operator++()
+		{
+			_Ptr = _Ptr->_Next;
+			return *this;
+		}
+		self operator++(int)
+		{
+			//self tmp = (*this)._Ptr;//调用用listnode指针构造对象的拷贝构造函数
+			self tmp = *this;//调用默认的拷贝构造函数
+			++*this;
+			return tmp;
+		}
+		self& operator--()
+		{
+			_Ptr = _Ptr->_Prev;
+			return *this;
+		}
+		self operator--(int)
+		{
+			self tmp = *this;
+			--*this;
+			return tmp;
+		}
+		bool operator==(const self &P)
+		{
+			return _Ptr == P._Ptr;
+		}
+		bool operator!=(const self &P)
+		{
+			return !(_Ptr == P._Ptr);
+		}
+	public:
+		const ListNode<T>* Mynode()
+		{
+			return _Ptr;
+		}
+	private:
+		const ListNode<T> *_Ptr;
+	};
+
+	template<typename T>
 	class list
 	{
 		typedef ListNode<T>* PNode;
 	public:
 		typedef ListIterator<T> iterator;
-		typedef const ListIterator<T> const_iterator;
+		typedef ConstListIterator<T> const_iterator;
 	public:
 		list()
 			: _Head(_Buynode())
@@ -145,7 +206,9 @@ namespace bit
 		iterator begin()
 		{return iterator(_Head->_Next);}
 		const_iterator begin()const
-		{return const_iterator(_Head->_Next);}
+		{
+			return const_iterator(_Head->_Next);
+		}
 		iterator end()
 		{return iterator(_Head);}
 		const_iterator end()const
@@ -220,22 +283,40 @@ namespace bit
 	};
 }
 
+//int main()
+//{
+//	int ar[] = { 1, 2, 3, 4, 5 };
+//	const bit::list<int> mylist1(ar, ar + 5);
+//	bit::list<int>::iterator it1 = mylist1.begin();
+//	*it1 = 100;
+//	//cout << *(it1->) << endl;
+//	cout << typeid(mylist1.begin()).name();
+//	//for (const auto &e : mylist1) //begin() end() ++
+//	//	cout << e << "-->";
+//	//cout << "Over." << endl;
+//	return 0;
+//}
+
+
+//void main()
+//{
+//	bit::list<string> mylist;
+//	mylist.push_back("abc");
+//	mylist.push_front("abcde");
+//	auto it = mylist.begin();
+//	cout<<"size = "<<it->size()<<endl; //it->()->size();   ->
+//}
+
+
 int main()
 {
 	int ar[] = { 1, 2, 3, 4, 5 };
 	const bit::list<int> mylist1(ar, ar + 5);
-	//bit::ListIterator<int> it1 = mylist1.begin();
-	bit::list<int>::iterator it1 = mylist1.begin();
-	//cout << it1->_Value << endl;
-	//auto it1 = mylist1.begin();
-	cout << typeid(mylist1.begin()).name();
-	//*it1 = 666;
-	//bit::list<int> mylist2(5, 6);
-	//bit::list<int> mylist3(mylist1.begin(), mylist1.end());
-	////bit::list<int> mylist3(mylist1);
-	for (const auto &e : mylist1) //begin() end() ++
-		cout << e << "-->";
-	cout << "Over." << endl;
-	//cout << &mylist1 << endl;
+	bit::list<int>::const_iterator it1 = mylist1.begin();
+	//cout << *(it1->) << endl;
+	//cout << typeid(mylist1.begin()).name();
+	//for (const auto &e : mylist1) //begin() end() ++
+	//	cout << e << "-->";
+	//cout << "Over." << endl;
 	return 0;
 }
