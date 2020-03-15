@@ -12,8 +12,8 @@ class B : virtual public A
 public:
 	int _b;
 };
-class C : public A
-//class C : virtual public A
+//class C : public A
+class C : virtual public A
 {
 public:
 	int _c;
