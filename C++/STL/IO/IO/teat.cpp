@@ -1,5 +1,237 @@
+// write your code here cpp
 #include <iostream>
 using namespace std;
+
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		int count = 0;
+		if (n == 0)
+			break;
+		while (n > 1)
+		{
+			++count;
+			n = n / 3 + (n % 3 > 0);
+		}
+		cout << count << endl;
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+//奇数位上都是奇数或者偶数位上都是偶数
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//void oddInOddEvenInEven(vector<int>& arr, int len)
+//{
+//	int i = 0, j = 1;
+//	while (i < len && j < len)
+//	{
+//		if (arr[i] % 2 != 0 && arr[j] % 2 == 0)
+//		{
+//			swap(arr[i], arr[j]);
+//			j += 2;
+//			i += 2;
+//			continue;
+//		}
+//		if (arr[i] % 2 == 0)
+//			i += 2;
+//		if (arr[j] % 2 != 0)
+//			j += 2;
+//	}
+//}
+//int main()
+//{
+//	vector<int> arr = { 0, 1, 2, 2, 2 ,5,5,5};
+//	oddInOddEvenInEven(arr, 8);
+//	return 0;
+//}
+
+////不用加减乘除做加法
+//class Solution {
+//public:
+//	int Add(int num1, int num2)
+//	{
+//		while (num2 != 0)
+//		{
+//			int temp = num1 ^ num2;
+//			num2 = (num1 & num2) << 1;
+//			num1 = temp;
+//		}
+//		return num1;
+//	}
+//};
+//
+//
+
+
+
+
+
+
+
+//#include <stdio.h>
+//int main()
+//{
+//	char c;
+//	unsigned char uc;
+//	unsigned short us;
+//	c = 128;
+//	uc = 128;
+//	us = c + uc;
+//	printf("0x%x ", us);
+//	us = (unsigned char)c + uc;
+//	printf("0x%x ", us);
+//	us = c + (char)uc;
+//	printf("0x%x ", us);
+//	return 0;
+//}
+
+//#include <stdio.h> 
+//unsigned char i = 0;
+//int main()
+//{
+//	//for (i = 0; i <= 255; i++)
+//	//{
+//	//	printf("hello world\n");
+//	//}
+//	printf("%f\n", 3.5E-1);
+//	return 0;
+//}
+
+//#include <stdio.h>
+//int main()
+//{
+//	int a = -375, b = 2;
+//	printf("%d\n", a, b);
+//	printf("%c %hd\n", a, b);
+//	return 0;
+//}
+//short int a = 1, b = 2, c = 3;
+////输出什么？
+//#include <stdio.h>
+//int main()
+//{
+//	char a = -1;
+//	signed char b = -1;
+//	unsigned char c = -1;
+//	printf("a=%u,b=%d,c=%d\n", a, b, c);
+//	return 0;
+//}
+
+//#include <stdio.h> 
+//int main()
+//{
+//	int d = 0x01000000;
+//	char a = -128;
+//	int b = -1;
+//	char c = 128;
+//	printf("%u\n", a);
+//	printf("%u\n", d);
+//	printf("%u\n", c);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+//int main()
+//{
+//	int N, M;
+//	while (cin >> N >> M)
+//	{
+//		vector<int> steps(M + 1, INT_MAX);
+//		steps[N] = 0;
+//		for (int i = N; i <= M; ++i)
+//		{
+//			if (steps[i] == INT_MAX)
+//				continue;
+//			for (int j = 2; j * j <= i; ++j)
+//			{
+//				if (i % j == 0)
+//				{
+//					if (i + j <= M)
+//						steps[i + j] = min(steps[i] + 1, steps[i + j]);
+//					if (i + i / j <= M)
+//						steps[i + i / j] = min(steps[i] + 1, steps[i + i / j]);
+//				}
+//			}
+//		}
+//		if (steps[M] == INT_MAX)
+//			steps[M] = -1;
+//		cout << steps[M] << endl;
+//	}
+//	return 0;
+//}
+
+
+
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//
+//int main()
+//{
+//	string str;
+//	while (getline(cin, str))
+//	{
+//		int tag = 1;
+//		int str_len = str.length();
+//		int count = 0;
+//		string str_out;
+//		string str_temp;
+//		for (int i = 0; i <= str_len; ++i)
+//		{
+//			if (i == str_len && str_temp.length())
+//			{
+//				str_out += str_temp + '\n';
+//				++count;
+//			}
+//			if (str[i] != ' ' && str[i] != '"' || str[i] == ' ' && !tag)
+//				str_temp += str[i];
+//			if (str[i] == ' ' && tag && str_temp.length())
+//			{
+//				str_out += str_temp + '\n';
+//				++count;
+//				str_temp.clear();
+//			}
+//			if (str[i] == '"' && tag)
+//			{
+//				if (str_temp.length())
+//				{
+//					str_out += str_temp + '\n';
+//					++count;
+//					str_temp.clear();
+//				}
+//				tag = 0;
+//			}
+//			if (str[i] == '"' && !tag && str_temp.length())
+//			{
+//				str_out += str_temp + '\n';
+//				str_temp.clear();
+//				++count;
+//				tag = 1;
+//			}
+//		}
+//		cout << count << endl;
+//		cout << str_out;
+//	}
+//	return 0;
+//}
+
+//#include <iostream>
+//using namespace std;
 
 //int main()
 //{
@@ -160,16 +392,16 @@ using namespace std;
 //	return 0;
 //}
 
-#include <iostream>
-#include <string>
-#include <stdio.h>
-using namespace std;
-
-int main()
-{
-	string line;
-	char a[20];
-	cout << (bool)cin.getline(a, 5);
-	//printf("%d", (bool)cin.getline(a, 5));
-	return 0;
-}
+//#include <iostream>
+//#include <string>
+//#include <stdio.h>
+//using namespace std;
+//
+//int main()
+//{
+//	string line;
+//	char a[20];
+//	cout << (bool)cin.getline(a, 5);
+//	//printf("%d", (bool)cin.getline(a, 5));
+//	return 0;
+//}
