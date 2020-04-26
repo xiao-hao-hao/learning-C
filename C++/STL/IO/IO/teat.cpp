@@ -1,30 +1,3 @@
-// write your code here cpp
-#include <iostream>
-using namespace std;
-
-int main()
-{
-	int n;
-	while (cin >> n)
-	{
-		int count = 0;
-		if (n == 0)
-			break;
-		while (n > 1)
-		{
-			++count;
-			n = n / 3 + (n % 3 > 0);
-		}
-		cout << count << endl;
-	}
-	return 0;
-}
-
-
-
-
-
-
 
 //奇数位上都是奇数或者偶数位上都是偶数
 //#include <iostream>
@@ -56,22 +29,7 @@ int main()
 //	return 0;
 //}
 
-////不用加减乘除做加法
-//class Solution {
-//public:
-//	int Add(int num1, int num2)
-//	{
-//		while (num2 != 0)
-//		{
-//			int temp = num1 ^ num2;
-//			num2 = (num1 & num2) << 1;
-//			num1 = temp;
-//		}
-//		return num1;
-//	}
-//};
-//
-//
+
 
 
 
