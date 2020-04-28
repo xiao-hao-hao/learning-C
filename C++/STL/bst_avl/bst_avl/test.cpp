@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <vector>
 using namespace std;
 
@@ -28,6 +29,19 @@ public:
 	BSTree() : root(nullptr)
 	{}
 public:
+	Type& Max()const
+	{
+		return Max(root);
+	}
+	Type& Min()const
+	{
+		return Min(root);
+	}
+	void InOrder()const
+	{
+		InOrder(root);
+	}
+public:
 	bool Insert(const Type &x)
 	{
 		return Insert(root, x);
@@ -41,6 +55,29 @@ public:
 		return Search(root, key);
 	}
 protected:
+	Type& Max(BSTNode<Type> *t)const
+	{
+		assert(t != nullptr);
+		while (t->rightChild != nullptr)
+			t = t->rightChild;
+		return t->data;
+	}
+	Type& Min(BSTNode<Type> *t)const
+	{
+		assert(t != nullptr);
+		while (t->leftChild != nullptr)
+			t = t->leftChild;
+		return t->data;
+	}
+	void InOrder(BSTNode<Type> *t)const
+	{
+		if (t != nullptr)
+		{
+			InOrder(t->leftChild);
+			cout << (t->data).first << " : " << (t->data).second << endl;
+			InOrder(t->rightChild);
+		}
+	}
 	BSTNode<Type>* Search(BSTNode<Type> *t, const Type &key)
 	{
 		if (t == nullptr)
@@ -100,18 +137,28 @@ private:
 	BSTNode<Type> *root;
 };
 
-
-
 int main()
 {
-	vector<int> ar  = {2, 44, 5, 1, 9, 7};
-	BSTree<int> bst;
-	for (const auto &e : ar)
-		bst.Insert(e);
-	BSTNode<int>* pb = bst.Search(7);
-	bst.Remove(2);
+	pair<string, string> v[] = {{"1.1", "元旦节"}, {"5.1", "劳动节"}};
+	int n = sizeof(v) / sizeof(v[0]);
+
+	BSTree<pair<string, string> > bst;
+	for (int i = 0; i < n; ++i)
+		bst.Insert(v[i]);
+	bst.InOrder();
 	return 0;
 }
+
+//int main()
+//{
+//	vector<int> ar  = {2, 44, 5, 1, 9, 7};
+//	BSTree<int> bst;
+//	for (const auto &e : ar)
+//		bst.Insert(e);
+//	BSTNode<int>* pb = bst.Search(7);
+//	bst.Remove(2);
+//	return 0;
+//}
 
 //bool Remove(BSTNode<Type> *&t, const Type &key)
 //{
