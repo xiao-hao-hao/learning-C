@@ -34,8 +34,13 @@ public:
 	{
 		return Insert(root, x);
 	}
+	bool Remove(const Type &key)
+	{
+		return Remove(root, key);
+	}
 protected:
 	bool Insert(AVLNode<Type> *&t, const Type &x);
+	bool Remove(AVLNode<Type> *&t, const Type &key);
 protected:
 	void RotateL(AVLNode<Type> *&ptr);
 	void RotateR(AVLNode<Type> *&ptr);
@@ -193,6 +198,84 @@ bool AVLTree<Type>::Insert(AVLNode<Type> *&t, const Type &x)
 		else
 			ppr->rightChild = pr;
 	}
+	return true;
+}
+
+template<class Type>
+bool AVLTree<Type>::Remove(AVLNode<Type> *&t, const Type &key)
+{
+	AVLNode<Type> *pr = nullptr, *p = t, *q = nullptr;
+	int d;
+	stack<AVLNode<int>*> st;
+	while (p != nullptr)//寻找删除位置
+	{
+		if (key == p->data)//找到后停止搜索
+			break;
+		pr = p;
+		st.push(pr);
+		if (key > p->data)
+			p = p->rightChild;
+		else
+			p = p->leftChild;
+		if (p == nullptr)//未找到删除节点，删除失败
+			return false;
+		if (p->leftChild!=nullptr && p->rightChild!=nullptr)//被删节点有两个子女
+		{
+			pr = p;
+			st.push(pr);
+			while(q->rightChild != nullptr)//在p的左树找p的直接前驱
+			{
+				pr = q;
+				st.push(pr);
+				q = q->rightChild;
+			}
+			p->data = q->data;//将p的直接前驱的值赋给p
+			p = q;//将删除p转化为删除q
+		}
+		if (p->leftChild != nullptr)//被删节点p只有一个子女q
+			q = p->leftChild;
+		else if (p->rightChild != nullptr)
+			q = p->rightChild;
+		if (pr == nullptr)//被删节点为根节点(此时树只有一个根节点或只有两个节点),此时不需要调整
+			t = q;
+		else//被删节点不是根节点
+		{
+			if (pr->leftChild == p)//链接
+				pr->leftChild = q;
+			else
+				pr->rightChild = q;
+			//重新平衡化调整
+			while (!st.empty())
+			{
+				pr = st.top();//从栈中退出父节点
+				st.pop();
+				d = pr->bf;//将修改前的平衡因子记录下来
+				if (pr->rightChild == q)//修改父节点的平衡因子
+					--(pr->bf);
+				else
+					++(pr->bf);
+				if (d == 0)//pr原来的平衡因子是0，结束平衡调整过程
+					break;
+				else if (d!=0 && pr->bf!=0)//节点pr的平衡因子原不为0，且较矮的子树被缩短
+				{
+					if (d > 0)//q指向pr较高子树根节点
+						q = pr->rightChild;
+					else
+						q = pr->leftChild;
+					if (q->bf==0 && d>0)
+					{
+						RotateL(pr);
+					}
+					else if (q->bf==0 && d<0)
+					{
+						RotateR(pr);
+					}
+				}
+				q = pr;//用于下一次父节点出栈调整平衡因子
+			}
+		}
+	}
+	delete p;
 	return true;
 }
 
