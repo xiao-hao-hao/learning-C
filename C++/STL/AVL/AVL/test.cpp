@@ -204,8 +204,8 @@ bool AVLTree<Type>::Insert(AVLNode<Type> *&t, const Type &x)
 template<class Type>
 bool AVLTree<Type>::Remove(AVLNode<Type> *&t, const Type &key)
 {
-	AVLNode<Type> *pr = nullptr, *p = t, *q = nullptr;
-	int d;
+	AVLNode<Type> *pr = nullptr, *p = t, *q = nullptr, *ppr = nullptr;
+	int dd;
 	stack<AVLNode<int>*> st;
 	while (p != nullptr)//寻找删除位置
 	{
@@ -217,63 +217,108 @@ bool AVLTree<Type>::Remove(AVLNode<Type> *&t, const Type &key)
 			p = p->rightChild;
 		else
 			p = p->leftChild;
-		if (p == nullptr)//未找到删除节点，删除失败
-			return false;
-		if (p->leftChild!=nullptr && p->rightChild!=nullptr)//被删节点有两个子女
+	}
+	if (p == nullptr)//未找到删除节点，删除失败
+		return false;
+	if (p->leftChild!=nullptr && p->rightChild!=nullptr)//被删节点有两个子女
+	{
+		pr = p;
+		st.push(pr);
+		while(q->rightChild != nullptr)//在p的左树找p的直接前驱
 		{
-			pr = p;
+			pr = q;
 			st.push(pr);
-			while(q->rightChild != nullptr)//在p的左树找p的直接前驱
-			{
-				pr = q;
-				st.push(pr);
-				q = q->rightChild;
-			}
-			p->data = q->data;//将p的直接前驱的值赋给p
-			p = q;//将删除p转化为删除q
+			q = q->rightChild;
 		}
-		if (p->leftChild != nullptr)//被删节点p只有一个子女q
-			q = p->leftChild;
-		else if (p->rightChild != nullptr)
-			q = p->rightChild;
-		if (pr == nullptr)//被删节点为根节点(此时树只有一个根节点或只有两个节点),此时不需要调整
-			t = q;
-		else//被删节点不是根节点
+		p->data = q->data;//将p的直接前驱的值赋给p
+		p = q;//将删除p转化为删除q
+	}
+	if (p->leftChild != nullptr)//被删节点p只有一个子女q
+		q = p->leftChild;
+	else if (p->rightChild != nullptr)
+		q = p->rightChild;   
+	if (pr == nullptr)//被删节点为根节点(此时树只有一个根节点或只有两个节点),此时不需要调整
+		t = q;
+	else//被删节点不是根节点
+	{
+		if (pr->leftChild == p)//链接
+			pr->leftChild = q;
+		else
+			pr->rightChild = q;
+		//重新平衡化调整
+		while (!st.empty())
 		{
-			if (pr->leftChild == p)//链接
-				pr->leftChild = q;
+			pr = st.top();//从栈中退出父节点
+			st.pop();
+			if (pr->rightChild == q)//修改父节点的平衡因子
+				--(pr->bf);
 			else
-				pr->rightChild = q;
-			//重新平衡化调整
-			while (!st.empty())
+				++(pr->bf);
+			if (!st.empty())
 			{
-				pr = st.top();//从栈中退出父节点
-				st.pop();
-				d = pr->bf;//将修改前的平衡因子记录下来
-				if (pr->rightChild == q)//修改父节点的平衡因子
-					--(pr->bf);
+				ppr = st.top();//从栈中取出父节点
+				dd = (ppr->leftChild==pr) ? -1 : 1;//旋转后与上层链接方向
+			}
+			else
+				dd = 0;//栈空，旋转后不与上层链接
+			if (pr->bf==1 || pr->bf==-1)//（1)|bf|=1  不需要进行平衡调整
+				break;
+			//if (pr->bf == 0) (2)继续考察节点pr的父节点的平衡状态
+			if (pr->bf != 0)//(3) |bf|=2
+			{
+				if (pr->bf < 0)
+					q = pr->leftChild;//用q指示较高的子树
 				else
-					++(pr->bf);
-				if (d == 0)//pr原来的平衡因子是0，结束平衡调整过程
-					break;
-				else if (d!=0 && pr->bf!=0)//节点pr的平衡因子原不为0，且较矮的子树被缩短
+					q = pr->rightChild;
+				if (q->bf == 0)//1
 				{
-					if (d > 0)//q指向pr较高子树根节点
-						q = pr->rightChild;
-					else
-						q = pr->leftChild;
-					if (q->bf==0 && d>0)
-					{
-						RotateL(pr);
-					}
-					else if (q->bf==0 && d<0)
+					if (pr->bf < 0)
 					{
 						RotateR(pr);
+						pr->bf = 1;
+						pr->leftChild->bf = -1;
 					}
+					else
+					{
+						RotateL(pr);
+						pr->bf = -1;
+						pr->rightChild->bf = 1;
+					}
+					if (!st.empty())//在没有调整到根节点的时候链接
+					{
+						if (dd == -1)
+							ppr->leftChild = pr;
+						else
+							ppr->rightChild = pr;//旋转后新根与上层链接
+					}
+					break;
 				}
-				q = pr;//用于下一次父节点出栈调整平衡因子
+				if ((q->bf)*(pr->bf) > 0)//  2  pr和q的平衡因子同号
+				{
+					if (q->bf > 0)//同为正
+						RotateL(pr);
+					else//同为负
+						RotateR(pr);
+				}
+				else//  3  pr和q的平衡因子异号
+				{
+					if (q->bf > 0)
+						RotateLR(pr);   //  <
+					else
+						RotateRL(pr);  //  >
+				}
+				if (!st.empty())//在没有调整到根节点的时候链接
+				{
+					if (dd == -1)
+						ppr->leftChild = pr;
+					else
+						ppr->rightChild = pr;//旋转后新根与上层链接
+				}
 			}
+			q = pr;//用于下一次父节点出栈调整平衡因子
 		}
+		if (st.empty())
+			t = pr;//调整到了数的根节点
 	}
 	delete p;
 	return true;
@@ -285,5 +330,6 @@ int main()
 	AVLTree<int> avl;
 	for (const auto &e : v)
 		avl.Insert(e);
+	avl.Remove(10);
 	return 0;
 }
