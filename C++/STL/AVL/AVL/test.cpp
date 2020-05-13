@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <vld.h>
 using namespace std;
 
 template<class Type>
@@ -38,9 +39,14 @@ public:
 	{
 		return Remove(root, key);
 	}
+	void TreeDestroy()
+	{
+		TreeDestroy(root);
+	}
 protected:
 	bool Insert(AVLNode<Type> *&t, const Type &x);
 	bool Remove(AVLNode<Type> *&t, const Type &key);
+	void TreeDestroy(AVLNode<Type> *&t);//销毁一颗二叉树
 protected:
 	void RotateL(AVLNode<Type> *&ptr);
 	void RotateR(AVLNode<Type> *&ptr);
@@ -324,6 +330,20 @@ bool AVLTree<Type>::Remove(AVLNode<Type> *&t, const Type &key)
 	return true;
 }
 
+//销毁与遍历操作类似，但是如果采用先序遍历或者中序遍历，销毁根节点后就找不到左右孩子
+//在销毁的时候需要保存左右孩子的地址，因此采用后序遍历销毁一颗二叉树，按照左孩子右孩
+//子根节点的顺序销毁,最后将根节点指向空，防止成为野指针
+template<class Type>
+void AVLTree<Type>::TreeDestroy(AVLNode<Type> *&t)
+{
+	if (t == nullptr)
+		return;
+	TreeDestroy(t->leftChild);
+	TreeDestroy(t->rightChild);
+	delete t;
+	t = nullptr;
+}
+
 int main()
 {
 	vector<int> v = { 10, 7, 3, 5, 20, 13, 16, 19, 23, 14 };
@@ -331,5 +351,6 @@ int main()
 	for (const auto &e : v)
 		avl.Insert(e);
 	avl.Remove(10);
+	avl.TreeDestroy();
 	return 0;
 }
