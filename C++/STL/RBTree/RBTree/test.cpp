@@ -7,6 +7,7 @@ typedef enum {RED=0, BLACK=1} Color_Type;
 template<class Type>
 class RBTree;
 
+//每次以红色节点插入，因为红色插入可能不需要调整，但是黑色插入每次都得调整
 template<class Type>
 class RBTreeNode
 {
@@ -41,6 +42,10 @@ public:
 	}
 protected:
 	bool Insert(RBTreeNode<Type> *&t, const Type &x);
+	void Insert_Fixup(RBTreeNode<Type> *&t, RBTreeNode<Type> *x);
+protected:
+	void RightRotate(RBTreeNode<Type> *&t, RBTreeNode<Type> *p);
+	void LeftRotate(RBTreeNode<Type> *&t, RBTreeNode<Type> *p);
 protected:
 	RBTreeNode<Type>* _Buynode(const Type &x = Type())
 	{
@@ -82,8 +87,97 @@ bool RBTree<Type>::Insert(RBTreeNode<Type> *&t, const Type &x)
 	s->parent = pr;
 
 	//2 调整平衡
-
+	Insert_Fixup(t, s);
 	return true;
+}
+
+template<class Type>
+void RBTree<Type>::Insert_Fixup(RBTreeNode<Type> *&t, RBTreeNode<Type> *x)
+{
+	while (x->parent->color == RED)
+	{
+		RBTreeNode<Type> *s;//叔伯节点
+		if (x->parent == x->parent->parent->leftChild)//左分支
+		{
+			s = x->parent->parent->rightChild;
+			if (s->color == RED)
+			{
+				//状况三  只需要调整颜色，不需要旋转
+				x->parent->color = BLACK;
+				s->color = BLACK;
+				x->parent->parent->color = RED;
+				x = x->parent->parent;
+				continue;
+			}
+			else if (x == x->parent->rightChild)
+			{
+				//状况二 先左单后右单，利用状况一进行右单
+				x = x->parent;
+				LeftRotate(t, x);
+			}
+			//状况一
+			x->parent->color = BLACK;       //p
+			x->parent->parent->color = RED; //g
+			RightRotate(t, x->parent->parent);
+		}
+		else//右分支
+		{
+			s = x->parent->parent->leftChild;
+			if (s->color == RED)
+			{
+				x->parent->color = BLACK;
+				s->color = BLACK;
+				x->parent->parent->color = RED;
+				x = x->parent->parent;
+				continue;
+			}
+			else if (x == x->parent->leftChild)
+			{
+				x = x->parent;
+				RightRotate(t, x);
+			}
+			x->parent->color = BLACK;
+			x->parent->parent->color = RED;
+			LeftRotate(t, x->parent->parent);
+		}
+	}
+	t->color = BLACK;
+}
+
+template<class Type>
+void RBTree<Type>::LeftRotate(RBTreeNode<Type> *&t, RBTreeNode<Type> *p)
+{
+	RBTreeNode<Type> *s = p->rightChild;
+	p->rightChild = s->leftChild;
+	if (s->leftChild != NIL)
+		s->leftChild->parent = p;
+	s->parent = p->parent;
+	if (p->parent == NIL)//如果p是根节点
+		t = s;
+	else if (p == p->parent->leftChild)
+		p->parent->leftChild = s;
+	else
+		p->parent->rightChild = s;
+	s->leftChild = p;
+	p->parent = s;
+}
+
+template<class Type>
+void RBTree<Type>::RightRotate(RBTreeNode<Type> *&t, RBTreeNode<Type> *p)
+{
+	RBTreeNode<Type> *s = p->leftChild;
+	p->leftChild = s->rightChild;
+	if (s->rightChild != NIL)
+		s->rightChild->parent = p;
+	s->parent = p->parent;
+	if (p->parent == NIL)
+		t = s;
+	else if (p == p->parent->leftChild)
+		p->parent->leftChild = s;
+	else
+		p->parent->rightChild = s;
+	s->rightChild = p;
+	p->parent = s;
 }
 
 int main()
