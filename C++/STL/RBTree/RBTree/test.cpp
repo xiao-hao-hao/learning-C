@@ -116,8 +116,8 @@ void RBTree<Type>::Insert_Fixup(RBTreeNode<Type> *&t, RBTreeNode<Type> *x)
 				LeftRotate(t, x);
 			}
 			//状况一
-			x->parent->color = BLACK;       //p
-			x->parent->parent->color = RED; //g
+			x->parent->color = BLACK;       //该X的颜色
+			x->parent->parent->color = RED; //改G的颜色
 			RightRotate(t, x->parent->parent);
 		}
 		else//右分支
