@@ -147,7 +147,6 @@ public:
 	}
 	bool insert_unique_noresize(const value_type& obj)
 	{
-		cout << typeid(obj).name() << endl;
 		const size_type n = bkt_num(obj);//求桶号
 		node* first = buckets[n];
 
@@ -174,7 +173,6 @@ public:
 
 		for (node* cur = first; cur; cur = cur->next)
 		{
-			//if (equals(get_key(cur->val), get_key(obj)))
 			if (get_key(cur->val) == get_key(obj))//如果有相同值，则相同值相连(这里只能处理整数)
 			{
 				node* tmp = new_node(obj);
@@ -292,7 +290,7 @@ struct KeyOfValue//提取键值
 	{
 		return s.first;
 	}
-	const char* operator()(const char* &s)const
+	char* operator()(char* &s)const
 	{
 		return s;
 	}
@@ -305,43 +303,11 @@ void main()
 	ht.insert_unique(str[0]);
 	ht.insert_unique(str[1]);
 	ht.insert_unique(str[2]);
+	//auto it = ht.begin();
+	//while (it != ht.end())
+	//{
+	//	cout << *it << " ";
+	//	++it;
+	//}
+	//cout << endl;
 }
-
-/*
-void main()
-{
-	hashtable<int, int, hashfun, KeyOfValue> ht(5);
-	for (int i = 1; i <= 53; ++i)
-		ht.insert_unique(i);
-	//ht.print_hashtable();
-	hashtable<int, int, hashfun, KeyOfValue>::iterator it = ht.begin();
-	while (it != ht.end())
-	{
-		cout << *it << " ";
-		++it;
-	}
-	cout << endl;
-}
-
-/*
-void main()
-{
-	my_unordered_multiset<int> myunset;
-	myunset.insert(1);
-	myunset.insert(55);
-	myunset.insert(5);
-	myunset.insert(62);
-	myunset.insert(5);
-	myunset.insert(62);
-	myunset.insert(5);
-	myunset.insert(62);
-	myunset.insert(30);
-	auto it = myunset.begin();
-	while (it != myunset.end())
-	{
-		cout << *it << " ";
-		++it;
-	}
-	cout << endl;
-}
-*/
