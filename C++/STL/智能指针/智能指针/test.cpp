@@ -6,6 +6,97 @@
 
 using namespace std;
 
+template <class T>
+class SharedPtr
+{
+public:
+	SharedPtr(T* ptr = nullptr) : _ptr(ptr), _pRefCount(new int(1)), _pMutex(new mutex)
+	{}
+	SharedPtr(const SharedPtr<T>& sp) : _ptr(sp._ptr), _pRefCount(sp._pRefCount), _pMutex(sp._pMutex)
+	{
+		AddRefCount();
+	}
+	SharedPtr<T>& operator=(const SharedPtr<T>& sp)
+	{
+		if (_ptr != sp._ptr)
+		{
+			Release();
+			_ptr = sp._ptr;
+			_pRefCount = sp._pRefCount;
+			_pMutex = sp._pMutex;
+			AddRefCount();
+		}
+		return *this;
+	}
+	~SharedPtr()
+	{
+		Release();
+	}
+public:
+	void AddRefCount()
+	{
+		_pMutex->lock();
+		++(*_pRefCount);
+		_pMutex->unlock();
+	}
+	void Release()
+	{
+		bool deleteflag = false;
+		_pMutex->lock();
+		if (--(*_pRefCount) == 0)
+		{
+			delete _ptr;
+			delete _pRefCount;
+			deleteflag = true;
+		}
+		_pMutex->unlock();
+		if (deleteflag)
+			delete _pMutex;
+	}
+	T& operator*()
+	{
+		return *_ptr;
+	}
+	T* operator->()
+	{
+		return _ptr;
+	}
+	int UseCount()
+	{
+		return *_pRefCount;
+	}
+	T* Get()
+	{
+		return _ptr;
+	}
+private:
+	int* _pRefCount; // 引用计数,如果用静态变量，两个对象指向不同的空间但是引用计数还用的是一个，这样就不对了
+	T*   _ptr;       // 指向管理资源的指针
+	mutex *_pMutex;
+};
+
+void main()
+{
+	//SharedPtr<int> sp(new int(10));
+	//SharedPtr<int> sp1 = sp;
+	//SharedPtr<int> sp2(new int(20));
+	//SharedPtr<int> sp3 = sp2;
+	//sp1 = sp3;
+	//SharedPtr<int> sp1(new int(20));
+	//SharedPtr<int> sp2 = sp1;
+	//int *a = new int(6);
+	//SharedPtr<int> sp4(a);
+	//SharedPtr<int> sp2(new int(20));
+	////sp4 = sp2;
+	//*a = 5;
+	//SharedPtr<int> sp5(a);//这样赋值会造成空间两次释放
+
+	int *a = (int*)malloc(4);
+	free(a);
+	*a = 6;
+}
+
+/*
 struct ListNode
 {
 	int _data;
@@ -17,14 +108,14 @@ struct ListNode
 };
 int main()
 {
-	/*shared_ptr<ListNode> node1(new ListNode);
+	shared_ptr<ListNode> node1(new ListNode);
 	shared_ptr<ListNode> node2(new ListNode);
 	cout << node1.use_count() << endl;
 	cout << node2.use_count() << endl;
 	node1->_next = node2;
 	node2->_prev = node1;
 	cout << node1.use_count() << endl;
-	cout << node2.use_count() << endl;*/
+	cout << node2.use_count() << endl;
 	weak_ptr<int> gw;
 	cout << gw.lock() <<endl;
 	return 0;
