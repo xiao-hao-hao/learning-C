@@ -7,6 +7,66 @@
 
 using namespace std;
 
+class A
+{
+public:
+	explicit A(int a)
+	{
+		cout << "A(int a)" << endl;
+	}
+	explicit A(const A& a)
+	{
+		cout << "A(const A& a)" << endl;
+	}
+private:
+	int _a;
+};
+int main()
+{
+	A a1(1);
+	A tmp(1); 
+	A a2 = tmp;
+	//A a2 = 1;
+}
+
+/*
+class A
+{
+public:
+	virtual void f(){}
+};
+class B : public A
+{};
+void fun(A* pa)
+{
+	// dynamic_cast会先检查是否能转换成功，能成功则转换，不能则返回
+	B* pb1 = static_cast<B*>(pa);
+	B* pb2 = dynamic_cast<B*>(pa);
+
+	cout << "pb1:" << pb1 << endl;
+	cout << "pb2:" << pb2 << endl;
+}
+int main()
+{
+	A a;
+	B b;
+	fun(&a);
+	cout << &b << endl;
+	fun(&b);
+	return 0;
+}
+
+/*
+int main()
+{
+	double d = 12.34;
+	//int *pd = &d;
+	//int *pd = static_cast<int*>(&d);
+	int *pd = reinterpret_cast<int*>(&d);
+	return 0;
+}
+
+/*
 //不是线程安全
 template<typename T>
 class LASingletonTemplateBase
