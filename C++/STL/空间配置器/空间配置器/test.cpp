@@ -1,5 +1,12 @@
-#include "stl_alloc.h"
+//#include "stl_alloc.h"
+#include "stl_vector.h"
 
+void main()
+{
+	vector<int> iv;
+}
+
+/*
 int main()
 {
 	//4字节计算出的下标在0下面

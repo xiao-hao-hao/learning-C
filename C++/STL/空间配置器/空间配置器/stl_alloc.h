@@ -1,4 +1,4 @@
-#pragma onnce
+#pragma once
 #include <iostream>
 #define __THROW_BAD_ALLOCK throw bad_alloc //定义一个抛出异常的宏
 
@@ -96,7 +96,7 @@ class __default_alloc_template
 {
 public:
 	static void* allocate(size_t n);
-	static void* deallocate(void *p, size_t n);
+	static void deallocate(void *p, size_t n);
 	static void* reallocate(void *p, size_t old_sz, size_t new_sz);
 public:
 	static void* refill(size_t n);
@@ -116,7 +116,7 @@ private:
 	union obj//用一个联合体实现一物二用
 	{
 		union obj *free_list_link;//从此处看是一个链表
-		char client_data[1];      //从此处看指向用户数据
+		char client_data[1];      //从此处看是用户数据
 	};
 private:
 	static obj *free_list[__NFREELISTS];//数组
@@ -162,7 +162,7 @@ void* __default_alloc_template<threads, inst>::allocate(size_t n)
 template<bool threads, int inst>
 void* __default_alloc_template<threads, inst>::refill(size_t n)
 {
-	int nobjs = 20;
+	int nobjs = 20;//经验值
 	char *chunk = chunk_alloc(n, nobjs);
 
 	if (nobjs == 1)
@@ -180,7 +180,7 @@ void* __default_alloc_template<threads, inst>::refill(size_t n)
 	for (int i = 1; ; ++i)
 	{
 		cur_obj = next_obj;
-		next_obj = (obj*)((char*)next_obj +n);
+		next_obj = (obj*)((char*)next_obj + n);
 		if (nobjs - 1 == i)
 		{
 			cur_obj->free_list_link = 0;
@@ -217,7 +217,7 @@ char* __default_alloc_template<threads, inst>::chunk_alloc(size_t size, int &nob
 	}
 	else
 	{
-		//空间不足
+		//空间不足且不满足分配一块
 		size_t bytes_to_get = 2 * total_bytes;
 		//因为剩下的空间和新申请的空间不连续，无法纳入内存池
 		//将剩余的未使用的内存池空间进行头插链接
@@ -235,7 +235,7 @@ char* __default_alloc_template<threads, inst>::chunk_alloc(size_t size, int &nob
 		{
 			//系统内存不足
 			obj **my_free_list, *p;
-			//做法1：从当前要要的大小开始往后面的128个字节靠近，找到其他的自由链表后将这个空间当做内存池重新申请空间
+			//做法1：从当前要的大小开始往后面的128个字节靠近(因为后面的空间大)，找到其他的自由链表后将这个空间当做内存池重新申请空间
 			for (size_t i = size; i <= __MAX_BYTES; i += __ALIGN)
 			{
 				my_free_list = free_list + FREELIST_INDEX(i);
@@ -258,3 +258,52 @@ char* __default_alloc_template<threads, inst>::chunk_alloc(size_t size, int &nob
 		return chunk_alloc(size, nobjs);//递归调用
 	}
 }
+
+template<bool threads, int inst>
+void __default_alloc_template<threads, inst>::deallocate(void *p, size_t n)
+{
+	obj *q = (obj*)p;
+	obj **my_free_list;
+	if (n > __MAX_BYTES)
+	{
+		malloc_alloc::deallocate(p, n);
+		return;
+	}
+	//一个头插
+	my_free_list = free_list + FREELIST_INDEX[n];
+	q->free_list_link = *my_free_list;
+	*my_free_list = q;
+}
+
+///////////////////////////////////////////////////////////////
+//默认情况下调用二级空间配置器
+#ifdef __USE_MALLOC
+typedef __malloc_alloc_template<0> malloc_alloc;
+typedef malloc_alloc alloc;
+#else
+typedef __default_alloc_template<0,0> alloc;
+#endif
+
+template<class T, class Alloc>
+class simple_alloc
+{
+	//针对的是数组
+	static T* allocate(size_t n)
+	{
+		return 0==n ? 0 : (T*)Alloc::allocate(n * sizeof(T));
+	}
+	//针对的是单个对象
+	static T* allocate(void)
+	{
+		return (T*)Alloc::allocate(sizeof(T));
+	}
+	static void deallocate(T *p, size_t n)
+	{
+		if (0 != n)
+			Alloc::deallocate(p, n * sizeof(T));
+	}
+	static void deallocate(T *p)
+	{
+		Alloc::deallocate(p, sizeof(T));
+	}
+};
