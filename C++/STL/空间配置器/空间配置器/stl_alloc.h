@@ -4,6 +4,8 @@
 
 using namespace std;
 
+#include "stl_config.h"
+
 //一级空间配置器
 template<int inst>
 class __malloc_alloc_template
@@ -236,13 +238,14 @@ char* __default_alloc_template<threads, inst>::chunk_alloc(size_t size, int &nob
 			//系统内存不足
 			obj **my_free_list, *p;
 			//做法1：从当前要的大小开始往后面的128个字节靠近(因为后面的空间大)，找到其他的自由链表后将这个空间当做内存池重新申请空间
-			for (size_t i = size; i <= __MAX_BYTES; i += __ALIGN)
+			for (size_t i = size; i <= __MAX_BYTES; i += __ALIGN)//要注意i是8的倍数
 			{
 				my_free_list = free_list + FREELIST_INDEX(i);
 				p = *my_free_list;
 				if (p != 0)
 				{
 					*my_free_list = p->free_list_link;
+					//取出一块自由链表空间作为未使用空间
 					start_free = (char *)p;
 					end_free = start_free + i;
 					return chunk_alloc(size, nobjs);
@@ -287,6 +290,7 @@ typedef __default_alloc_template<0,0> alloc;
 template<class T, class Alloc>
 class simple_alloc
 {
+public:
 	//针对的是数组
 	static T* allocate(size_t n)
 	{
