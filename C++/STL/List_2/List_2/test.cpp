@@ -2,7 +2,7 @@
 #include <assert.h>
 using namespace std;
 
-namespace bit
+namespace my_space
 {
 	template<typename T>
 	struct ListNode
@@ -14,7 +14,7 @@ namespace bit
 		{}
 		ListNode<T> *_Next;
 		ListNode<T> *_Prev;
-		T            _Value;
+		T           _Value;
 	};
 
 	template<typename T>
@@ -283,38 +283,14 @@ namespace bit
 	};
 }
 
-//int main()
-//{
-//	int ar[] = { 1, 2, 3, 4, 5 };
-//	const bit::list<int> mylist1(ar, ar + 5);
-//	bit::list<int>::iterator it1 = mylist1.begin();
-//	*it1 = 100;
-//	//cout << *(it1->) << endl;
-//	cout << typeid(mylist1.begin()).name();
-//	//for (const auto &e : mylist1) //begin() end() ++
-//	//	cout << e << "-->";
-//	//cout << "Over." << endl;
-//	return 0;
-//}
-
-
-//void main()
-//{
-//	bit::list<string> mylist;
-//	mylist.push_back("abc");
-//	mylist.push_front("abcde");
-//	auto it = mylist.begin();
-//	cout<<"size = "<<it->size()<<endl; //it->()->size();   ->
-//}
-
-
 int main()
 {
 	int ar[] = { 1, 2, 3, 4, 5 };
-	const bit::list<int> mylist1(ar, ar + 5);
-	bit::list<int>::const_iterator it1 = mylist1.begin();
+	my_space::list<int> mylist1(ar, ar + 5);
+	my_space::list<int>::iterator it1 = mylist1.begin();
+	*it1 = 100;
 	//cout << *(it1->) << endl;
-	//cout << typeid(mylist1.begin()).name();
+	cout << typeid(mylist1.begin()).name();
 	//for (const auto &e : mylist1) //begin() end() ++
 	//	cout << e << "-->";
 	//cout << "Over." << endl;
