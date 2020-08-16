@@ -4,7 +4,7 @@
 #include <vld.h>
 using namespace std;
 
-namespace bit
+namespace my_space
 {
 	class String
 	{
@@ -28,7 +28,7 @@ namespace bit
 			, _size(0)
 			, _capacity(0)
 		{
-			String tmp(s);
+			String tmp(s._str);
 			_swap(*this, tmp);
 		}
 		String& operator=(String &s)
@@ -294,114 +294,11 @@ namespace bit
 	}
 }
 
-
 int main()
 {
-	bit::String str1("hello bit");
-	string str2("helo");
-	cout << "str1 = " << str1 << endl;
-	str1.push_back('x');
-	cout << str1.find("it");
-	//cout << str1.capacity() << endl;
-	//cout << str1.insert(1, "123");
-	//str1.insert(3, 'u');
-	//str1.erase(1, 3);
-	//cout << str1 << endl;
-	cout << str1 << endl;
-	cin >> str1;
-	cout << str1 << endl;
+	my_space::String s1 = "hello";
+	my_space::String s2(s1);
 	return 0;
 }
 
-//class String
-//{
-//public:
-//	String(const char* str = "")
-//	{
-//		if (nullptr == str)
-//			str = "";
-//		_str = new char[strlen(str) + 1];
-//		strcpy(_str, str);
-//	}
-//	String(const String& s)
-//		:_str(nullptr)
-//	{
-//		String strTmp(s._str);
-//		std::swap(_str, strTmp._str);
-//	}
-//	String& operator=(String s)
-//	{
-//		std::swap(_str, s._str);
-//		return *this;
-//	}
-//	~String()
-//	{
-//		if (_str)
-//		{
-//			delete[] _str;
-//			_str = nullptr;
-//		}
-//	}
-//private:
-//	char* _str;
-//};
-//
-//int main()
-//{
-//	String str1 = "1234";
-//	String str2;
-//	str2 = str1;
-//	return 0;
-//}
 
-//class String
-//{
-//public:
-//	String(const char* str = "")
-//	{
-//		if (nullptr == str)
-//		{
-//			assert(false);
-//			return;
-//		}
-//		_str = new char[strlen(str) + 1];
-//		strcpy(_str, str);
-//	}
-//
-//	String(const String& s)
-//	{
-//		_str = new char[strlen(s._str) + 1];
-//		strcpy(_str, s._str);
-//	}
-//
-//	String& operator=(const String& s)
-//	{
-//		if (this != &s)
-//		{
-//			char *pStr = new char[strlen(s._str) + 1];
-//			strcpy(pStr, s._str);
-//			delete[] _str;
-//			_str = pStr;
-//		}
-//		return *this;
-//	}
-//
-//	~String()
-//	{
-//		if (_str)
-//		{
-//			delete[] _str;
-//			_str = nullptr;
-//		}
-//	}
-//private:
-//	char *_str;
-//};
-//
-//int main()
-//{
-//	String str1 = "1234";
-//	String str2;
-//	str2 = str1;
-//	return 0;
-//}
