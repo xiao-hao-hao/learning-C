@@ -1,6 +1,6 @@
 //#include <iostream>
 //
-//namespace bit
+//namespace my_space
 //{
 //	template<typename T>
 //	class vector
@@ -139,9 +139,9 @@
 //
 //int main()
 //{
-//	//bit::vector<int> v1;
+//	//my_space::vector<int> v1;
 //	int ar[] = { 1, 2, 3, 4, 5 };
-//	bit::vector<int> v1(ar, ar + 5);
+//	my_space::vector<int> v1(ar, ar + 5);
 //	for (auto &e : v1)
 //		std::cout << e << " ";
 //	return 0;
